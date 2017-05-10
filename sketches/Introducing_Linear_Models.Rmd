@@ -1,0 +1,20 @@
+---
+title: "Deriving a Simple Linear Model"
+output: html_notebook
+---
+
+Suppose we have a set of observations $(y_1, ..., y_n)$ and a set of associated predictor values $(x_1, ..., x_n)$. We would like to model the effect of $x$ on $y$. To do this, we'll define function $h(x)$ that takes a value of $x$ as its input and returns an estimate of $y$. We'll denote this estimate of $y$ for a given $x$ as $\hat{y}$:
+
+\[
+  \hat{y} = h(x)
+\]
+
+Now we want to find an $h(x)$ that makes accurate estimates of $y$. An accurate estimator will return $\hat{y}$ that is close to $y$ for a given $x$. The difference between our estimate $\hat{y}$ and the true value $y$ is called the residual of our estimate of $y$. We'll denote the residual of an estimate as $\epsilon$. We can now write down the relationship between $x$ and $y$ as:
+\[
+  y \ = \ \hat{y} + \epsilon \ = \ h(x) + \epsilon
+\]
+
+To make our estimates of $y$ for a given $x$ as close to the observed $y$ as possible, we will need to minimize the size of the residuals. One way to do this is by minimizing the sum of squared residuals:
+\[
+  \sum_{i = 1}^n {\epsilon^{(i)}}^2= \sum_{i = 1}^n (y^{(i)} - \hat{y}^{(i)})^2 
+\]
