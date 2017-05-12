@@ -263,81 +263,85 @@ In summary, this report analyzes how DCA currently uses and could use statistics
 
 %% DCA'S USE OF STATISTICS IN LAB INVESTIGATIONS %%
 \chapter {Overview of DCA's Use of Statistics in Lab Investigations}
-This section contextualizes DCA's lab investigations by explaining what classes of products require lab work, when this work is undertaken, and what equipment is used when it is. It outlines the stucture of such an investigation before explaining what statistical methods are currently being applied by DCA's engineers. These methods are categorized according to their relevance to the steps mentioned in the preceding Section, and are ranked according to their benefits and shortcomings. The Section concludes with a summary of how statistical methods are applied in DCA and an overview of the collective strengths and weaknesses of the suite of tools that are currently being used.
+This section contextualizes DCA's lab investigations and explains what statistical methods are currently being applied to them. These methods are categorized according to their relevance to the steps mentioned in the preceding Section, and are ranked according to their benefits and shortcomings. 
 \section{The Structure of a Lab Investigation in DCA}
 % What departments in DCA test their products?
-Lab investigations are used to reduce uncertainty about the behaviour of a product or process. They consist of a sequence of experiments aimed at understanding a particular aspect of a product's or process's behaviour. By collecting data, DCA's engineers aim to become better informed. This allows them to make design decisions that are both more effective and justified than they might be otherwise. Within DCA, lab investigations are usually conducted in the development of a medical device. They may be initiated by a client, or by an internal engineering team on behalf of a client. Their timeframe can range from less than a week to several months. 
+Lab investigations consist of a sequence of experiments aiming to understand the behaviour of a product or process. The resulting knowledge can inform and justify design decisions. Within DCA lab investigations are initiated by either project engineers or by a client. All aspects of an investigation's execution - from experiment design through to physical execution - are handled by engineers assigned to the associated project.
  \par
- Typically, an investigation focuses on a particular product parameter, such as the volume of fluid dispensed by an injector, or the propensity of a inhaler to fail upon being dropped. Occasionally engineers working on fast moving consumer goods (such as toothbrushes or lotion bottles) will run one-off tests to compare design variations or verify performance relative to some baseline. In general however, the timeframes and functional requirements of such products limit the relevance of extensive experimental investigations. Subsequently most lab work is conducted by engineers on medical projects.
+ Typically an investigation focuses on a particular product parameter, such as the volume of fluid dispensed by an injector, or the propensity of a inhaler to fail upon being dropped. Occasionally engineers working on fast moving consumer goods (such as toothbrushes or lotion bottles) will run one-off tests to compare design variations or verify performance relative to some baseline. In general however, the timeframes and functional requirements of such products limit the relevance of extensive experimental investigations to consumer products. Consequently most lab work is conducted by engineers on medical projects.
 \par
 % When do they test them and why?
-Lab work may occur at any point during a medical product's development, which will typically last between three and seven years. As can be seen in Figure \ref{fig:time_of_tests} however, most experiments are run in the late stages of the design process. This is when the product's design has been largely locked down, which has various implications: resolving minor performance issues becomes a worthwhile pursuit, exploratory tests for future product variants become a possibility, and rehearsal for fast-approaching regulatory tests becomes essential.
+Lab work may occur at any point during a medical product's development, which will typically last between three and seven years. As can be seen in Figure \ref{fig:time_of_tests}, most experiments are run in the late stages of the design process. This is when the product's design has been largely locked down, which has various implications: resolving minor performance issues becomes a worthwhile pursuit, exploratory tests for future product variants become a possibility, and rehearsal for fast-approaching regulatory tests becomes essential.
 \begin{figure}
 \label{fig:time_of_tests}
 \end{figure}
 \par
 % How do they test them?
-DCA's engineers have access to lab-grade equipment capable of measuring and controlling a variety of physical properties. These include axial and torsional testing machines, enclosed environment chambers, coordinate measuring machines, mass balances, high-speed cameras, and so on. Investigations commonly revolve around a particular experimental set-up, however ancillary experiments are often designed to provide supplementary information. This report attempts to be data-agnostic in its recommendations of analytical techniques, insofar as experimental observations can be coded in a numerical format.
-\par
-DCA's engineers run experiments to either:
-\begin{itemize}
-	\item Investigate a product's behaviour
-	\item Verify that a product will meet regulatory standards
-\end{itemize}
-Investigative tests seek to understand and measure the influence of design alterations. These alterations could be prospective features in the final product, or they may be modifications to exaggerate particular behaviours of the current design. An example of the latter would be to machine the components to their tolerance extremes in order to check whether their mechanism still functions correctly. They are especially useful during the late phases of a product's development when minor improvements in performance are sought through incremental design alterations. They are also used to discriminate between contending conceptual designs in early to mid-phase work.
-\par
-Verification tests are run to ensure a product meets the standards enforced by the authorities regulating a product's destination market. Common standards, such as those produced by the International Standards Organization (ISO), are typically used by regulatory bodies - such as the Food and Drug Administration in the United States and the Medicines and Healthcare products Regulatory Agency in the UK - to inform a given market's regulatory standards. DCA's products must meet a market's regulatory standards, but do not necessarily have to meet the general standard (i.e. the relevant ISO standard).  Consequently, the validation tests DCA run are designed to imitate the tests stipulated by the regulatory standards.
+DCA's engineers have access to lab equipment capable of measuring and controlling a variety of physical quantities. These include axial and torsional testing machines, enclosed environment chambers, coordinate measuring machines, mass balances, high-speed cameras, and so on. Investigations commonly revolve around a particular experimental set-up, however ancillary experiments are often designed to provide supplementary information. This report attempts to be data-agnostic in its recommendations of analytical techniques, insofar as experimental observations can be coded in a numerical format.
 \par
 % What does a testing sequence look like?
-The structure of an investigation itself is outlined in Figure \ref{fig:investigation_diagram}. 
-\begin{figure}
-\ref{fig:investigation_diagram}
+The structure of a DCA lab investigation is outlined in Figure \ref{fig:investigation_diagram}.
+\begin{figure}[h!]
+\centering
+\includegraphics[width=1.2\textwidth]{Lab_Investigation_Diagram.pdf}
 \caption{Investigation diagram.}
+\label{fig:investigation_diagram}
 \end{figure}
 
-% Identify need for data
-%	> Define investigation objective
-%	> Acquire relevant equipment and expertise
-%	> Identify routes of enquiry
-%	> Identify relevant response and predictor variables
 
-% Experiment design
-%	> Replicable, reliable, valid
-%	> Blocking
-%	> Randomization
-%	> Orthogonality
-%	> Factorial experiments
-
-% Experiment execution
-
-% Analysis
-
-% Presentation
-
-% Conclusion or Further experimentation
-
-
+Applications of experimental design in engineering design include:
+\begin{itemize}
+\item Evaluation and comparison of basic design configurations
+\item Evaluation of material alternatives
+\item Selection of design parameters to produce a robust product
+\item Determination of key product design parameters that impact performance
+\end{itemize}
+The use of experimental design in these areas can result in products that are easier to manufacture, have enhanced reliability and performance, lower product cost, and shorter product design and development time.
+\par
+Introducing experiment design at the concept stage could result in vastly better designs.
 
 %%
 \section{Experiment Design}
-Good experimental design makes it vastly easier to unambiguously interpret the results of an experiment. The essentials of good design are
-\begin{itemize}
-\item Controlling variation of units
-\item Structured application of treatments
-\item Designing according to an objective
-\end{itemize}
-Topics covered:
-\begin{itemize}
-\item Block design
-\item Factorial design
-\item Sample sizing
-\end{itemize}
+A designed experiment produces data that is relevant to the its objective and is logically unambiguous. An ``experiment design'' refers to the structure of an experiment, whereas ``Design of Experiments'' denotes both experiment designs and a broader philosophy of systematic experimentation.
+\par
+DCA's engineers are aware of the essentials of valid experimentation, these being:
+\begin{description}
+\item[Replication]{Testing a particular combination of factor levels with more than one unit. It allows us to estimate experimental error and to obtain a more precise estimate of a particular factor's influence.}
+\item[Randomization]{Randomly determining the allocation of treatments to units and the sequence in which units are tested averages out the effects of nuisance variables, and validifies the assumption that units are randomly drawn from a particular distribution.}
+\item[Blocking]{Accounting for possibly important differences between units when assigning treatments. A block is a set of similar units.}
+\end{description}
+Several experiment designs dominate in the company: 
+\begin{description}
+\item[Best-guess approach]{Factor levels for a test are chosen according to the results of a previous test. One or two factors at a time are varied in this way. \\ - No guarantee of optimal solution \\ - Can continue indefinitely.}
+\item[One-factor-at-a-time]{A baseline set of factor levels are chosen, then each factor is varied across its range while all other factors are held at this baseline.\\ - Does not consider interactions \\ - Resource inefficient}
+\item[Factorial]{All possible combinations of factor levels are tested.}
+\end{description}
 
-Experiment design in DCA is on an ad-hoc basis and will apply simple but effective techniques such as blocking or factorial structures. DCA's engineers are aware of the important factors to control during an experiment, and may in some cases iterate upon an experiment's set-up until they are satisfied that the data is not being corrupted by nuisance factors.
+Montgomery describes a traditional experiment design process as
+\begin{enumerate}
+\item Recognition and statement of the problem.
+\item Choice of factors, levels, and ranges.
+\item Selection of the response variable.
+\item Choice of experimental design.
+\item Performing the experiment.
+\item Statistical analysis of the data.
+\item Conclusions and recommendations.
+\end{enumerate}
+DCA certainly follow this structure, however it is implemented haphazardly across the company. For example, there is no formal guidance for steps 1-4, 6, or 7. This could result in several problems:
+\begin{itemize}
+\item Overlooking important properties of the problem at hand that may become apparent only when running an experiment, or that may not become apparent but would seriously influence interpretation of the data collected.
+\item Neglecting to focus on aspects of the problem essential to the problem statement, because there is no formal problem statement to refer to.
+\item Overlooking factors, or neglecting to set their levels/ranges in a systematic way. Choosing a non-optimal or irrelevant factor to modulate.
+\item Choosing a sub-optimal response variable (i.e. one that has many degrees of separation between it and the phenomena of interest).
+\item Choosing a resource-inefficient experiment design, or an experiment design that doesn't permit a desirable comparison in the analysis stage, or a design that fails to control for nuisance factors.
+\item Incomplete identification of design or nuisance factors.
+\item In general, pre-experimental planning is inadequate!
+\item Choice of experimental design: sample size, run order, blocking or randomizatoin restrictions. 
+\item Designing for analysis: analysis is typically minimal and kept extremely simple, with the exception of tests designed to British Standards.
+\end{itemize}
+The greatest strength of DCA's approach to its design of experiments is its simplicity. The designs are robust and the analyses are straightforward. It iterates on experiment designs until it is satisfied that they're adequate. Its biggest weaknesses are its inability to apply more sophisticated techniques when they are needed, and a haphazard monitoring of relevant problem factors. Examples of the former are lack of expertise handling resource-limited investigations and an inability to construct simple uncertainty measures on product parameters.
 Certain documents must be kept for all experiments run - this means that raw data files, scans of handwritten observations, a table of the components used, and an Excel report summarizing the experiment's results must be produced and stored.
-
-%%
-\section{Experiment Control}
+\par
 
 %%
 \section{Analysis}
