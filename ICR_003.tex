@@ -314,6 +314,7 @@ Several experiment designs dominate in the company:
 \begin{description}
 \item[Best-guess approach]{Factor levels for a test are chosen according to the results of a previous test. One or two factors at a time are varied in this way. \\ - No guarantee of optimal solution \\ - Can continue indefinitely.}
 \item[One-factor-at-a-time]{A baseline set of factor levels are chosen, then each factor is varied across its range while all other factors are held at this baseline.\\ - Does not consider interactions \\ - Resource inefficient}
+\item[Simple comparative]{}
 \item[Factorial]{All possible combinations of factor levels are tested.}
 \end{description}
 
@@ -345,16 +346,34 @@ Certain documents must be kept for all experiments run - this means that raw dat
 
 %%
 \section{Analysis}
-
- Some experiments have specific protocols and prescribed analysis procedures. Other, more novel, experiments do not have a documented procedure and will usually have a spontaneously formatted report, since there is no general template.  To the best of my knowledge, there are no internal guidelines regarding how data should be visualized, or how analytical results should be verified. Broadly speaking, an analysis will typically consist of
- \begin{itemize}
- 	\item Line charts of raw data
- 	\item Summary statistics by group or unit, sometimes charted in a scatter plot
- 	\item Summary of derived results from graphical inspection of the data
- \end{itemize}
- For the better-documented tests, hypothesis tests may also be run.
+Analyses in DCA consist of simple summary statistics and possibly use of classical hypothesis testing. The latter are informed by ISO 16269 (Statistical interpretation of data). This standard informs their construction of confidence and tolerance intervals, however their application within DCA is - in general - prescriptive. This section provides a short overview of simple summary statistics, then dissects the hypothesis tests detailed in ISO 16269.
 \par
+ A summary statistic is a value describes an aspect of a random variable's distribution. A random variable is a means of mapping physical events for which the outcome is uncertain to real numbers. For example, we could define a random variable $X$ that maps the outcomes of a coin toss onto the numbers 1 and 0:
+ \begin{align}
+	\texttt{Coin lands Heads} \implies X = 1 \\
+	\texttt{Coin lands Tails} \implies X = 0
+ \end{align}
+In other words, $X$ is a function mapping from outcomes $s$ onto the real numbers $\mathbb{R}$, i.e. $X: s \mapsto \mathbb{R}$. Usually the mapping is quite natural - for example, we might use a random variable that denotes the number of sucesses in many trials, or the value of a measurement.
+\par
+For summary statistics to be meaningful, it's necessary to understand the probability distributions that they describe. A probability distribution assigns probabilities to events. They can be either discrete or continuous: this distinction is important, as in the continuous case the probability of an r.v. taking on an exact value is zero (this is because any given interval over the real numbers of non-zero length contains infinitely many values). In the discrete case, the probability distribution takes the form of a probability mass function (PMF):
+\[
+	P(X = x) = f(x) : \sum_{-\infty}^{\infty} f(x) = 1; f(x) \geq 0
+\]
+If the random variable is continuous, then a probability density function is used to describe its probability distribution. A probability density can be thought of as the probability of a r.v. taking on a particular value if that value spanned a unit interval.
+\[
+	p(x) = f(x) : \int_{-\infty}^{\infty}f(x)\cdot dx = 1; f(x) \geq 1 \ \forall \ x
+\]
+To make the above two examples more concrete, consider the distributions shown in Figure \ref{fig:example_pd}.
+\begin{figure}
 
+\end{figure}
+ \par
+ To bring the discussion back to summary statistics, it's possible to define functions that characterize particular attributes of a distribution.
+ 
+% Confidence intervals
+% t-test
+% Chi-square test
+% F-test
 
 
 \newpage
