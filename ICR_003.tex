@@ -350,10 +350,10 @@ Analyses in DCA consist of simple summary statistics and possibly use of classic
 \par
  A summary statistic is a value describes an aspect of a random variable's distribution. A random variable is a means of mapping physical events for which the outcome is uncertain to real numbers. For example, we could define a random variable $X$ that maps the outcomes of a coin toss onto the numbers 1 and 0:
  \begin{align}
-	\texttt{Coin lands Heads} \implies X = 1 \\
-	\texttt{Coin lands Tails} \implies X = 0
+	\texttt{Coin lands Heads} \implies X(s) = x = 1 \\
+	\texttt{Coin lands Tails} \implies X(s) = x = 0
  \end{align}
-In other words, $X$ is a function mapping from outcomes $s$ onto the real numbers $\mathbb{R}$, i.e. $X: s \mapsto \mathbb{R}$. Usually the mapping is quite natural - for example, we might use a random variable that denotes the number of sucesses in many trials, or the value of a measurement.
+In other words, $X$ is a function mapping from outcomes $s$ onto the real numbers $\mathbb{R}$, i.e. $X: s \mapsto \mathbb{R}$. Usually the mapping is quite natural - for example, we might use a random variable that denotes the number of sucesses in many trials, or the value of a measurement. Random variables are denoted with capital letters (e.g. $Y$) whereas the values they take on are lowercase letters (e.g. $y$).
 \par
 For summary statistics to be meaningful, it's necessary to understand the probability distributions that they describe. A probability distribution assigns probabilities to events. They can be either discrete or continuous: this distinction is important, as in the continuous case the probability of an r.v. taking on an exact value is zero (this is because any given interval over the real numbers of non-zero length contains infinitely many values). In the discrete case, the probability distribution takes the form of a probability mass function (PMF):
 \[
@@ -365,11 +365,22 @@ If the random variable is continuous, then a probability density function is use
 \]
 To make the above two examples more concrete, consider the distributions shown in Figure \ref{fig:example_pd}.
 \begin{figure}
-
+\includegraphics[width=\textwidth]{probability_distributions.pdf}
+\label{fig:example_pd}
+\caption{Probability mass and density functions are ways to express the probability distribution of discrete and continuous random variables.}
 \end{figure}
  \par
- To bring the discussion back to summary statistics, it's possible to define functions that characterize particular attributes of a distribution.
- 
+All of this is relevant because summary statistics describe aspects of a probability distribution. The mean of a random variable, for example, summarizes the value at which the r.v.'s probability distribution is centered:
+\[
+	\mu = E[X] = \int_{-\infty}^{\infty}x\cdot p_X(x) \cdot dx
+\]
+Likewise, the variance of a random variable measures how spread out the r.v.'s probability distribution is:
+\[
+	\text{Var}X = E[(X - \mu)^2] = \int_{-\infty}^{\infty}(x - \mu)^2 \cdot p_X(x)\cdot dx
+\]
+The variance is average squared difference between a value that the r.v. can take on and the r.v.'s mean.
+\par
+A sample is a set of realizations of a random variable. Another way of saying this is that it's the result of a series of draws from the random variable's probability distribution. It's possible to infer the distribution of a random variable by sampling from it. One crude way of doing this is to draw from the distribution many times then chart the relative frequencies of outcomes. 
 % Confidence intervals
 % t-test
 % Chi-square test
