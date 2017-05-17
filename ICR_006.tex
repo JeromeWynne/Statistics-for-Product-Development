@@ -392,7 +392,7 @@ The accuracy of this estimate improves as we test more samples, with diminishing
 
 
 \subsection*{Tolerance Intervals}
-DCA's most sophisticated statistical analysis is based on ISO 16269-6, \emph{Determination of statistical tolerance intervals}. This standard outlines how to construct tolerance intervals under either no assumptions about the random variable's distribution, or the assumption that the random variable has a normal distribution. A tolerance interval is a range of values that contain a particular fraction of the population to a given confidence level. A confidence level is the long-run proportion of intervals constructed that contain at least this proportion of the population. Consequently, tolerance intervals allow us to make statements about the performance of a population.
+DCA's most sophisticated statistical analysis is based on ISO 16269-6, \emph{Determination of statistical tolerance intervals}. This standard outlines how to construct tolerance intervals under either no assumptions about the random variable's distribution, or the assumption that the random variable has a normal distribution. A tolerance interval is a range of values that contain a particular fraction of the population to a given confidence level. A confidence level is the proportion of intervals constructed that contain at least the stated fraction of the population. Consequently, tolerance intervals allow us to make statements about the performance of a population, with clear limits on the uncertainty of the statement's uncertainty.
 \par
 We seek $k$ such that $\bar{x} + ks$ is greater than at least a proportion $p$ of the population with probability $1 - \alpha$. Let $\mu + u_p \sigma$ be greater than exactly a fraction $p$ of the population. Therefore:
 \[
@@ -423,7 +423,21 @@ At present, DCA do not test the assumption of Normality (check this).
 %	> 
 \par
 % Confidence intervals
-Another tool that DCA's engineers occasionally use is confidence intervals. A confidence interval contains the value of a population parameter a proportion 1 - $\alpha$ of the cases in a long series of repeated random samples under identical conditions. They're useful when we want to quantify the uncertainty on our estimate of a population parameter such as the mean or variance. Again, these are applied in a presciptive manner, and the underlying assumptions are rarely checked. Rather than give a derivation of them here, they're suspended until Section X where they're shown in the context of Bayesian inference.
+\subsection*{Confidence Intervals}
+Another tool that DCA's engineers occasionally use is confidence intervals, which allow a plausible range of values for a population parameter to be estimated. The uncertainty on this estimated is quantified via a confidence level, which states the fraction of intervals constructed for a random sample that will contain the population parameter. The concept is slightly fiddly, and is visualized in Figure \ref{fig:confidence_intervals}. Confidence intervals can be placed on any parameter estimate, although they're usually used to quantify the uncertainty on a mean. 
+\par
+One-sided confidence limit. 
+We want to find $k$ so that
+\[
+	P(\bar{x} + k\frac{\sigma}{\sqrt{n}} \leq \mu) = 1 - \alpha
+\]
+Subtacting the population mean from both sides and dividing through by the standard error gives:
+\[
+	P(k \leq \frac{\mu - \bar{x}}{\sqrt{\sigma^2/n}}) = 1 - \alpha
+\]
+This implies that $k$ has a Normal distribution, since the r.h.s. of the inequality is just a shifting and scaling of a Normal r.v. (the sample mean).
+
+ In DCA however, confidence intervals assuming Normality are applied. Rather than give a derivation of them here, they're suspended until Section X where they're shown in the context of Bayesian inference.
 \subsection*{t-tests}
 % Two-sample t-tests
 THE FOLLOWING PLAGIARIZES MONTGOMERY AND SHALL BE CHANGED
@@ -446,7 +460,7 @@ would be a $N(0, 1)$ r.v. However, because $\sigma$ is unknown, we must instead 
 \subsection*{Monte Carlo estimation}
 Monte Carlo simulation approximates a quantity by simulating the random process generating it . It has previously been applied within DCA to understand worst-case tolerances in products. The use case was somewhat similar to the following: the 95th percentile of some analytically inconvenient combination of distributions, each corresponding to a part dimension, was needed. Take $Y \sim \text{Binom}(n = 10, p = X)$ as an example, where $X \sim \text{Beta}(a = 7, b = 3)$\footnote{The beta distribution is a continuous and generates a number between $0$ and $1$, which makes it useful in modelling the distribution of a probability.}. Rather than attempt to derive the distribution of this dimension's value directly, tens of thousands of values of $y$ were first generated according to $Y$'s distribution using a computer. Each of these values were then used to generate a value of $x$ from $\text{Binom}(n = 10, p = y)$. The resulting frequencies of the $x$ values then represented the dimension's distribution. It was then possible to calculate the mean by averaging over all the $x$ values obtained. A diagram of this process is shown in Figure \ref{fig:monte_carlo}.
 \begin{figure}[b!]
-\includegraphics[width=0.8\textwidth]{monte_carlo_simulation.pdf}
+\includegraphics[width=0.87\textwidth]{monte_carlo_simulation.pdf}
 \label{fig:monte_carlo}
 \caption{Process diagram for a Monte Carlo simulation.}
 \end{figure}
