@@ -243,33 +243,28 @@ DCA Design International is a 150-person product design consultancy based in War
 \par
 DCA employs about sixty mechanical engineers. Each of them are general-purpose technical consultants and experts in a particular engineering subdiscipline. DCA's substantial investment in engineering distinguishes it from other product design consultancies, many of which do not have the facilities to handle a product's technical development [REFERENCE]. This investment is manifest in both the its engineering workforce and its ownership of four test labs. The experiments run in these labs and the data they produce is the focus of this report. 
 \par
-This equipment is regularly used by DCA's engineers to generate experimental data. The way in which this data is collected, analyzed, and presented is the focus of this report: these data-oriented activities constitute the scientific discipline of statistics. Statistical methods allow resources and information to be used efficiently, in both a mathematical sense and a practical one. An experiment is a controlled collection of data. Good experiments are designed with statistics in mind. An experimental procedure consists of:
-\begin{itemize}
-\item Designing an experiment to capture the desired information.
-\item Executing said experiment in a controlled fashion.
-\item Analyzing the resulting dataset.
-\item Presenting and documenting the analyses' results.
-\end{itemize}
+This equipment is regularly used by DCA's engineers to generate experimental data. The way in which this data is collected, analyzed, and presented is the focus of this report: data-oriented activities constitute the scientific discipline of statistics. Statistical methods allow resources and information to be used efficiently, in both a mathematical sense and a practical one.
 \par
-In summary, this report analyzes how DCA currently uses and could use statistics in its lab investigations. Section X1 explains their investigatory framework and how statistics is currently applied within it. In Section X2 approach is then compared to the SOMETHING industry as a whole. This is followed by Section X3, in which statistical methods are suggested that DCA's engineers and clients may find relevant. These methods are introduced conceptually, then tools (i.e. software and tangibles) for implementing them showcased. The report concludes with an evaluation of how actionable these suggestions are, and a suggestions for further work.
+Section X1 explains the company's current investigatory framework and how statistics is currently applied within it. In Section X2 the company's approach is compared to modern statistical methods, in the process of which these alternative methods are detailed and evaluated. Tools (i.e. software and tangibles) for implementing statistical methods are also discussed in the context of DCA's needs. The report concludes with an evaluation of how actionable the suggested methods are, and responds to hypothetical criticisms of the relevance of statistics in a product design consultancy.
 
 \newpage
 
 
 
 %% DCA'S USE OF STATISTICS IN LAB INVESTIGATIONS %%
-\chapter {Overview of DCA's Use of Statistics in Lab Investigations}
-This section contextualizes DCA's lab investigations and explains what statistical methods are currently being applied to them. These methods are categorized according to their relevance to the steps in an experimental procedure, and are ranked according to their benefits and shortcomings. 
+\chapter {Overview of DCA's Use of Statistics}
+This section contextualizes DCA's uses of statistics and explains what methods are currently being applied by its engineers. Each method is critiqued according to its use case.
 \section{The Structure of a Lab Investigation in DCA}
 % What does a testing sequence look like?
-An experimental investigation in DCA consists of identifying where new knowledge is needed, then planning and execuing an experiment accordingly. Analysis of the experiment's results leads to either a conclusion or further investigation. This process is depicted in Figure \ref{fig:investigation_diagram}.
+It's convenient to split the statistical methods that DCA apply into two factions: those brought to bear in lab investigations, and those used in other engineering activities, in particular tolerance analysis and predictive modelling for product interfaces.
+\par
+A lab investigation in DCA consists of a series of experiments to understand the behaviour of a product or process. It begins with the required knowledge being identified. Experiments will then be designed, executed, and analyzed until the knowledge is acquired or is deemed no longer relevant. This process is depicted in Figure \ref{fig:investigation_diagram}.
 \begin{figure}[h!]
 \centering
-%%\includegraphics[width=1.2\textwidth]{Lab_Investigation_Diagram.pdf}
+\includegraphics[width=1.2\textwidth]{Lab_Investigation_Diagram.pdf}
 \caption{Investigation diagram.}
 \label{fig:investigation_diagram}
 \end{figure}
-\par
 % What departments in DCA test their products?
 All aspects of an investigation - from experiment design through to presenting the results to a client - are handled by engineers assigned to the relevant project. Typically an investigation focuses on a particular product parameter, such as the volume of fluid dispensed by an injector, or the propensity of a inhaler to fail upon being dropped. 
 \par
@@ -277,28 +272,34 @@ As can be seen in Figure \ref{fig:labwork_breakdown}, most lab work is conducted
 Occasionally engineers working on fast-moving consumer goods (such as toothbrushes or lotion bottles) will run one-off tests to compare design variations or verify performance relative to some baseline. In general however, the timeframes and functional requirements of such products limit the relevance of extensive experimental investigations to them: medical products on the other hand, see a good deal of the test lab.
 \par
 % When do they test them and why?
-As can be seen in Figure \ref{fig:time_of_tests}, most experiments are run in the late stages of the design process. This is when resolving minor performance issues becomes a worthwhile pursuit, exploratory tests for future product variants become a possibility, and rehearsal for fast-approaching regulatory tests becomes essential.
+As can be seen in Figure \ref{fig:time_of_tests}, most experiments are run in the late stages of the design process. This is when resolving minor performance issues becomes a worthwhile pursuit, exploration for future product variants become a possibility, and rehearsal for fast-approaching regulatory tests becomes essential.
 \begin{figure}
 \label{fig:time_of_tests}
 \end{figure}
 \par
 % How do they test them?
-DCA's engineers have access to axial and torsional testing machines, environment chambers, coordinate measuring machines, mass balances, high-speed cameras, and other engineering machines and instruments. Investigations commonly revolve around a particular experimental set-up, however ancillary experiments are often designed to provide supplementary information. This report attempts to be data-agnostic in its recommendations of analytical techniques, insofar as experimental observations can be coded in a numerical format.
+DCA's engineers have access to axial and torsional testing machines, environment chambers, coordinate measuring machines, mass balances, and high-speed cameras, among other engineering instruments. Investigations commonly revolve around a particular experimental set-up, however ancillary experiments are often designed to provide supplementary information. With this in mind, it is worth noting that this report attempts to be data-agnostic in its recommendations of analytical techniques.
+\par
+The other engineering activities that DCA's engineers apply statistics to are tolerance analysis and, increasingly, predictive user interfaces. Before talking about this work however, DCA's use of statistics in its lab investigations will first be summarized and critiqued.
 
 %%
 \section{Experiment Design}
-Experimental design and analysis can be used to make products that perform better, are more reliable, less risky to develop, and have a uniquely justifiable development process. For DCA, it is expertise that would elevate their capacity as a technical consultancy. Given their familiarity with global pharmaceutical giants, it could immediately provide lucrative business prospects.
+Experimental design and analysis can be used to make products that perform better, are more reliable, less risky to develop, and have a uniquely justifiable development process. It is expertise that would elevate DCA's capacity as a technical consultancy.
 \par
-Design of Experiments refers to both experiment designs and a broader philosophy of systematic experimentation. An experiment design is a particular structure of an experiment such as comparing the effects of two factors each at two levels. Good experimental design produces data that is relevant to the experiment's objective and is logically unambiguous.
+Design of Experiments refers to both experiment designs and a broader philosophy of systematic experimentation. An experiment design is a particular structure of experiment, such as comparing the effects of two factors each at two levels. Good experimental design produces data that is relevant to the experiment's objective and is logically unambiguous.
 \par
-The greatest strength of DCA's approach to its design of experiments is its simplicity. The designs are robust and the analyses are straightforward. It iterates on experiment designs until it is satisfied that they're adequate. Its biggest weaknesses are its inability to apply more sophisticated techniques when they are needed, and a haphazard monitoring of relevant problem factors. Examples of the former are discomfort handling resource-limited investigations, and an inconsistent approach to determining important design factors in large solution spaces. The latter is evident from the absence of pre-experimental planning documents in the company.
-\par
-DCA's engineers are aware of the essentials of valid experimentation, these being:
+Robust experiments are designed with three features in mind:
 \begin{description}
 \item[Replication]{Testing a particular combination of factor levels with more than one unit. It allows us to estimate experimental error and to obtain a more precise estimate of a particular factor's influence.}
 \item[Randomization]{Randomly determining the allocation of treatments to units and the sequence in which units are tested averages out the effects of nuisance variables, and validifies the assumption that units are randomly drawn from a particular distribution.}
 \item[Blocking]{Accounting for possibly important differences between units when assigning treatments. A block is a set of similar units.}
 \end{description}
+These principles constitute the makings of any well-designed experiment, and they are evident in DCA's labwork: units are blocked according to factors such as component batches and time of assembly, testing and assembly sequences are randomized, and engineers fret about their sample sizes. Engineers in DCA iterate on test fixtures until they are satisfied that what's being observed is representative of the system under study - their scepticism is commendable.
+\par
+The greatest strength of DCA's experiments is their procedural simplicity. 
+\par
+This being said, DCA neglect pre-experimental planning and lack the expertise to apply more sophisticated experiment designs when they are needed. Further, it is uncomfortable handling resource-limited investigations, and has an inconsistent approach to determining important design factors in large solution spaces, resulting in mired investigations.
+\par
 These principles are discussed implicitly every time an engineer in DCA frets about choice of component batch, sequence of testing, and the sufficiency of a sample size. 
 \par
 DCA's application of experiment design at present is evaluated against a traditional experimental procedure in Table \ref{table:exp_procedure}.
@@ -355,10 +356,12 @@ DCA certainly follow this structure, however it is implemented haphazardly acros
 \end{itemize}
 
 %%
-\section{Analysis}
+\section{Analysis of Experimental Data}
 This section provides a short overview of simple summary statistics, then dissects the hypothesis tests detailed in ISO 16269.
 \par
-Analyses in DCA rely heavily on expert knowledge of the systems being tested and rarely on statistical results. This is probably because the relevance of such methods isn't clear, and how they might be applied even less so. This is understandable - it's widely agreed that most people's experience with statistics is one of discomfort and bemusement. Having said this, many of DCA's reports contain summary statistics, such as sample means and variances, and a few have made use of some classical hypothesis tests. The latter are informed by ISO 16269 (Statistical interpretation of data), which describes how to calculate tolerance intervals. 
+Analyses in DCA rely heavily on expert knowledge of the systems being tested and rarely on statistical results. This is probably because the relevance of statistics may not be clear, and how it might be applied even less so. This is understandable - it's widely agreed that most people's experience with statistics is one of discomfort and bemusement. Having said this, relying on intuition alone risks falling prey to cognitive biases, missing valuable information that isn't superficially obvious, and being unable to properly relate physical behaviours to experimental observations. Analysis should guide an investigation and be used to directly inform future tests.
+\par
+ Many of DCA's reports contain summary statistics, such as arithmetic means, variances, maximums, minimums, and so on. A few experiments of the 400 surveyed made use of interval estimates as informed by a regulatory standard, and once in a while a t-test is used.
 \par
 \subsection*{Summary Statistics}
  A summary statistic is a value describes an aspect of a random variable's distribution. A random variable (r.v.) is a function that maps events onto real numbers. For example, we could define an r.v. $X$ that maps the outcomes of a coin toss onto the numbers 1 and 0:
@@ -366,44 +369,29 @@ Analyses in DCA rely heavily on expert knowledge of the systems being tested and
 	X(\texttt{Coin lands Heads}) = 1 \\
 	X(\texttt{Coin lands Tails}) =0
  \end{align}
-In other words, $X$ is a function mapping from outcomes $s$ onto the real numbers $\mathbb{R}$, i.e. $X: s \mapsto \mathbb{R}$. Usually the mapping is quite natural - for example, we might use a random variable that counts the number of sucesses in many trials, or that takes on the value of a measurement. Random variables are denoted with capital letters (e.g. $Y$) whereas some value they can take on are lowercase letters (e.g. $y$).
+Usually the choice of mapping is quite natural - for example, we might use an r.v. that counts the number of sucesses in many trials, or that takes on the value of a measurement.
 \par
-Summary statistics describe an aspect of an r.v.'s probability distribution, which assigns probabilities to sets of values that r.v. can take on. If an r.v. is continuous, then a probability density function is used to describe its probability distribution. If the r.v. is discrete, then a probability mass function can be used to label the probability of each of its values. The difference between probability density and probability mass function is shown in Figure \ref{fig:example_pd}.
-\begin{figure}
-%\includegraphics[width=\textwidth]{probability_distributions.pdf}
-\label{fig:example_pd}
-\caption{Probability mass and density functions are ways to express the probability distribution of discrete and continuous random variables.}
-\end{figure}
+Summary statistics describe an r.v.'s probability distribution, which is a function returning a probability for each value an r.v. can take on. If an r.v. is continuous, then a probability \emph{density} function is used to describe its probability distribution. If the r.v. is discrete, then a probability \emph{mass} function can be used to label the probability of each of its values. The difference between a probability density and a probability mass function is shown in Figure \ref{fig:example_pd}.
  \par
-In DCA, sample statistics are used to understand the probability distribution of experimental measurements. The mean of a random variable, for example, approximates the value at which the r.v.'s probability distribution is centered:
-\[
-	\mu = E[X] = \int_{-\infty}^{\infty}x\cdot p_X(x) \cdot dx
-\]
-Likewise, the variance of a random variable measures how spread out the r.v.'s probability distribution is:
-\[
-	\text{Var}X = E[(X - \mu)^2] = \int_{-\infty}^{\infty}(x - \mu)^2 \cdot p_X(x)\cdot dx
-\]
-The variance is average squared difference between a value that the r.v. can take on and the r.v.'s mean.
+In DCA, sample statistics are used to approximately summarize the probability distribution of experimental measurements. The sample mean, for example, is the frequency-weighted average of the observations made, and approximates the distributional mean.
+\begin{equation}
+	\bar{X} = \frac{1}{n}\sum_{i = 1}^{n}x_i  \approx E[X]= \mu = \int_{-\infty}^{\infty}x\cdot p(x)\cdot dx
+\end{equation}
+The accuracy of this estimate improves as we test more samples, with diminishing returns. This relationship is shown in Figure \ref{fig:se_with_sample_size}. The standard deviation of the sample mean, $\frac{\sigma}{\sqrt{n}}$, is the average difference between the sample mean and population mean for a given sample size, and is also known as \emph{standard error}. It's derivation is given in Appendix A.
+\begin{figure}
+\includegraphics[width=\textwidth]{probability_distributions.pdf}
+\caption{Left: Probability mass function. Right: Probability density function.}
+\label{fig:example_pd}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\textwidth]{se_with_sample_size.pdf}
+\caption{Convergence of sample mean to population mean.}
+\label{fig:se_with_sample_size}
+\end{figure}
 \par
-A sample is a set of realizations of a random variable. Another way of saying this is that it's the result of a series of draws from the random variable's probability distribution. A sample can be used to infer the distribution of a random variable. One crude way of doing this is to draw from the distribution many times then chart the relative outcome frequencies. We can estimate a distribution's mean from a sample by computing the sample mean
-\[
-	\bar{X} = \frac{1}{n}\sum_{i = 1}^{n}x_i 
-\]
-It's possible to show that this will converge to the true mean as the sample size becomes very large. 
-We can also estimate a distribution's variance from a sample. 
-\begin{align}
-	E[(X - \mu)^2] \ &= \ E[(\bar{X_n} - \mu)^2] + E[(X - \bar{X_n})^2]\\
-	\sigma^2 \ &= \ \frac{\sigma^2}{n} +  \frac{1}{n}\sum_{i = 1}^n (X_i - \bar{X_n})^2 \\
-	\implies \sigma^2 &= \frac{1}{n - 1}\sum_{i = 1}^{n}(X_i - \bar{X_n})^2
-\end{align}
-\begin{tabular}
-\begin{table}{|l|l|}
-\multicolumn{2}{|c|}{\bfseries Evaluation of DCA's use of Hypothesis Tests} \\
-A positive comment & a shortcoming
-\end{table}
-\end{tabular}
 
-\subsection{Tolerance Intervals}
+
+\subsection*{Tolerance Intervals}
 DCA's most sophisticated statistical analysis is based on ISO 16269-6, \emph{Determination of statistical tolerance intervals}. This standard outlines how to construct tolerance intervals under either no assumptions about the random variable's distribution, or the assumption that the random variable has a normal distribution. A tolerance interval is a range of values that contain a particular fraction of the population to a given confidence level. A confidence level is the long-run proportion of intervals constructed that contain at least this proportion of the population. Consequently, tolerance intervals allow us to make statements about the performance of a population.
 \par
 We seek $k$ such that $\bar{x} + ks$ is greater than at least a proportion $p$ of the population with probability $1 - \alpha$. Let $\mu + u_p \sigma$ be greater than exactly a fraction $p$ of the population. Therefore:
@@ -424,7 +412,7 @@ where $t_{1 - \alpha}(...)$ is the value corresponding to the $1 - \alpha$ perce
 \]
 This interval contains at least a fraction $p$ of the population with probability $1 - \alpha$. Example tolerance intervals are shown in Figure \ref{fig:tolerance_intervals}.
 \begin{figure}
-%\includegraphics[width=\textwidth]{tolerance_intervals.pdf}
+\includegraphics[width=\textwidth]{tolerance_intervals.pdf}
 \caption{Example tolerance limits for a confidence level of 0.95. Each vertical line corresponds to a 95\% tolerance limit constructed for a simulated 10-unit sample.}
 \label{fig:tolerance_intervals}
 \end{figure}
@@ -456,72 +444,63 @@ If we are sampling from independent Normal distributions, the the distribution o
 would be a $N(0, 1)$ r.v. However, because $\sigma$ is unknown, we must instead replace it with an estimate of the population standard deviation $s_p$, resulting in an r.v. that has a t-distribution.
 \newpage
 \subsection*{Monte Carlo estimation}
-Monte Carlo simulation approximates a quantity by simulating the random process generating it . It has previously been applied within DCA to understand SOMETHING. The use case was somewhat similar to the following: the expectation of some analytically inconvenient function of a random variable was needed. Take $Y \sim \text{Binom}(n = 10, p = X)$ as an example, where $X \sim \text{Beta}(a = 7, b = 3)$\footnote{The beta distribution is a continuous and generates a number between $0$ and $1$, which makes it useful in modelling the distribution of a probability.}. Rather than calculate the expectation directly, tens of thousands of values of $y$ were generated according to $Y$'s distribution using a computer. Each of these values were then used to randomly generate a value of $x$ from $\text{Binom}(n = 10, p = y)$. The resulting frequencies of the $x$ values then represented $X$'s distribution. It was then possible to calculate the mean by averaging over all the $x$ values obtained. A diagram of this process is shown in Figure \ref{fig:monte_carlo}.
-\begin{figure}
-%\includegraphics[width=\textwidth]{monte_carlo_simulation.pdf}
+Monte Carlo simulation approximates a quantity by simulating the random process generating it . It has previously been applied within DCA to understand worst-case tolerances in products. The use case was somewhat similar to the following: the 95th percentile of some analytically inconvenient combination of distributions, each corresponding to a part dimension, was needed. Take $Y \sim \text{Binom}(n = 10, p = X)$ as an example, where $X \sim \text{Beta}(a = 7, b = 3)$\footnote{The beta distribution is a continuous and generates a number between $0$ and $1$, which makes it useful in modelling the distribution of a probability.}. Rather than attempt to derive the distribution of this dimension's value directly, tens of thousands of values of $y$ were first generated according to $Y$'s distribution using a computer. Each of these values were then used to generate a value of $x$ from $\text{Binom}(n = 10, p = y)$. The resulting frequencies of the $x$ values then represented the dimension's distribution. It was then possible to calculate the mean by averaging over all the $x$ values obtained. A diagram of this process is shown in Figure \ref{fig:monte_carlo}.
+\begin{figure}[b!]
+\includegraphics[width=0.8\textwidth]{monte_carlo_simulation.pdf}
 \label{fig:monte_carlo}
 \caption{Process diagram for a Monte Carlo simulation.}
 \end{figure}
 
 
-
-\section{Presentation \& Visualization}
-DCA's reports and client presentations frequently contain plots of the data collected from an experiment. These plots are almost exclusively either line charts or scatter plots generated using Microsoft Excel. 
+\newpage
+\section{Visualizing Experimental Data}
+DCA's reports and client presentations frequently contain plots of the data collected from an experiment. These plots are almost exclusively line charts or bar charts, with scatter plots also seeing occasional use. These figures are created using either Microsoft Excel or Matlab.
 \par
-A summary line chart would consist of many independent unit's results overlaid, such that a visual comparison of two groups would look similar to Figure \ref{fig:line_plots}.
+The line chart in DCA is ubiquitous because it is directly plottable from the raw data provided by their axial and torsional testing machines. Typically a visual summary of a test consists of an overlay of many unit's results in a manner similar to Figure \ref{fig:line_plots}. 
 \begin{itemize}
 \item[+] Allows an entire test to be viewed simultaneously, providing a high-level summary of the results
+\item[+] Is easily relatable to physical observations during a test
+\item[+] Its meaning can be understood without explanation - it is a universally familiar chart
 \item[-] Obscures the behaviour of individual units
-\item[-] Makes it unclear whether the results are from separate units or not
-\item[-] Encourages experimenter to focus on extreme cases, rather than overall performance
-\item[-] Obscures differences between groups that aren't related to location or dispersion (such as harmonic content)
+\item[-] Encourages focus on extremes of group ranges, rather than the distribution of each group's performance
+\item[-] Obfuscates data artifacts that aren't related to location or dispersion (such as harmonic content)
+\item[-] May provide irrelevant information - it's often the case that only the peak or average values are of interest.
 \end{itemize}
-\begin{figure}[b!]
-%	%\includegraphics[width=\textwidth]{overlaid_line_charts.pdf}
+\begin{figure}
+	\includegraphics[width=\textwidth]{overlaid_line_charts.pdf}
 	\label{line_plots}
 	\caption{Sample summary line chart from a DCA test report.}
 \end{figure}
-DCA pair a visualization with the tolerance intervals in the preceding section.
-EXAMPLE TOLERANCE INTERVAL PLOT
+The tolerance intervals in the preceding section are, by protocol, plotted according to the graph in Figure \ref{fig:tolerance_intervals_plot}. 
+\begin{itemize}
+\item[+] Something nice
+\end{itemize}
+\begin{figure}
+	\includegraphics[width=\textwidth]{tolerance_intervals_plot.pdf}
+	\label{tolerance_intervals_plot}
+	\caption{Tolerance interval plot.}
+\end{figure}
 
-%% MEDICAL INDUSTRY'S USE OF STATISTICS %%
-\chapter{Overview of the Medical Industry's Use of Statistics}\label{industry_context} %% CONTEXT %%
+\section{Other Activities}
 
-\section{Experiment Design}
+%%  SUGGESTED METHODS %%
+\chapter{Suggested Methods}\label{suggested_methods}
+\section{Experiment design}
+\subsection*{Experimental pre-planning}
+\subsection*{Fractional factorial designs}
+\subsection*{Taguchi designs}
 
 \section{Analysis}
-\subsection{Exploratory Analysis}
-\subsection{Descriptive Analysis}
-\subsection{Inferential Analysis}
-
-\section{Presentation \& Visualization}
-
-\section{Summary}
-
-\newpage
-
-
-%% PROPOSED METHODS %%
-\chapter{Suggested Methods}
-%%
-\section{Design of Experiments}
-\subsection{Blocking}
-\subsection{Factorial designs}
-\subsection{Taguchi}
-\subsection{Strategies for handling limited sample sizes}
-
-%%
-\section{Analysis}
-\subsection{Sumary Statistics}
-\subsection{Regression Models}
+\subsection*{Regression Models}
 Regression models are a flexible tool that allow us to
 \begin{itemize}
 \item Estimate the effects of discrete and continuous factors on a unit's response - even if they interact or have a nonlinear influence.
 \item Identify differences between units that aren't immediately apparent from raw data
 \item Measure how well our understanding of a product lines up with its reality
 \end{itemize}
-\subsection{Bayesian Inference}
-\subsection{Markov Chain Simulation}
+\subsection*{Bayesian Inference}
+\subsection*{Markov Chain Simulation}
+\subsection*{Decision Trees}
 
 %%
 \section{Presentation \& Visualization}
@@ -556,6 +535,13 @@ Probability allows us to analyze a system without requiring complete mechanical 
 If you say that it should come heads as many times as tails, then the experiment is no longer random, as we know what the outcome will be. You may gesticulate and say ``You need to flip it \emph{randomly}''. I would press you to tell me what this means - I require a mechanism to decide how to flip the coin, and physical mechanisms are deterministic.
 \par
 The probability of an outcome can only be evaluated to a set of assumptions you make about the mechanism generating those outcomes. You had a preconceived notion that the way I flipped the coin would favor neither heads nor tails, and therefore saw ten heads as supremely improbable.
+\newpage
+We can see this by recognizing that the sum of independent observation's variances is equal to the variance of the variance of the sum of the observations:
+\begin{align}
+ \text{Var}\sum_{i = 1}^n X_i &= \sum_{i = 1}^n \text{Var}X_i\\
+	\text{Var}n\bar{X} &= n\text{Var}X \\
+	\implies \sqrt{\text{Var}\bar{X}} &= \frac{\sigma}{\sqrt{n}}
+\end{align}
 
 % Ronald Fisher, The Design of Experiments
 % Attacking the interpretation or data collection method
