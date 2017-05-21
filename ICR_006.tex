@@ -17,6 +17,7 @@
 \usepackage{mathpazo}
 \usepackage{lscape}
 \usepackage{mdwlist}
+\usepackage{longtable}
 
 \setlength{\parskip}{\baselineskip}%
 \setlength{\parindent}{0pt}%
@@ -288,49 +289,60 @@ Experimental design and analysis can be used to make products that perform bette
 \par
 Design of Experiments refers to both experiment designs and a broader philosophy of systematic experimentation. An experiment design is a particular structure of experiment, such as comparing the effects of two factors each at two levels. Good experimental design produces data that is relevant to the experiment's objective and is logically unambiguous.
 \par
-Robust experiments are designed with three features in mind:
+Robust experiments are designed with three principles in mind:
 \begin{description}
-\item[Replication]{Testing a particular combination of factor levels with more than one unit. It allows us to estimate experimental error and to obtain a more precise estimate of a particular factor's influence.}
-\item[Randomization]{Randomly determining the allocation of treatments to units and the sequence in which units are tested averages out the effects of nuisance variables, and validifies the assumption that units are randomly drawn from a particular distribution.}
-\item[Blocking]{Accounting for possibly important differences between units when assigning treatments. A block is a set of similar units.}
+\item[Replication]{Testing a particular combination of factor levels with more than one unit. It allows experimental error to be estimated and, since unbiased errors cancel on being averaged, gives us a more precise estimate of a particular factor's influence.}
+\item[Randomization]{Randomly determining the allocation of treatments to units and the sequence in which units are tested averages out the effects of nuisance variables, and validifies the assumption that obsersvations are randomly drawn from a distribution.}
+\item[Blocking]{Blocking accounts for unit differences when assigning treatments - see Figure \ref{fig:blocking}. It allows the effects of a nuisance factor to be averaged out during analysis. A block is a set of similar units.}
 \end{description}
-These principles constitute the makings of any well-designed experiment, and they are evident in DCA's labwork: units are blocked according to factors such as component batches and time of assembly, testing and assembly sequences are randomized, and engineers fret about their sample sizes. Engineers in DCA iterate on test fixtures until they are satisfied that what's being observed is representative of the system under study - their scepticism is commendable.
+These principles constitute the makings of any well-designed experiment, and they are evident in DCA's labwork: units are blocked according to factors such as component batches and time of assembly, testing and assembly sequences are randomized, and engineers fret about their sample sizes. 
+
+\begin{figure}
+\includegraphics[width=\textwidth]{Blocking.pdf}
+\caption{Diagram of what blocking involves.}
+\label{fig:blocking}
+\end{figure}
 \par
-The greatest strength of DCA's experiments is their procedural simplicity. 
+This being said, DCA neglect pre-experimental planning and do not verify that their experimental set-ups produce repeatable results. Further, it has an inconsistent approach to determining important design factors in large solution spaces, and rarely designs experiments with a specific objective in mind. Both of these factors result in mired investigations.
 \par
-This being said, DCA neglect pre-experimental planning and lack the expertise to apply more sophisticated experiment designs when they are needed. Further, it is uncomfortable handling resource-limited investigations, and has an inconsistent approach to determining important design factors in large solution spaces, resulting in mired investigations.
-\par
-These principles are discussed implicitly every time an engineer in DCA frets about choice of component batch, sequence of testing, and the sufficiency of a sample size. 
-\par
-DCA's application of experiment design at present is evaluated against a traditional experimental procedure in Table \ref{table:exp_procedure}.
-TABLE
-\bgroup
-\def\arraystretch{1.5}
+To comprehensively detail their approach, DCA's application of experiment design at present is evaluated against a traditional experimental procedure in Table \ref{table:exp_procedure}.
+
 \begin{landscape}
-\begin{table}
-\begin{tabular}{|p{8cm}|p{5cm}|p{5cm}|p{5cm}|}
-\hline
-\multicolumn{1}{|c|}{\bfseries Experimental Step}		&	\multicolumn{1}{c|}{\bfseries DCA's Implementation}	& \multicolumn{2}{c|}{\bfseries Evaluation}	\\
-\hline
-1. Recognition and statement of the problem. 			&		Dummy text.		&		 Some text more text more text more text			& 	 Some moooore text again \\
-						 			&					&		 Another text		& 	 txt 2 \\
-\hline
-2. Choice of factors, levels, and ranges.		&		Dummy text.		&		Dummy text 	& 	csdfsd \\
-\hline
-3. Selection of the response variable.			&		Dummy text.		&		Dummy text  & 	csdfsd \\
-\hline
-4. Choice of experimental design.			&		Dummy text.		&		Dummy text 	& 	csdfsd  \\
-\hline
-5. Performing the experiment.				&		Dummy text.		&		Dummy text 	& 	csdfsd  \\
-\hline
-6. Statistical analysis of the data.			&		Dummy text.		&		Dummy text 	& 	csdfsd  \\
-\hline
-7. Conclusions and recommendations.			&		Dummy text.		&		Dummy text 	& 	csdfsd  \\
-\hline
-\end{tabular}
-\end{table}
+\vspace*{-3cm}
+{\tiny
+\begin{longtable}{p{4cm} p{7cm} p{6cm} p{6cm}}
+\caption{Comparison of DCA's experimental procedure with conventional practice.}\\
+\toprule[0.15em]
+\textbf{Experimental step} & \textbf{DCA's implementation} & \textbf{Strengths} & \textbf{Suggestions} \\
+\toprule[0.15em]
+Recognition and statement of the problem. & A problem is usually identified in either other experiments or design-side activities. It is not formally stated, but is agreed in loose terms among the engineering team. There is no mechanism for assessing whether a problem is well-suited to being addressed by a lab investigation, as opposed to other analytical methods. & The benefits that experimental investigations provide, such as empirical validity and flexibility, are recognized. & A precise problem statement focuses an investigation towards a particular end, and allows progress towards this end to be gauged. It also makes it clear to the team what an investigation aims to achieve. \\ 
+ &  &  & Specific problem statements make it easier to review previous work - without them, it is difficult to determine where one investigation begins and another ends. \\ 
+\cmidrule{1-4}
+Choice of factors, levels, and ranges. & This choice is made in engineering team meetings. Consequently, factors are identified haphazardly, aren't labelled as design or nuisance factors, and aren't identified as being controlled or uncontrolled. Ranges and levels are usually chosen according to expert knowledge. The number of levels is usually kept small (2 or 3) because differences rather than overall responses are of interest. & Level choices have a rational motivation which is justified via physical reasoning or previous experimental results. & A list of factors guides the systematic elimination of sources of variation from an experimental set-up, and can be used to survey for possible confounding factors. \\ 
+ &  & Deciding which factors are relevant in a meeting uses the entire team's engineering knowledge and critical thinking skills. & A meeting should be a place to review a choice, not to generate it - conversation is not methodical and can easily miss relevant information. \\ 
+\cmidrule{1-4}
+Selection of the response variable. & The response variable is usually evident from the problem statement (e.g. torque output of mechanism). More than one way to measure the response variable will almost always be considered. & Engineers in the company can generate many possible response variables, and analyze their respective merits. & Precursor experiments comparing response variables may reduce the length of investigations. \\ 
+ &  & The response variable chosen is chosen carefully to closely represent the system under study. & Documenting the alternative response variables would make it easier to clearly outline why one method is superior, and to transition between testing methods as circumstances change. \\ 
+\cmidrule{1-4}
+Choice of experimental design. & The experimental design is also chosen in a meeting. They are usually one from a small selection (detailed in the text body). The choice made is incidental, as reflected by the absence of planning documents. & Simple experiment designs are easily communicated, executed, and documented. & A well-chosen experimental design can reduce the resources (time, materials, and effort) expended in satisfying the investigation's objective. \\ 
+ &  &  & Considering analysis beforehand makes it possible to ensure analytical assumptions are met. \\ 
+\cmidrule{1-4}
+Performing the experiment. & Engineers run their experiments in a laboratory. Frequently run experiments have protocols; hand-written observations are mandated for all experiments. & Labs afford flexibility in the level of experimental control. & Experimental fixtures should be shown to generate repeatable, reliable results before being used. \\ 
+ &  & Blank observation sheets encourage critical thinking about the experiment & Images of test set-up would make it much easier to retrospectively understand an experiment. \\ 
+ &  & Experiments are run by engineers solving the problem - this makes engineers personally responsible for their results, and exposes them to undocumented experimental information. & Observation sheets could provide guidance on what factors to monitor. \\ 
+\cline{1-4}
+Analysis of the data collected. & Analysis tends to be judgemental as opposed to statistical. Compared to the time spent running the experiment, analysis is brief. Excel or Matlab is used. Analysis is discussed in more detail in the next section. & Engineering expertise is applied to explain experimental results in a physically meaningful way. & Statistics should be used to ensure that sound conclusions are made - subjective assessment alone is susceptible to various biases that can lead to lost time and confusion. \\ 
+ &  &  & Time invested in analyses should be seen as what makes an experiment practically useful, rather than a formality between experiments. \\ 
+\cmidrule{1-4}
+Conclusions and recommendations & Conclusions are incorporated into client memos and presentations. Interim results are presented at internal meetings - graphics play an important role in communicating results. & The importance of graphics is realized and put to good effect in client presentations. & Charts exist beyond those being used that may make it easier to demonstrate experimental results. \\ 
+ &  & Conclusions are presented in a way that is accessible and avoids needless technicalities. & Experimental results are not supplemented by estimates of uncertainty. \\ 
+\bottomrule
+\label{tab:exp_procedure}
+\end{longtable}
+}
 \end{landscape}
-\egroup
+
+
 \par
 Several experiment designs dominate in the company: these are enumerated, explained, and critiqued in Table 2.
 TABLE
@@ -357,11 +369,11 @@ DCA certainly follow this structure, however it is implemented haphazardly acros
 
 %%
 \section{Analysis of Experimental Data}
-This section provides a short overview of simple summary statistics, then dissects the hypothesis tests detailed in ISO 16269.
+This section provides a short overview of the statistical tools applied to experimental data in DCA: the content of several hundred test reports was tabulated to inform this discussion, which focuses on summary statistics and interval estimates.
 \par
-Analyses in DCA rely heavily on expert knowledge of the systems being tested and rarely on statistical results. This is probably because the relevance of statistics may not be clear, and how it might be applied even less so. This is understandable - it's widely agreed that most people's experience with statistics is one of discomfort and bemusement. Having said this, relying on intuition alone risks falling prey to cognitive biases, missing valuable information that isn't superficially obvious, and being unable to properly relate physical behaviours to experimental observations. Analysis should guide an investigation and be used to directly inform future tests.
+Analyses in DCA were found to rely heavily on expert knowledge of the systems being tested and rarely on statistical results. This is probably because the relevance of statistics may not be clear, and how it might be applied even less so. Which is understandable - it's widely agreed that most people's experience with statistics is one of discomfort and bemusement. Having said this, relying on intuition alone risks falling prey to cognitive biases, missing valuable information that isn't superficially obvious, and being unable to properly relate physical behaviours to experimental observations. Foregoing statistics when analyzing product behaviour severely handicaps the ability of an engineer to design a robust product.
 \par
- Many of DCA's reports contain summary statistics, such as arithmetic means, variances, maximums, minimums, and so on. A few experiments of the 400 surveyed made use of interval estimates as informed by a regulatory standard, and once in a while a t-test is used.
+Many of the reports surveyed contained summary statistics, such as arithmetic means, variances, maximums, minimums, and so on. A few made use of interval estimates as informed by a regulatory standard, and one report applied a t-test.
 \par
 \subsection*{Summary Statistics}
  A summary statistic is a value describes an aspect of a random variable's distribution. A random variable (r.v.) is a function that maps events onto real numbers. For example, we could define an r.v. $X$ that maps the outcomes of a coin toss onto the numbers 1 and 0:
@@ -371,13 +383,15 @@ Analyses in DCA rely heavily on expert knowledge of the systems being tested and
  \end{align}
 Usually the choice of mapping is quite natural - for example, we might use an r.v. that counts the number of sucesses in many trials, or that takes on the value of a measurement.
 \par
-Summary statistics describe an r.v.'s probability distribution, which is a function returning a probability for each value an r.v. can take on. If an r.v. is continuous, then a probability \emph{density} function is used to describe its probability distribution. If the r.v. is discrete, then a probability \emph{mass} function can be used to label the probability of each of its values. The difference between a probability density and a probability mass function is shown in Figure \ref{fig:example_pd}.
+Variation in the events that an r.v. maps from is described using a probability distribution. Each value is weighted according to its probability or, in the case of continuous-valued r.v.s, its contribution per unit length to the cumulative probability. Figure \ref{fig:example_pd} highlights this difference.
+\par
+The essential problem of experimental statistics is understanding the behaviour of a broader population from just a sample. In product design, this means using measurements from a limited number of prototypes to estimate the variation in a product's performance. The essential attributes of this variation - such as its spread and average - can be estimated using summary statistics.
  \par
-In DCA, sample statistics are used to approximately summarize the probability distribution of experimental measurements. The sample mean, for example, is the frequency-weighted average of the observations made, and approximates the distributional mean.
+For instance, an average of independent observations approximatates the mean of the underlying population's distribution. The accuracy of this estimate improves as we test more samples, with diminishing returns, a relationship that is shown in Figure \ref{fig:se_with_sample_size}. The standard deviation of the sample mean, $\frac{\sigma}{\sqrt{n}}$, is the average difference between the sample mean and population mean for a given sample size, and is called standard error. It's useful as a tool for assessing how far the sample mean is from the actual mean of the population's distribution, a use that will be discussed more when we talk about interval estimates.
 \begin{equation}
 	\bar{X} = \frac{1}{n}\sum_{i = 1}^{n}x_i  \approx E[X]= \mu = \int_{-\infty}^{\infty}x\cdot p(x)\cdot dx
 \end{equation}
-The accuracy of this estimate improves as we test more samples, with diminishing returns. This relationship is shown in Figure \ref{fig:se_with_sample_size}. The standard deviation of the sample mean, $\frac{\sigma}{\sqrt{n}}$, is the average difference between the sample mean and population mean for a given sample size, and is also known as \emph{standard error}. It's derivation is given in Appendix A.
+
 \begin{figure}
 \includegraphics[width=\textwidth]{probability_distributions.pdf}
 \caption{Left: Probability mass function. Right: Probability density function.}
@@ -435,7 +449,7 @@ Subtacting the population mean from both sides and dividing through by the stand
 \[
 	P(k \leq \frac{\mu - \bar{x}}{\sqrt{\sigma^2/n}}) = 1 - \alpha
 \]
-This implies that $k$ has a Normal distribution, since the r.h.s. of the inequality is just a shifting and scaling of a Normal r.v. (the sample mean).
+This implies that $k$ has a Normal distribution, since the r.h.s. of the inequality is just a shifting and scaling of a Normal r.v. (the sample mean). Usually the variance isn't known, in which case the constant $\sigma$ is replaced by the square root of the sample variance. Qualtitatively, this means that the r.h.s. has a $t$-distribution with $n - 1$ degrees of freedom.
 
  In DCA however, confidence intervals assuming Normality are applied. Rather than give a derivation of them here, they're suspended until Section X where they're shown in the context of Bayesian inference.
 \subsection*{t-tests}
@@ -548,7 +562,7 @@ Probability allows us to analyze a system without requiring complete mechanical 
 \par
 If you say that it should come heads as many times as tails, then the experiment is no longer random, as we know what the outcome will be. You may gesticulate and say ``You need to flip it \emph{randomly}''. I would press you to tell me what this means - I require a mechanism to decide how to flip the coin, and physical mechanisms are deterministic.
 \par
-The probability of an outcome can only be evaluated to a set of assumptions you make about the mechanism generating those outcomes. You had a preconceived notion that the way I flipped the coin would favor neither heads nor tails, and therefore saw ten heads as supremely improbable.
+The probability of an outcome can only be evaluated relative to a set of assumptions you make about the mechanism generating those outcomes. You had a preconceived notion that the way I flipped the coin would favor neither heads nor tails, and therefore saw ten heads as supremely improbable.
 \newpage
 We can see this by recognizing that the sum of independent observation's variances is equal to the variance of the variance of the sum of the observations:
 \begin{align}
