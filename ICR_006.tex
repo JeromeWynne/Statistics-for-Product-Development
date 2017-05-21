@@ -287,7 +287,7 @@ The other engineering activities that DCA's engineers apply statistics to are to
 \section{Experiment Design}
 Experimental design and analysis can be used to make products that perform better, are more reliable, less risky to develop, and have a uniquely justifiable development process. It is expertise that would elevate DCA's capacity as a technical consultancy.
 \par
-Design of Experiments refers to both experiment designs and a broader philosophy of systematic experimentation. An experiment design is a particular structure of experiment, such as comparing the effects of two factors each at two levels. Good experimental design produces data that is relevant to the experiment's objective and is logically unambiguous.
+Design of Experiments refers to both experiment designs and a broader philosophy of systematic experimentation. An experiment design is a particular structure of experiment, such as comparing the effects of two factors each at two levels. Good experimental design produces data that is unambiguous and relevant to the experiment's objective.
 \par
 Robust experiments are designed with three principles in mind:
 \begin{description}
@@ -303,9 +303,9 @@ These principles constitute the makings of any well-designed experiment, and the
 \label{fig:blocking}
 \end{figure}
 \par
-This being said, DCA neglect pre-experimental planning and do not verify that their experimental set-ups produce repeatable results. Further, it has an inconsistent approach to determining important design factors in large solution spaces, and rarely designs experiments with a specific objective in mind. Both of these factors result in mired investigations.
+This being said, DCA neglect pre-experimental planning and do not verify that their experimental set-ups produce repeatable results. Further, it has an inconsistent approach to screening for important factors, resulting in mired investigations when many factors may be influencing the response. The dominant experimental strategy within the company is a best-guess approach: one factor is tested in each experiment, chosen based on the expert insight of the engineering team. Shortcomings of this method are that if the factor does not elicit the desired effect, then the next factor to vary must be guessed at, and if it is successful, then it may be tempting to stop the investigation when a better solution may be available.
 \par
-To comprehensively detail their approach, DCA's application of experiment design at present is evaluated against a traditional experimental procedure in Table \ref{table:exp_procedure}.
+To comprehensively detail their approach, DCA's application of experiment design at present is evaluated against a traditional experimental procedure in Table \ref{tab:exp_procedure}.
 
 \begin{landscape}
 \vspace*{-3cm}
@@ -318,7 +318,7 @@ To comprehensively detail their approach, DCA's application of experiment design
 Recognition and statement of the problem. & A problem is usually identified in either other experiments or design-side activities. It is not formally stated, but is agreed in loose terms among the engineering team. There is no mechanism for assessing whether a problem is well-suited to being addressed by a lab investigation, as opposed to other analytical methods. & The benefits that experimental investigations provide, such as empirical validity and flexibility, are recognized. & A precise problem statement focuses an investigation towards a particular end, and allows progress towards this end to be gauged. It also makes it clear to the team what an investigation aims to achieve. \\ 
  &  &  & Specific problem statements make it easier to review previous work - without them, it is difficult to determine where one investigation begins and another ends. \\ 
 \cmidrule{1-4}
-Choice of factors, levels, and ranges. & This choice is made in engineering team meetings. Consequently, factors are identified haphazardly, aren't labelled as design or nuisance factors, and aren't identified as being controlled or uncontrolled. Ranges and levels are usually chosen according to expert knowledge. The number of levels is usually kept small (2 or 3) because differences rather than overall responses are of interest. & Level choices have a rational motivation which is justified via physical reasoning or previous experimental results. & A list of factors guides the systematic elimination of sources of variation from an experimental set-up, and can be used to survey for possible confounding factors. \\ 
+Choice of factors, levels, and ranges. & This choice is made in engineering team meetings. Factors can be identified haphazardly: there is no labelling of those that are identified as design or nuisance factors, or whether they are controlled or uncontrolled. Ranges and levels are usually chosen according to expert knowledge. The number of levels is usually kept small (2 or 3) because differences rather than overall responses are of interest. & Level choices have a rational motivation which is justified via physical reasoning or previous experimental results. & A list of factors guides the systematic elimination of sources of variation from an experimental set-up, and can be used to survey for possible confounding factors. \\ 
  &  & Deciding which factors are relevant in a meeting uses the entire team's engineering knowledge and critical thinking skills. & A meeting should be a place to review a choice, not to generate it - conversation is not methodical and can easily miss relevant information. \\ 
 \cmidrule{1-4}
 Selection of the response variable. & The response variable is usually evident from the problem statement (e.g. torque output of mechanism). More than one way to measure the response variable will almost always be considered. & Engineers in the company can generate many possible response variables, and analyze their respective merits. & Precursor experiments comparing response variables may reduce the length of investigations. \\ 
@@ -331,7 +331,7 @@ Performing the experiment. & Engineers run their experiments in a laboratory. Fr
  &  & Blank observation sheets encourage critical thinking about the experiment & Images of test set-up would make it much easier to retrospectively understand an experiment. \\ 
  &  & Experiments are run by engineers solving the problem - this makes engineers personally responsible for their results, and exposes them to undocumented experimental information. & Observation sheets could provide guidance on what factors to monitor. \\ 
 \cline{1-4}
-Analysis of the data collected. & Analysis tends to be judgemental as opposed to statistical. Compared to the time spent running the experiment, analysis is brief. Excel or Matlab is used. Analysis is discussed in more detail in the next section. & Engineering expertise is applied to explain experimental results in a physically meaningful way. & Statistics should be used to ensure that sound conclusions are made - subjective assessment alone is susceptible to various biases that can lead to lost time and confusion. \\ 
+Analysis of the data collected. & Analyses are run as soon as data is available, and will be handled by the engineer that ran the experiment. Excel - and occasionally Matlab - is used. The conclusions tend to be judgemental as opposed to statistical. Compared to the time spent running the experiment, analysis is brief. Analysis is discussed in more detail in the next section. & Engineering expertise is applied to explain experimental results in a physically meaningful way. & Statistics should be used to ensure that sound conclusions are made - subjective assessment alone is susceptible to various biases that can lead to lost time and confusion. \\ 
  &  &  & Time invested in analyses should be seen as what makes an experiment practically useful, rather than a formality between experiments. \\ 
 \cmidrule{1-4}
 Conclusions and recommendations & Conclusions are incorporated into client memos and presentations. Interim results are presented at internal meetings - graphics play an important role in communicating results. & The importance of graphics is realized and put to good effect in client presentations. & Charts exist beyond those being used that may make it easier to demonstrate experimental results. \\ 
@@ -344,14 +344,21 @@ Conclusions and recommendations & Conclusions are incorporated into client memos
 
 
 \par
-Several experiment designs dominate in the company: these are enumerated, explained, and critiqued in Table 2.
-TABLE
-\begin{description}
-\item[Best-guess approach]{Factor levels for a test are chosen according to the results of a previous test. One or two factors at a time are varied in this way. \\ - No guarantee of optimal solution \\ - Can continue indefinitely.}
-\item[One-factor-at-a-time]{A baseline set of factor levels are chosen, then each factor is varied across its range while all other factors are held at this baseline.\\ - Does not consider interactions \\ - Resource inefficient}
-\item[Simple comparative]{}
-\item[Factorial]{All possible combinations of factor levels are tested.}
-\end{description}
+The experimental designs used in the company are enumerated, explained, and critiqued in Table \ref{tab:exp_designs}.
+\begin{table}
+\hspace*{-2cm}
+\small
+\centering
+	\begin{tabular}{p{4cm} p{6cm} p{6cm}}
+	\toprule
+	\textbf{Experimental Design} 	& 	\textbf{Description}	&	\textbf{Evaluation} \\\toprule
+
+	\\\bottomrule
+	\end{tabular}
+	\hspace*{-2cm}
+	\caption{Experimental designs applied in DCA.}
+	\label{tab:exp_designs}
+\end{table}
 
 
 DCA certainly follow this structure, however it is implemented haphazardly across the company. For example, there is no formal guidance for steps 1-4, 6, or 7. This could result in several problems:
