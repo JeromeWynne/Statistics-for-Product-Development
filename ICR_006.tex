@@ -522,19 +522,32 @@ The tolerance intervals in the preceding section are, by protocol, plotted accor
 
 \section{Analysis}
 \subsection*{Regression Models}
+% What's a regression model?
+% How's it useful to DCA?
+% What do they consist of?
+% What are their limitations, and how can they be applied to more difficult problems?
 Regression models are a flexible tool that allow us to
 \begin{itemize}
 \item Estimate the effects of discrete and continuous factors on a unit's response - even if they interact or have a nonlinear influence.
 \item Identify differences between units that aren't immediately apparent from raw data
 \item Measure how well our understanding of a product lines up with its reality
 \end{itemize}
+
+\newpage
 \subsection*{Bayesian Inference}
-Summary statistics focus attention on a particular possible value of a distribution's parameter. In reality, a sample will suggest a range of plausible values, with each value having an associated probability. Additionally, we often know what values are realistic for a parameter - this knowledge is valuable and can be used to reduce the uncertainty of our estimates. In Bayesian inference, this probability distribution is known as the parameter's \emph{posterior}. It's the result of combining knowledge about the parameter available before data is collected, and the information in the data itself. Estimating the posterior, rather than the `most likely' parameter, has several benefits:
+% What is Bayesian inference?
+% How can it be useful to DCA?
+% What does it consist of?
+% How does it relate to other statistical methods, what are its limitations, and how can it be used for more difficult problems?
+Summary statistics focus attention on a particular possible value of a distribution's parameter. In reality, a sample will suggest a range of plausible values, with each with an associated probability. In Bayesian inference, this probability distribution is known as the parameter's \emph{posterior}. It's the result of combining knowledge about the parameter available before data is collected, and the information in the data itself. Estimating the posterior, rather than the `most likely' parameter, has several benefits:
 \begin{itemize}
-	\item The uncertainty in a particular parameter estimate is immediately clear
-	\item A posterior distribution provides the probability that a particular range of values contains the population parameter - this is much easier to interpret than an interval estimate.
+	\item Its spread makes it clear how much uncertainty there is about what the true parameter value is.
+	\item It tells us directly what the probability of the parameter being a particular value is, which is much easier to communicate to the uninitiated than a $p$-value, $t$-tests, and interval estimates.
+	\item The assumptions made are arguably more evident than in hypothesis testing, and are consequently much easier to verify.
 \end{itemize}
-Bayesian inference combines prior knowledge with test data to estimate a distribution's parameters. Knowing what parameters are plausible allows us to place bounds on the behaviour of a population.
+
+
+To retiterate, Bayesian inference combines prior knowledge with test data to estimate a distribution's parameters. Knowing what parameters are plausible allows us to place bounds on the behaviour of a population.
 
 $p(\theta, y)$ is the probability that the success probability is $\theta$ and the data $y$ is observed. Bayes' rule relates this joint distribution to the probability of a value of $\theta$ given the data:
 \[
