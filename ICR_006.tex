@@ -240,7 +240,13 @@ I confirm that the work presented here is wholly my own and has been generated a
 \newpage
 \chapter{Introduction}
 % A) Why statistics was used in DCA
-DCA Design International is a 150-person product design consultancy based in Warwick. Their work is oriented towards the mechanical design of medical and consumer products. Much of what they develop is hand-held items such as insulin injector pens or deoderant cans. DCA's competitors are [DCA's COMPETITORS AND THEIR CAPABILITIES].
+DCA Design International is a 150-person product design consultancy based in Warwick. Their work is oriented towards the mechanical design of medical and consumer products. Much of what they develop are hand-held items such as insulin injector pens or deoderant cans: Figure \ref{fig:dca_profile} shows two of their most prolific designs. DCA's competitors are [DCA's COMPETITORS AND THEIR CAPABILITIES].
+\par
+\begin{figure}[b]
+\includegraphics[width=\textwidth]{DCA_profile.pdf}
+\caption{Products designed by DCA.}
+\label{fig:dca_profile}
+\end{figure}
 \par
 DCA employs about sixty mechanical engineers. Each of them are general-purpose technical consultants and experts in a particular engineering subdiscipline. DCA's substantial investment in engineering distinguishes it from other product design consultancies, many of which do not have the facilities to handle a product's technical development [REFERENCE]. This investment is manifest in both the its engineering workforce and its ownership of four test labs. The experiments run in these labs and the data they produce is the focus of this report. 
 \par
@@ -303,9 +309,9 @@ These principles constitute the makings of any well-designed experiment, and the
 \label{fig:blocking}
 \end{figure}
 \par
-This being said, DCA neglect pre-experimental planning and do not verify that their experimental set-ups produce repeatable results. Further, it has an inconsistent approach to screening for important factors, resulting in mired investigations when many factors may be influencing the response. The dominant experimental strategy within the company is a best-guess approach: one factor is tested in each experiment, chosen based on the expert insight of the engineering team. Shortcomings of this method are that if the factor does not elicit the desired effect, then the next factor to vary must be guessed at, and if it is successful, then it may be tempting to stop the investigation when a better solution may be available.
+This being said, DCA neglect pre-experimental planning and do not verify that their experimental set-ups produce repeatable results. Further, it has an inconsistent approach to screening for important factors, resulting in mired investigations. The dominant experimental strategy within the company is a best-guess approach: one factor is tested in each experiment, chosen based on the expert insight of the engineering team. Shortcomings of this method are that if the factor does not elicit the desired effect, then the next factor to vary must be guessed at, and if it is successful, then it may be tempting to stop the investigation when a better solution may be available.
 \par
-To comprehensively detail their approach, DCA's application of experiment design at present is evaluated against a traditional experimental procedure in Table \ref{tab:exp_procedure}.
+To systematically detail DCA's experimental procedure, it is compared against conventional experimental steps in Table \ref{tab:exp_procedure}.
 
 \begin{landscape}
 \vspace*{-3cm}
@@ -345,35 +351,30 @@ Conclusions and recommendations & Conclusions are incorporated into client memos
 
 \par
 The experimental designs used in the company are enumerated, explained, and critiqued in Table \ref{tab:exp_designs}.
-\begin{table}
-\hspace*{-2cm}
+\renewcommand\arraystretch{1.5}
+\begin{table}[H]
+\hspace*{-2.25cm}
 \small
 \centering
-	\begin{tabular}{p{4cm} p{6cm} p{6cm}}
+	\begin{tabular}{p{3.5cm} p{6cm} p{6.5cm}}
 	\toprule
-	\textbf{Experimental Design} 	& 	\textbf{Description}	&	\textbf{Evaluation} \\\toprule
-
+	\textbf{Experimental Design} 		& 	\textbf{Description}	&	\textbf{Evaluation} \\\toprule
+	Randomized complete block design	 & 	Each treatment is randomly assigned to at least one unit from every block. &  Allows the effects of nuisance variables to be eliminated during analysis, provided the block factor and treatment do not interact. \\
+	& & Lends itself to established analytical techniques (e.g. ANOVA). \\
+	& & Can be extended to block on more than one factor (such a design is called a Latin square) \\
+	& & Not possible if the number of units in a block is fewer than the number of treatments to be tested. \\
+	&&\\
+	Factorial design & Applied to experiments in which more than one factor is varied - all combinations of factor levels are tested. & More time-efficient than testing one factor per experiment. \\
+	& &  May be limited by resources if there are many factors \\
+	& & Allows interaction effects to be estimated.
 	\\\bottomrule
 	\end{tabular}
-	\hspace*{-2cm}
+	\hspace*{-2.25cm}
 	\caption{Experimental designs applied in DCA.}
 	\label{tab:exp_designs}
 \end{table}
 
-
-DCA certainly follow this structure, however it is implemented haphazardly across the company. For example, there is no formal guidance for steps 1-4, 6, or 7. This could result in several problems:
-\begin{itemize}
-\item Overlooking important properties of the problem at hand that may become apparent only when running an experiment, or that may not become apparent but would seriously influence interpretation of the data collected.
-\item Neglecting to focus on aspects of the problem essential to the problem statement, because there is no formal problem statement to refer to.
-\item Overlooking factors, or neglecting to set their levels/ranges in a systematic way. Choosing a non-optimal or irrelevant factor to modulate.
-\item Choosing a sub-optimal response variable (i.e. one that has many degrees of separation between it and the phenomena of interest).
-\item Choosing a resource-inefficient experiment design, or an experiment design that doesn't permit a desirable comparison in the analysis stage, or a design that fails to control for nuisance factors.
-\item Incomplete identification of design or nuisance factors.
-\item In general, pre-experimental planning is inadequate!
-\item Choice of experimental design: sample size, run order, blocking or randomizatoin restrictions. 
-\item Designing for analysis: analysis is typically minimal and kept extremely simple, with the exception of tests designed to British Standards.
-\end{itemize}
-
+\newpage
 %%
 \section{Analysis of Experimental Data}
 This section provides a short overview of the statistical tools applied to experimental data in DCA: the content of several hundred test reports was tabulated to inform this discussion, which focuses on summary statistics and interval estimates.
@@ -432,20 +433,20 @@ where $t_{1 - \alpha}(...)$ is the value corresponding to the $1 - \alpha$ perce
 	\Big(-\infty, \bar{x} + \frac{t_{1 - \alpha}(\sqrt{n}u_p, n - 1)\cdot s}{\sqrt{n}}\Big]
 \]
 This interval contains at least a fraction $p$ of the population with probability $1 - \alpha$. Example tolerance intervals are shown in Figure \ref{fig:tolerance_intervals}.
-\begin{figure}
+\begin{figure}[H]
 \includegraphics[width=\textwidth]{tolerance_intervals.pdf}
-\caption{Example tolerance limits for a confidence level of 0.95. Each vertical line corresponds to a 95\% tolerance limit constructed for a simulated 10-unit sample.}
+\caption{Estimated tolerance limits versus true population limit.}
 \label{fig:tolerance_intervals}
 \end{figure}
-At present, DCA do not test the assumption of Normality (check this).
 % Questions:
 %	> What is a t-distribution?
 % 	> Do DCA test the normality assumption?
 %	> 
 \par
+\newpage
 % Confidence intervals
 \subsection*{Confidence Intervals}
-Another tool that DCA's engineers occasionally use is confidence intervals, which allow a plausible range of values for a population parameter to be estimated. The uncertainty on this estimated is quantified via a confidence level, which states the fraction of intervals constructed for a random sample that will contain the population parameter. The concept is slightly fiddly, and is visualized in Figure \ref{fig:confidence_intervals}. Confidence intervals can be placed on any parameter estimate, although they're usually used to quantify the uncertainty on a mean. 
+Another tool that DCA's engineers occasionally use is confidence intervals, which indicate a range of values that a population parameter is likely to fall within. The fraction of intervals constructed that will contain the population parameter is called the confidence level of an interval. For example, if we were to construct a confidence interval for the population mean for 100 samples, each of 5 units, the confidence level would tell us how many of these intervals would - on average - contain the actual value of the population mean. Figure \ref{fig:confidence_intervals} demonstrates this. Confidence intervals can be placed on any parameter estimate, although they're usually used to quantify the uncertainty on a mean. 
 \par
 One-sided confidence limit. 
 We want to find $k$ so that
@@ -458,53 +459,47 @@ Subtacting the population mean from both sides and dividing through by the stand
 \]
 This implies that $k$ has a Normal distribution, since the r.h.s. of the inequality is just a shifting and scaling of a Normal r.v. (the sample mean). Usually the variance isn't known, in which case the constant $\sigma$ is replaced by the square root of the sample variance. Qualtitatively, this means that the r.h.s. has a $t$-distribution with $n - 1$ degrees of freedom.
 
- In DCA however, confidence intervals assuming Normality are applied. Rather than give a derivation of them here, they're suspended until Section X where they're shown in the context of Bayesian inference.
-\subsection*{t-tests}
-% Two-sample t-tests
-THE FOLLOWING PLAGIARIZES MONTGOMERY AND SHALL BE CHANGED
-Occasionally an analysis of a comparative test will contain a two-sample t-test. This assumes that the variances of the two groups tested is the same (i.e. the treatment may only affect the group mean, not its variance), and that the samples are randomly drawn from the same Normal distribution. The $p$-value obtained corresponds to the probability of observing the difference in sample means assuming that the two samples were drawn from the same Normal distribution. The implication of a small $p$-value is that assuming the two samples were drawn from the same Normal distribution is unreasonable. The two-sample t-test statistic is
-\[
-	t_0 = \frac{\bar{y}_1 - \bar{y}_2}{s_p^2 \cdot \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}}
-\]
-Where $s_p^2$ is an estimate of the the two group's common variance $\sigma^2$:
-\[
-	s_p^2 = \frac{(n_1	 - 1)\cdot s_1^2 + (n_2 - 1)\cdot s_2^2}{n_1 + n_2 - 2}	
-\]
-If $t_0$ were greater than the value of t corresponding to the $\alpha/2$ percentage point of the t distribution with $n_1 + n_2 - 2$ degrees of freedom, we would reject $H_0$ and conclude that the means of the two groups differ.
-\par
-If we are sampling from independent Normal distributions, the the distribution of $\bar{y}_1 - \bar{y}_2$ is $N(\mu_1 - \mu_2, \sigma^2(1/n_1 + 1/n_2))$. Thus if the two distributions shared the same mean, then
-\[
-	Z_0 = \frac{\bar{y}_1 - \bar{y}_2}{\sigma\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}}
-\]
-would be a $N(0, 1)$ r.v. However, because $\sigma$ is unknown, we must instead replace it with an estimate of the population standard deviation $s_p$, resulting in an r.v. that has a t-distribution.
 \newpage
 \subsection*{Monte Carlo estimation}
 Monte Carlo simulation approximates a quantity by simulating the random process generating it . It has previously been applied within DCA to understand worst-case tolerances in products. The use case was somewhat similar to the following: the 95th percentile of some analytically inconvenient combination of distributions, each corresponding to a part dimension, was needed. Take $Y \sim \text{Binom}(n = 10, p = X)$ as an example, where $X \sim \text{Beta}(a = 7, b = 3)$\footnote{The beta distribution is a continuous and generates a number between $0$ and $1$, which makes it useful in modelling the distribution of a probability.}. Rather than attempt to derive the distribution of this dimension's value directly, tens of thousands of values of $y$ were first generated according to $Y$'s distribution using a computer. Each of these values were then used to generate a value of $x$ from $\text{Binom}(n = 10, p = y)$. The resulting frequencies of the $x$ values then represented the dimension's distribution. It was then possible to calculate the mean by averaging over all the $x$ values obtained. A diagram of this process is shown in Figure \ref{fig:monte_carlo}.
 \begin{figure}[b!]
 \includegraphics[width=0.87\textwidth]{monte_carlo_simulation.pdf}
-\label{fig:monte_carlo}
 \caption{Process diagram for a Monte Carlo simulation.}
+\label{fig:monte_carlo}
 \end{figure}
 
 
 \newpage
 \section{Visualizing Experimental Data}
-DCA's reports and client presentations frequently contain plots of the data collected from an experiment. These plots are almost exclusively line charts or bar charts, with scatter plots also seeing occasional use. These figures are created using either Microsoft Excel or Matlab.
+Visualization is essential to clearly and convincingly summarizing an experiment's results. Graphical tools allow engineers and clients to see for themselves what's been discovered. A plot should relevant, easily interpretable, and accurately convey its underlying data.
 \par
-The line chart in DCA is ubiquitous because it is directly plottable from the raw data provided by their axial and torsional testing machines. Typically a visual summary of a test consists of an overlay of many unit's results in a manner similar to Figure \ref{fig:line_plots}. 
-\begin{itemize}
-\item[+] Allows an entire test to be viewed simultaneously, providing a high-level summary of the results
-\item[+] Is easily relatable to physical observations during a test
-\item[+] Its meaning can be understood without explanation - it is a universally familiar chart
-\item[-] Obscures the behaviour of individual units
-\item[-] Encourages focus on extremes of group ranges, rather than the distribution of each group's performance
-\item[-] Obfuscates data artifacts that aren't related to location or dispersion (such as harmonic content)
-\item[-] May provide irrelevant information - it's often the case that only the peak or average values are of interest.
-\end{itemize}
+DCA's reports and client presentations frequently contain plots of the data collected from an experiment, typically generated using either Microsoft Excel or Matlab. The plots used are line and bar charts, along with the occasional scatterplot.
+\par
+Line charts are particularly ubiquitous in DCA because they're directly plottable from the raw data provided by axial and torsional testing machines. As a consequence of this many graphical summaries are usually overlaid line plots, similar to that shown in Figure \ref{fig:line_plots}. The effectiveness of this use-case is evaluated in Table \ref{tab:line_chart}.
+\par
+Bar charts are also used fairly frequently, and a particular format of scatterplot is used to present the results of a tolerance limit analysis. The latter is shown in Figure \ref{fig:tolerance_intervals_plot}.
+ 
+\begin{table}[b]
+\caption{Evaluation of the line chart.}
+\small
+\hspace*{-.5cm}
+\begin{tabular}{p{6.5cm}p{6.5cm}}
+\toprule
+\textbf{Strengths}	&	\textbf{Shortcomings} \\
+\toprule
+Allows an entire test to be viewed simultaneously, providing a high-level summary of results.	&	May provide irrelevant information - it's often the case that only the peak or average values are of interest	\\
+Is easily relatable to physical observations during a test.	&	Directs focus to extremes of group ranges, rather than the distribution of each group's performance.	\\
+Its meaning can be understood without explanation - it is a universally familiar chart.	&  Obfuscates data artifacts that aren't related to location or dispersion (such as harmonic content). \\
+&  Can obscure the behaviour of individual units. 			\\
+\bottomrule
+\end{tabular}
+\label{tab:line_chart}
+\end{table}
+
 \begin{figure}
-	\includegraphics[width=\textwidth]{overlaid_line_charts.pdf}
-	\label{line_plots}
+	\includegraphics[width=\textwidth]{overlaid_line_chart.pdf}
 	\caption{Sample summary line chart from a DCA test report.}
+	\label{fig:line_plots}
 \end{figure}
 The tolerance intervals in the preceding section are, by protocol, plotted according to the graph in Figure \ref{fig:tolerance_intervals_plot}. 
 \begin{itemize}
@@ -512,8 +507,8 @@ The tolerance intervals in the preceding section are, by protocol, plotted accor
 \end{itemize}
 \begin{figure}
 	\includegraphics[width=\textwidth]{tolerance_intervals_plot.pdf}
-	\label{tolerance_intervals_plot}
 	\caption{Tolerance interval plot.}
+	\label{fig:tolerance_intervals_plot}
 \end{figure}
 
 \section{Other Activities}
@@ -534,6 +529,45 @@ Regression models are a flexible tool that allow us to
 \item Measure how well our understanding of a product lines up with its reality
 \end{itemize}
 \subsection*{Bayesian Inference}
+Summary statistics focus attention on a particular possible value of a distribution's parameter. In reality, a sample will suggest a range of plausible values, with each value having an associated probability. Additionally, we often know what values are realistic for a parameter - this knowledge is valuable and can be used to reduce the uncertainty of our estimates. In Bayesian inference, this probability distribution is known as the parameter's \emph{posterior}. It's the result of combining knowledge about the parameter available before data is collected, and the information in the data itself. Estimating the posterior, rather than the `most likely' parameter, has several benefits:
+\begin{itemize}
+	\item The uncertainty in a particular parameter estimate is immediately clear
+	\item A posterior distribution provides the probability that a particular range of values contains the population parameter - this is much easier to interpret than an interval estimate.
+\end{itemize}
+Bayesian inference combines prior knowledge with test data to estimate a distribution's parameters. Knowing what parameters are plausible allows us to place bounds on the behaviour of a population.
+
+$p(\theta, y)$ is the probability that the success probability is $\theta$ and the data $y$ is observed. Bayes' rule relates this joint distribution to the probability of a value of $\theta$ given the data:
+\[
+  p(\theta|y) = \frac{p(y|\theta)\cdot p(\theta)}{\int_{\theta}p(y|\theta)\cdot p(\theta)\cdot d\theta}
+\]
+Qualitatively, this expression states that the probability of a parameter given the data (the \emph{posterior}) is directly proportional to the data's probability, given that parameter value (the \emph{likelihood}). The denominator of this expression is constant w.r.t. $\theta$, therefore we can reduce the above to 
+\[
+  p(\theta|y) \propto p(y | \theta)\cdot p(\theta)
+\]
+
+To estimate $p(\theta|y)$ then, we need two things:
+* $p(y|\theta)$ - the probability of the data for a given probability of success (the \emph{likelihood}).
+* $p(\theta)$ - the probability of a parameter value according to prior knowledge (the \emph{prior}).
+
+The probability of $y$ successes in a fixed number of trials for a given probability of success $\theta$ is described by the binomial distribution
+\[
+  p(y|\theta) = \binom{n}{y} \theta^y (1 - \theta)^{n - y}
+\]
+
+The prior distribution, $p(\theta)$, is a way to encode our knowledge that of whether a unit will pass into the model. If all probabilities of success seem equally plausible, then it's reasonable to assume that $p(\theta)$ is uniform over $\theta \in [0, 1]$:
+\[
+  \theta \sim \text{Unif}(0, 1) : p(\theta) = 1, \theta \in [0, 1]
+\]
+Analytically, we can solve for $p(\theta|y)$ directly
+\[
+  p(\theta|y) \propto \binom{n}{y}\theta^y (1 - \theta)^{n-y}\cdot 1
+\]
+To find the constant of proportionality, we need to divide the r.h.s. by its integral over all values of $\theta$, such that the $\int_0^1 p(\theta|y)\cdot d\theta = 1$. As it happens, the r.h.s. has the form of what's called a beta distribution
+\[
+  p(x; a, b) \propto x^{a - 1}\cdot x^{b-1}
+\]
+
+It might be easier to understand this process as one of simulation.
 \subsection*{Markov Chain Simulation}
 \subsection*{Decision Trees}
 
