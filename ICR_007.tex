@@ -540,26 +540,25 @@ Regression models are a flexible tool that allow us to
 % How can it be useful to DCA?
 % What does it consist of?
 % How does it relate to other statistical methods, what are its limitations, and how can it be used for more difficult problems?
-Summary statistics focus attention on a particular possible value of a distribution's parameter. In reality, a sample will suggest a distribution for this parameter. In Bayesian inference, we seek to estimate this distribution, which is known as the parameter's \emph{posterior}. The posterior is the result of combining knowledge available before data is collected and the information in the data itself. Estimating the posterior, rather than the `most likely' parameter, has several benefits:
-\begin{itemize}
-	\item Its spread makes it clear how much uncertainty there is about what the true parameter value is.
-	\item The distribution directly describes the probability of a particular parameter value, making it much easier to communicate to the uninitiated than hypothesis tests or interval estimates.
-	\item The assumptions being made in Bayesian inference are clearer than in hypothesis testing.
-\end{itemize}
+Summary statistics focus attention on a particular value for a distribution's parameter. In reality, a sample will suggest a distribution for this parameter - that is, a range of values, some of which are more likely than others to be the true parameter value. In Bayesian inference, we seek to estimate this distribution, which is known as the parameter's \emph{posterior}. The posterior is the result of combining knowledge available before data is collected and the information in the data itself. Figure \ref{fig:annotated_posterior} highlights the benefits of a posterior distribution against a point estimate, such as a sample mean.
+\begin{figure}
+\includegraphics[width=\textwidth]{annotated_posterior.pdf}
+\caption{An annotated posterior distribution.}
+\label{fig:annotated_posterior}
+\end{figure}
 
 \par
-An example of where this would be applicable in DCA is in estimating the proportion of units that will pass a test.
-In this instance, the data is the $y$ in $n$ units that pass in a sample, and the prior is what we think the probability of a given proportion $\theta$ passing is. All that's necessary to compute the posterior is to weight the data's probability by the prior probability:
+An example of where Bayesian inference would be applicable in DCA is in estimating the proportion of units that will pass a test.
+In this instance, the data is the $y$ in $n$ units that pass in a sample, and our prior knowledge is what we think the probability of a given proportion $\theta$ passing is. In all then, the aim is to calculate $p(\theta|y)$ from $p(y|\theta$) and $p(\theta)$ . Bayes' rule, which can be brushed up on in Appendix A, can be used to do this:
 \begin{equation}
   p(\theta|y) = \frac{p(y|\theta)\cdot p(\theta)}{\int_{\theta}p(y|\theta)\cdot p(\theta)\cdot d\theta}
   \label{eq:bayes}
 \end{equation}
-Expression (\ref{eq:bayes}) states that the probability of a parameter given the data (the \emph{posterior}) is directly proportional to the data's probability given that parameter value (the \emph{likelihood}). The denominator of this expression is constant w.r.t. $\theta$, so that
+What expression (\ref{eq:bayes}) means is that our belief... The denominator of this expression is constant w.r.t. $\theta$, so that
 \begin{align}
   p(\theta|y) &\propto p(y | \theta)\cdot p(\theta)   \label{eq:unnorm_bay} \\
   \small{\texttt{Posterior}} &\propto\small{{\texttt{Likelihood} \cdot \texttt{Prior}}} \nonumber
 \end{align}
-
 (\ref{eq:unnorm_bay}) tells us that to estimate $p(\theta|y)$, we need two things:
 \begin{itemize}
 \item The probability of the data for a given probability of success, $p(y|\theta)$ (the \emph{likelihood}).
@@ -580,21 +579,22 @@ Now, at this point it's possible to do one of two things: the posterior can eith
 \begin{equation}
 	p(\theta|y) = \texttt{constant}\cdot p(y|\theta) \cdot p(\theta)
 \end{equation}
- An analytical solution can be difficult and tedious. In practice, the computational method is generally used. This consists of defining a grid of $\theta$ values, calculating the corresponding likelihoods and priors using a software package, then taking the product of these to get the posterior.
- \begin{enumerate}
- 	\item Define a list  $\boldsymbol{\theta}$ of values that $\theta$ can take on, and variables representing the number of successes $y$ and the number of trials $n$. In this case, we could use $\boldsymbol{\theta} = \{0, 0.01, ..., 1\}$ since $\theta$ can take on values between 0 and 1.
- 	\item Calculate the likelihood, $p(y|\theta)$, and the prior, $p(\theta)$, for each value in this list. Matlab and R have functions that return the probability distributions of common functions. Diligently then, we plug in our values to create two more lists, one for the likelihood probabilities, and one for the prior probabilities:
- 	\begin{align}
- 		\boldsymbol{\textbf{Pr}(y|\theta)} &= \texttt{pbinom}(y, n, \boldsymbol{\theta})  \nonumber \\
- 		\boldsymbol{p(\theta)} &= \boldsymbol{1} \nonumber
- 	\end{align}
- 	\item Multiply the elements of these lists by each other, then divide by the sum of the result to get the posterior probabilities.
- 	\begin{gather*}
- 		\texttt{Unnormalized } \boldsymbol{p(\theta|y)} = \boldsymbol{p(y|\theta)} \odot \boldsymbol{p(\theta)} \\
- 		\boldsymbol{p(\theta|y)} =  \frac{\texttt{Unnormalized } \boldsymbol{p(\theta|y)}}{\sum_{\theta} p(\theta|y)\cdot \delta \theta}
- 	\end{gather*}
- \end{enumerate}
+In practice, this product is calculated using a computer. A grid of $\theta$ values is defined, their corresponding likelihoods and priors are computed using a software package, then their product is taken. This process is described by the pseudocode:
+\begin{align}
+  \quad n &:= \small{\texttt{No. of units tested}} \\
+   \quad y &:= \small{\texttt{No. of units that passed}} \\
+  \boldsymbol{\theta} & := (0, \ 0.01, \ \dots, \ 1) \\
+  \small{\texttt{Prior}} &:= \small{\texttt{Uniform}}(\boldsymbol{\theta}, [0, 1]) \\
+  \small{\texttt{Likelihood}} &:= \small{\texttt{Binomial}}(y, n, \boldsymbol{\theta}) \\ 
+  \small{\texttt{Posterior}} &:= \small{\texttt{Prior} \odot \texttt{Likelihood}}
+\end{align}
+One of the neat things about Bayesian inference is that the posterior of one analysis can be used as the prior of the next: this means that the information from tests is able to accumulate. This idea is shown in Figure \ref{fig:updating_posterior.pdf} - the flat prior represents initial ignorance about whether a unit will pass: as more units are run, an increasingly narrow peak forms around the most probable passing probability.
 
+\begin{figure}
+\includegraphics[width=\textwidth]{updating_posterior.pdf}
+\label{fig:updating_posterior}
+\caption{The uncertainty in the posterior decreases as more samples are conditioned upon.}
+\end{figure}
 
 \subsection*{Markov Chain Simulation}
 \subsection*{Decision Trees}
