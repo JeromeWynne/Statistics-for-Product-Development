@@ -18,6 +18,7 @@
 \usepackage{lscape}
 \usepackage{mdwlist}
 \usepackage{longtable}
+\usepackage[T1]{fontenc}
 
 \setlength{\parskip}{\baselineskip}%
 \setlength{\parindent}{0pt}%
@@ -588,13 +589,34 @@ In practice, this product is calculated using a computer. A grid of $\theta$ val
   \small{\texttt{Likelihood}} &:= \small{\texttt{Binomial}}(y, n, \boldsymbol{\theta}) \\ 
   \small{\texttt{Posterior}} &:= \small{\texttt{Prior} \odot \texttt{Likelihood}}
 \end{align}
+Where $\texttt{Uniform}$ returns the probability density at the values in $\boldsymbol{\theta}$, $\texttt{Binomial}$ returns the probability of $y$ in $n$ units passing given each of the passing probabilities in $\boldsymbol{\theta}$, and $\odot$ is the element-wise product.
 One of the neat things about Bayesian inference is that the posterior of one analysis can be used as the prior of the next: this means that the information from tests is able to accumulate. This idea is shown in Figure \ref{fig:updating_posterior.pdf} - the flat prior represents initial ignorance about whether a unit will pass: as more units are run, an increasingly narrow peak forms around the most probable passing probability.
-
 \begin{figure}
 \includegraphics[width=\textwidth]{updating_posterior.pdf}
 \label{fig:updating_posterior}
 \caption{The uncertainty in the posterior decreases as more samples are conditioned upon.}
 \end{figure}
+\par
+Once the posterior's been calculated, it can be used to predict the behaviour of future units. $\tilde{y}$ denotes the number of future units that pass, $\tilde{n}$ is the number of units tested. The probability of $\tilde{y}$ successes, based on the observed data and additional information, is the weighted average of $\tilde{y}$ successes over all possible values of $\theta$:
+\begin{equation}
+	p(\tilde{y}|y) = \int_{\theta}p(\tilde{y}|\theta, y)\cdot p(\theta|y) \cdot d\theta
+\end{equation}
+Once again, we can avoid some potentially mischievous mathematics by approximating this integral using a computer: draw samples of $\theta$ based on $p(\theta|y)$, then sample a value of $\tilde{y}$ from $p(\tilde{y}|\theta, y)$. Do this many times and the relative frequency of $\tilde{y}$ values will tend towards $p(\tilde{y}|y)$.
+\begin{align}
+\small{\texttt{for (i in [1, 10 000]) \{}} &\\
+	\tilde{n} &:= \small{\texttt{No. future units to be tested}} \\
+	\boldsymbol{\tilde{y}} &:= (0, 1, \dots, \tilde{n}) \\
+	\theta &:= \small{\texttt{Sample(}}\boldsymbol{\theta}\small{\texttt{, Posterior)}} \\
+	\small{\texttt{Posterior predictive[i]}} &:= \small{\texttt{Sample(}}\boldsymbol{\tilde{y}}\small{\texttt{, Binomial(}}\tilde{y}, \tilde{n}, \theta\small{\texttt{))}}\\
+	&\quad\quad \small{\texttt{ \} }}
+\end{align}
+Figure \ref{fig:posterior_predictive} shows a plot of this posterior predictive distribution.
+\begin{figure}
+\includegraphics[width=\textwidth]{posterior_predictive.pdf}
+\caption{}
+\label{fig:posterior_predictive}
+\end{figure}
+
 
 \subsection*{Markov Chain Simulation}
 \subsection*{Decision Trees}
