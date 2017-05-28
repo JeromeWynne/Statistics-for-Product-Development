@@ -264,7 +264,7 @@ Section X1 explains the company's current investigatory framework and how statis
 This section contextualizes DCA's uses of statistics and explains what methods are currently being applied by its engineers. The strengths and shortcomings of each method are listed, and the section closes with a summary and appraisal of DCA's approach.
 \section{The Structure of a Lab Investigation in DCA}
 % What does a testing sequence look like?
-It's convenient to split the statistical methods that DCA apply into two factions: those brought to bear in lab investigations, and those used in other engineering activities, in particular tolerance analysis and predictive modelling for product interfaces.
+It's convenient to split the statistical methods that DCA apply into two factions: those brought to bear in lab investigations, and those used in other engineering activities, in particular tolerance analysis and -.
 \par
 A lab investigation in DCA consists of a series of experiments to understand the behaviour of a product or process. It begins with the required knowledge being identified. Experiments will then be designed, executed, and analyzed until the knowledge is acquired or is deemed no longer relevant. This process is depicted in Figure \ref{fig:investigation_diagram}.
 \begin{figure}[h!]
@@ -276,11 +276,11 @@ A lab investigation in DCA consists of a series of experiments to understand the
 % What departments in DCA test their products?
 All aspects of an investigation - from experiment design through to presenting the results to a client - are handled by engineers assigned to the relevant project. Typically an investigation focuses on a particular product parameter, such as the volume of fluid dispensed by an injector, or the propensity of a inhaler to fail upon being dropped. 
 \par
-As can be seen in Figure \ref{fig:labwork_breakdown}, most lab work is conducted by engineers on medical projects.
+Most lab work is conducted by engineers on medical projects.
 Occasionally engineers working on fast-moving consumer goods (such as toothbrushes or lotion bottles) will run one-off tests to compare design variations or verify performance relative to some baseline. In general however, the timeframes and functional requirements of such products limit the relevance of extensive experimental investigations to them: medical products on the other hand, see a good deal of the test lab.
 \par
 % When do they test them and why?
-As can be seen in Figure \ref{fig:time_of_tests}, most experiments are run in the late stages of the design process. This is when resolving minor performance issues becomes a worthwhile pursuit, exploration for future product variants become a possibility, and rehearsal for fast-approaching regulatory tests becomes essential.
+As can be seen in Figure \ref{fig:time_of_tests}, the rate of testing increases as a product develops. Towards a product's relase date is when resolving minor performance issues becomes a worthwhile pursuit, exploration for future product variants become a possibility, and rehearsal for fast-approaching regulatory tests becomes essential.
 \begin{figure}
 \label{fig:time_of_tests}
 \end{figure}
@@ -394,12 +394,10 @@ Usually the choice of mapping is quite natural - for example, we might use an r.
 \par
 Variation in the events that an r.v. maps from is described using a probability distribution. Each value is weighted according to its probability or, in the case of continuous-valued r.v.s, its contribution per unit length to the cumulative probability. Figure \ref{fig:example_pd} highlights this difference.
 \par
-The essential problem of experimental statistics is understanding the behaviour of a broader population from just a sample. In product design, this means using measurements from a limited number of prototypes to estimate the variation in a product's performance. The attributes of this variation - such as its spread and average - can be estimated using summary statistics.
+The essential problem of experimental statistics is understanding the behaviour of a broader population from just a sample. In product design, this means using measurements from a limited number of prototypes to estimate the variation in a much larger population of units. The attributes of this variation - such as its spread and average - can be estimated using summary statistics.
  \par
-For instance, an average of independent observations approximatates the mean of the underlying population's distribution. The accuracy of this estimate improves as we test more samples, with diminishing returns, a relationship that is shown in Figure \ref{fig:se_with_sample_size}. The standard deviation of the sample mean, $\frac{\sigma}{\sqrt{n}}$, is the average difference between the sample mean and population mean for a given sample size, and is called standard error. It's useful as a tool for assessing how far the sample mean is from the actual mean of the population's distribution, a use that will be discussed more when we talk about interval estimates.
-\begin{equation}
-	\bar{X} = \frac{1}{n}\sum_{i = 1}^{n}x_i  \approx E[X]= \mu = \int_{-\infty}^{\infty}x\cdot p(x)\cdot dx
-\end{equation}
+A mean of several independent measurements, for example, approximates the mean of the underlying population's distribution. The accuracy of this estimate improves as more samples are tested, with diminishing returns, a relationship that is shown in Figure \ref{fig:se_with_sample_size}. This estimate's average difference to the true mean is called the standard error, and it corresponds to $\frac{\sigma}{\sqrt{n}}$, where $\sigma$ is the standard deviation of the population and $n$ is number of units in the sample. DCA implicitly appeal to this relationship when they choose to run more units in a test, although it did not seem to be used actively to gauge appropriate sample sizes.
+
 Certain summary statistics can be thought of as estimates of a distribution's parameters. These are values that constrain a particular distribution's shape. The normal distribution's shape, for example, can be specified by supplying just two values: the variance (spread) and mean (location). Viewing statistics as an exercise in estimating a distribution's parameters will be seen again later, in the section on Bayesian inference.
 
 \begin{figure}
@@ -414,55 +412,69 @@ Certain summary statistics can be thought of as estimates of a distribution's pa
 \end{figure}
 \par
 
-
+\newpage
 \subsection*{Tolerance Intervals}
-DCA's most sophisticated statistical analysis is based on ISO 16269-6, \emph{Determination of statistical tolerance intervals}. This standard outlines how to construct tolerance intervals under either no assumptions about the random variable's distribution, or the assumption that the random variable has a normal distribution. A tolerance interval is a range of values that contain a particular fraction of the population to a given confidence level. A confidence level is the proportion of intervals constructed that contain at least the stated fraction of the population. Consequently, tolerance intervals allow us to make statements about the performance of a population, with clear limits on the statement's uncertainty.
-\par
-We seek $k$ such that $\bar{x} + ks$ is greater than at least a proportion $p$ of the population with probability $1 - \alpha$. Let $\mu + u_p \sigma$ be greater than exactly a fraction $p$ of the population. Therefore:
-\[
-	P(\bar{x} + ks \geq \mu + u_p \sigma) = 1 - \alpha
-\]
-After some algebraic wrangling, it's possible to find:
-\[
-	P\Big(\frac{\sqrt{n}(\sigma u_p - \bar{x} + \mu)}{s} \leq \sqrt{n}k\Big) = 1 - \alpha
-\]
-The term on the l.h.s. of the inequality has a t-distribution with $n - 1$ degrees of freedom and location $\sqrt{n}u_p$. This means that 
-\[
-	\sqrt{n}k = t_{1 - \alpha}(\sqrt{n}u_p, n - 1)
-\]
-where $t_{1 - \alpha}(...)$ is the value corresponding to the $1 - \alpha$ percentile of the t-distribution with $n - 1$ degrees of freedom centered at $\sqrt{n}u_p$. The interval containing at least $p$ of the population with probability $1 - \alpha$ is therefore:
-\[
+DCA's most sophisticated statistical analysis is based on ISO 16269-6, \emph{Determination of statistical tolerance intervals}. This standard outlines how to construct tolerance intervals under either no assumptions about the random variable's distribution, or the assumption that the random variable has a normal distribution. A tolerance interval is a range of values that contain a particular fraction of the population to a given confidence level; a confidence level is the proportion of intervals constructed that will contain that fraction of the population. So tolerance intervals allow us to make statements about the performance of a population, with clear limits on that statement's uncertainty. A derivation of a one-sided interval is given in Appendix A, and can be summarized as:
+\begin{enumerate}
+	\item Defining $k$ such that
+		\begin{equation}
+			P(\bar{x} + ks \geq \mu + u_p \sigma) = 1 - \alpha
+			\label{eq:tol_interval}
+		\end{equation}
+	Where $\bar{x}$ is the sample mean, $s$ is the sample standard deviation, $\mu$ is the true mean of the population, $\sigma$ is its true standard deviation, and $u_p$ is such that $\mu + u_p\sigma$ is greater than $p\%$ of the population. $\alpha$ is the confidence level. \newline In words, $k$ is such that $\bar{x} + ks$ will  be greater than the $p\%$ of the population $(1 - \alpha)\%$ of the time.
+	\item If $x$ is assumed to have a normal distribution then $u_p$ can be read off a table of normal values, and by definition $\frac{(n-1)s^2}{\sigma^2}$ will have a chi-square distribution (see Appendix A). What this means is that $k$ has the same distribution as a $t$-distributed r.v. centered at $\sqrt{n}u_p$ and scaled by $\frac{1}{\sqrt{n}}$:
+		\begin{equation}
+			k = \frac{1}{\sqrt{n}}t_{n - 1}(\sqrt{n}u_p) 
+		\end{equation}
+	\item  Bonanza! The lower interval containing at least $95\%$  of the population is
+\begin{equation}
 	\Big(-\infty, \bar{x} + \frac{t_{1 - \alpha}(\sqrt{n}u_p, n - 1)\cdot s}{\sqrt{n}}\Big]
-\]
-This interval contains at least a fraction $p$ of the population with probability $1 - \alpha$. Example tolerance intervals are shown in Figure \ref{fig:tolerance_intervals}.
+\end{equation}
+A fraction $1 - \alpha$ of these intervals will contain less than $p\%$ of the population, as shown in Figure \ref{fig:tolerance_intervals}.
+\end{enumerate}
+
 \begin{figure}[H]
 \includegraphics[width=\textwidth]{tolerance_intervals.pdf}
-\caption{Estimated tolerance limits versus true population limit.}
+\caption{Twenty tolerance limits versus population limit.}
 \label{fig:tolerance_intervals}
 \end{figure}
-% Questions:
-%	> What is a t-distribution?
-% 	> Do DCA test the normality assumption?
-%	> 
-\par
+The strengths and suggestions for DCA's tolerance intervals are listed in Table \ref{tab:tol_intervals}.
+\begin{table}[b]
+\caption{Evaluation of tolerance intervals.}
+\small
+\hspace*{-.5cm}
+\begin{tabular}{p{6.5cm}p{6.5cm}}
+\toprule
+\textbf{Strengths}	&	\textbf{Shortcomings} \\
+\toprule
+Provides a threshold indicating roughly where a certain fraction of the population is. & Can be misinterpreted as specifying the probability that a constructed interval contains at least $95\%$ of the population. \\
+Plug-and-play & Normality assumption needs checking \\
+ & Repeated use at a low confidence level increases the probability that the limit will be under-estimated. \\
+\bottomrule
+\end{tabular}
+\label{tab:tol_intervals}
+\end{table}
+
 \newpage
 % Confidence intervals
 \subsection*{Confidence Intervals}
-Another tool that DCA's engineers occasionally use is confidence intervals, which indicate a range of values that a population parameter is likely to fall within. The fraction of intervals constructed that will contain the population parameter is called the confidence level of an interval. For example, if we were to construct a confidence interval for the population mean for 100 samples, each of 5 units, the confidence level would tell us how many of these intervals would - on average - contain the actual value of the population mean. Figure \ref{fig:confidence_intervals} demonstrates this. Confidence intervals can be placed on any parameter estimate, although they're usually used to quantify the uncertainty on a mean. 
-\par
-One-sided confidence limit. 
-We want to find $k$ so that
-\[
-	P(\bar{x} + k\frac{\sigma}{\sqrt{n}} \leq \mu) = 1 - \alpha
-\]
-Subtacting the population mean from both sides and dividing through by the standard error gives:
-\[
-	P(k \leq \frac{\mu - \bar{x}}{\sqrt{\sigma^2/n}}) = 1 - \alpha
-\]
-This implies that $k$ has a Normal distribution, since the r.h.s. of the inequality is just a shifting and scaling of a Normal r.v. (the sample mean). Usually the variance isn't known, in which case the constant $\sigma$ is replaced by the square root of the sample variance. Qualtitatively, this means that the r.h.s. has a $t$-distribution with $n - 1$ degrees of freedom.
+Another tool that DCA's engineers occasionally use is confidence intervals, which indicate a range of values that a population parameter is likely to fall within. This range will only contain the population parameter a certain fraction of the time however, a problem that's unavoidable since there will always be a chance that an unrepresentative sample is drawn. For example, if we were to construct a confidence interval for the population mean of 100 samples, each of 5 units, the confidence level would tell us how many of these intervals would - on average - contain the actual value of the population mean. Figure \ref{fig:confidence_intervals} demonstrates this idea. Confidence intervals can be placed on any parameter estimate, although they're usually used to quantify the uncertainty on a mean. Their derivation is similar to a tolerance interval's: the two-sided one is as follows:
+\begin{align}
+	\text{P}(\bar{x} - ks \leq \mu \leq \bar{x} + ks) &= 1 - 2\cdot \text{P}(\bar{x} - ks \leq \mu) = 1 - \alpha \nonumber\\
+	\implies \frac{\alpha}{2} &= \text{P}(\frac{\bar{x} - \mu}{s} \leq k) 
+\end{align}
+The last line implies that $k$ has a $t$-distribution with $n - 1$ degrees of freedom, so that the confidence limit that contains the true mean $(1 - \alpha)\%$ of the time is
+\begin{equation}
+	[\bar{x} - t_{n-1}(\alpha)\cdot s, \ \bar{x} + t_{n-1}(\alpha)\cdot s]
+\end{equation}
+\begin{figure}[H]
+\includegraphics[width=\textwidth]{confidence_intervals.pdf}
+\caption{}
+\label{fig:confidence_intervals}
+\end{figure}
 
 \newpage
-\subsection*{Monte Carlo estimation}
+\subsection*{Monte Carlo Simulation}
 Monte Carlo simulation approximates a quantity by simulating the random process generating it . In DCA it's been used to analze tolerance chains in products. The use case was somewhat similar to the following: the 95th percentile of some analytically inconvenient combination of distributions, each corresponding to a part dimension, was needed. Take $Y \sim \text{Binom}(n = 10, p = X)$ as an example, where $X \sim \text{Beta}(a = 7, b = 3)$\footnote{The beta distribution is a continuous and generates a number between $0$ and $1$, which makes it useful in modelling the distribution of a probability.}. Rather than attempt to derive the distribution of this dimension's value directly, tens of thousands of values of $y$ were first generated according to $Y$'s distribution using a computer. Each of these values were then used to generate a value of $x$ from $\text{Binom}(n = 10, p = y)$. The resulting frequencies of the $x$ values then represented the dimension's distribution. It was then possible to calculate the mean by averaging over all the $x$ values obtained. A diagram of this process is shown in Figure \ref{fig:monte_carlo}.
 \begin{figure}[b!]
 \includegraphics[width=0.87\textwidth]{monte_carlo_simulation.pdf}
@@ -477,11 +489,10 @@ Visualization is essential to clearly and convincingly summarizing an experiment
 \par
 DCA's reports and client presentations frequently contain plots of the data collected from an experiment, typically generated using either Microsoft Excel or Matlab. The plots used are line and bar charts, along with the occasional scatterplot.
 \par
-Line charts are particularly ubiquitous in DCA because they're directly plottable from the raw data provided by axial and torsional testing machines. As a consequence of this many graphical summaries are usually overlaid line plots, similar to that shown in Figure \ref{fig:line_plots}. The effectiveness of this use-case is evaluated in Table \ref{tab:line_chart}.
+Line charts are particularly ubiquitous in DCA because they're directly plottable from the raw data provided by axial and torsional testing machines. As a consequence of this many graphical summaries are usually overlaid line plots, similar to that shown in Figure \ref{fig:line_plots}. The effectiveness of this use-case is evaluated in Table \ref{tab:line_chart}: in short, this type of plot can include a lot of redundant information and can make it difficult to see how individual units are behaving.
 \par
-Bar charts are also used fairly frequently, and a particular format of scatterplot is used to present the results of a tolerance limit analysis. The latter is shown in Figure \ref{fig:tolerance_intervals_plot}.
- 
-\begin{table}[b]
+Bar charts are also used fairly frequently to display performance relative to a nominal value, and a particular format of scatterplot is used to present the results of a tolerance limit analysis. The latter is shown in Figure \ref{fig:tolerance_intervals_plot}. 
+\begin{table}[h!]
 \caption{Evaluation of the line chart.}
 \small
 \hspace*{-.5cm}
@@ -503,17 +514,11 @@ Its meaning can be understood without explanation - it is a universally familiar
 	\caption{Sample summary line chart from a DCA test report.}
 	\label{fig:line_plots}
 \end{figure}
-The tolerance intervals in the preceding section are, by protocol, plotted according to the graph in Figure \ref{fig:tolerance_intervals_plot}. 
-\begin{itemize}
-\item[+] Something nice
-\end{itemize}
 \begin{figure}
 	\includegraphics[width=\textwidth]{tolerance_intervals_plot.pdf}
 	\caption{Tolerance interval plot.}
 	\label{fig:tolerance_intervals_plot}
 \end{figure}
-
-\section{Other Activities}
 
 %%  SUGGESTED METHODS %%
 \chapter{Suggested Methods}\label{suggested_methods}
@@ -523,64 +528,67 @@ The tolerance intervals in the preceding section are, by protocol, plotted accor
 \subsection*{Taguchi designs}
 
 \section{Analysis}
-\subsection*{Regression Models}
+\subsection*{Linear Models}
 % What's a regression model?
 % How's it useful to DCA?
 % What do they consist of?
 % What are their limitations, and how can they be applied to more difficult problems?
-Regression models are a flexible tool that allow us to
-\begin{itemize}
-\item Estimate the effects of discrete and continuous factors on a unit's response - even if they interact or have a nonlinear influence.
-\item Identify differences between units that aren't immediately apparent from raw data
-\item Measure how well our understanding of a product lines up with its reality
-\end{itemize}
-
+Typically a test can be viewed in terms of predictor and reponse variables: in a tensile test of a unit for instance, load might be viewed as the reponse and displacement as a predictor. Linear models describe a response as a linear function of some parameters $\beta$, each weighted by possible predictors:
+\begin{equation}
+	f(x) = \beta_0 + \beta_1 x_1 + \beta_2 e^{x_1^2}+ \beta_3 \text{log} x_2
+\end{equation}
+Note that the coefficients $\beta_i$ are linear, but the predictors $f(x_i)$ don't have to be (where $x_i$ is a measured quantity\footnote{This quantity can be discrete (e.g. Yes/no, $\{0, 1, 2, 3\}$) or continuous.}).
+Fitting this model such that $f(x)$ tends to be close to $y$ adjusts the coefficients to reflect their associated predictors' influence on the response.
 \newpage
 \subsection*{Bayesian Inference}
 % What is Bayesian inference?
 % How can it be useful to DCA?
 % What does it consist of?
 % How does it relate to other statistical methods, what are its limitations, and how can it be used for more difficult problems?
-Summary statistics focus attention on a particular value for a distribution's parameter. In reality, a sample will suggest a distribution for this parameter - that is, a range of values, some of which are more likely than others to be the true parameter value. In Bayesian inference, we seek to estimate this distribution, which is known as the parameter's \emph{posterior}. The posterior is the result of combining knowledge available before data is collected and the information in the data itself. Figure \ref{fig:annotated_posterior} highlights the benefits of a posterior distribution against a point estimate, such as a sample mean.
-\begin{figure}
+Summary statistics state what the most likely value for a parameter\footnote{Reminder: a parameter is a number that controls the shape of a distribution.} is, based on the data alone. They don't say how much more likely this value is is than other values, or let knowledge besides the data be included.
+\par
+ In reality, a sample will suggest a distribution of plausible values, and there will be expert knowledge that can be used. Bayesian inference combines this knowledge with the collected data to estimate a distribution of possible parameter values. Figure \ref{fig:annotated_posterior} points out the benefits of determining how probable particular parameter values are, compared to the point estimates provided by summary statistics.
+\begin{figure}[b]
 \includegraphics[width=\textwidth]{annotated_posterior.pdf}
 \caption{An annotated posterior distribution.}
 \label{fig:annotated_posterior}
 \end{figure}
-
 \par
-An example of where Bayesian inference would be applicable in DCA is in estimating the proportion of units that will pass a test.
-In this instance, the data is the $y$ in $n$ units that pass in a sample, and our prior knowledge is what we think the probability of a given proportion $\theta$ passing is. In all then, the aim is to calculate $p(\theta|y)$ from $p(y|\theta$) and $p(\theta)$ . Bayes' rule, which can be brushed up on in Appendix A, can be used to do this:
+Bayesian methods would be useful to DCA because they're more easily understood, visualized, and explained than classical methods, and are relevant to a broader range of situations. They also allow expert knowledge to be used, making it possible to reach a sanitary comprimise between gut-feel and experimental observation. These claims will can be explained and justified in the context of an example.
+\par
+The proportion of units passing a specification test is a useful measure of a design's suitability for the problem at hand. Using the results from a test sample and the expertise of an engineering team, it's possible to estimate what pass rates would be likely if the design were to be produced in larger volumes by a similar method.
+\par
+Say that a sample of $n$ units are tested, and $n$ pass. The engineering team also collude to produce a distribution for the passing rate $\theta$ that's tall near values they think probable and shallow near ones that seem unlikely. The team's aim is then to calculate the probability of a unit passing, given their data and preliminary estimates: Bayes' theorem can be used to do this.
 \begin{equation}
   p(\theta|y) = \frac{p(y|\theta)\cdot p(\theta)}{\int_{\theta}p(y|\theta)\cdot p(\theta)\cdot d\theta}
   \label{eq:bayes}
 \end{equation}
-What expression (\ref{eq:bayes}) means is that our belief... The denominator of this expression is constant w.r.t. $\theta$, so that
+Expression (\ref{eq:bayes}) means that a passing proportion is more probable if it makes the number of units seen to pass more likely and seems sensible to the engineering team. The denominator of this expression is constant w.r.t. $\theta$, so that
 \begin{align}
   p(\theta|y) &\propto p(y | \theta)\cdot p(\theta)   \label{eq:unnorm_bay} \\
   \small{\texttt{Posterior}} &\propto\small{{\texttt{Likelihood} \cdot \texttt{Prior}}} \nonumber
 \end{align}
-(\ref{eq:unnorm_bay}) tells us that to estimate $p(\theta|y)$, we need two things:
+(\ref{eq:unnorm_bay}) makes it clear that to estimate $p(\theta|y)$, two things are needed:
 \begin{itemize}
-\item The probability of the data for a given probability of success, $p(y|\theta)$ (the \emph{likelihood}).
-\item  The probability of a parameter value according to prior knowledge, $p(\theta)$ (the \emph{prior}).
+\item The probability of the data assuming a particular passing proportion, $p(y|\theta)$ (the \emph{likelihood}).
+\item  The probability of a passing proportion according to the engineerig team, $p(\theta)$ (the \emph{prior}).
 \end{itemize}
-
-Assuming the units are independent, the likelihood, $p(y|\theta)$, is the probability of $y$ successes and $n-y$ failures:
+The likelihood is the probability of $y$ units passing and $(n-y)$ units failing. Assuming that passes and failures and independent and the units come from populations with the same underlying passing probability, then the probability of $y$ passes given that $\theta$ of that population would pass is:
 \begin{gather}
   p(y|\theta) = \binom{n}{y} \theta^y (1 - \theta)^{n - y}
+  \label{eq:binom_likelihood}
 \end{gather}
-
-The prior distribution, $p(\theta)$, is a way to encode our knowledge of the probability that a unit will pass the test. If we don't know how likely a unit is to pass, then it may be reasonable to assume that all passing probabilities are equally likely:
+The prior distribution, $p(\theta)$, encodes knowledge of what passing proportions are probable. If the engineering team is unsure what the passing proportion would be, then they may assume that all values are equally likely:
 \begin{equation}
   p(\theta) = 1 \quad \theta \in [0, 1]
+  \label{eq:unif_prior}
 \end{equation}
-
-Now, at this point it's possible to do one of two things: the posterior can either be evaluated analytically, or it can be computed. Irrespective of the method chosen, the expression being evaluated is:
+Figure \ref{fig:binom_bayes_inference} displays the prior and likelihood distributions. At this point it's possible to do one of two things: the posterior can either be evaluated analytically, or it can be computed. Irrespective of the method chosen, the expression being evaluated is:
 \begin{equation}
 	p(\theta|y) = \texttt{constant}\cdot p(y|\theta) \cdot p(\theta)
+	\label{eq:example_bayes}
 \end{equation}
-In practice, this product is calculated using a computer. A grid of $\theta$ values is defined, their corresponding likelihoods and priors are computed using a software package, then their product is taken. This process is described by the pseudocode:
+In practice, (\ref{eq:example_bayes}) is calculated using a computer. A grid of $\theta$ values is defined, and their prior probabilities and likelihoods are calculated in line with the functions in (\ref{eq:unif_prior}) and (\ref{eq:binom_likelihood}). This process can be described by the pseudocode:
 \begin{align}
   \quad n &:= \small{\texttt{No. of units tested}} \\
    \quad y &:= \small{\texttt{No. of units that passed}} \\
@@ -589,7 +597,14 @@ In practice, this product is calculated using a computer. A grid of $\theta$ val
   \small{\texttt{Likelihood}} &:= \small{\texttt{Binomial}}(y, n, \boldsymbol{\theta}) \\ 
   \small{\texttt{Posterior}} &:= \small{\texttt{Prior} \odot \texttt{Likelihood}}
 \end{align}
-Where $\texttt{Uniform}$ returns the probability density at the values in $\boldsymbol{\theta}$, $\texttt{Binomial}$ returns the probability of $y$ in $n$ units passing given each of the passing probabilities in $\boldsymbol{\theta}$, and $\odot$ is the element-wise product.
+Where $\texttt{Uniform}$ returns the probability density of the uniform distribution for each value in $\boldsymbol{\theta}$ (i.e. a list of ones), $\texttt{Binomial}$ returns the probability of $y$ in $n$ units passing given each of the passing probabilities in $\boldsymbol{\theta}$, and $\odot$ is the element-wise product.
+The posterior list would contain the probability density for each passing proportion $\theta$, and is again shown in Figure \ref{fig:binom_bayes_inference}. The pointy part indicates more probable values - a taller, pointier peak represents a more certain estimate because a few values have a much higher probability than lots of others. In the same spirit, the flat prior that was used can be understood as highly uncertain.
+\begin{figure}
+\includegraphics[width=\textwidth]{Bayesian_inference.pdf}
+\caption{}
+\label{fig:binom_bayes_inference}
+\end{figure}
+\par
 One of the neat things about Bayesian inference is that the posterior of one analysis can be used as the prior of the next: this means that the information from tests is able to accumulate. This idea is shown in Figure \ref{fig:updating_posterior.pdf} - the flat prior represents initial ignorance about whether a unit will pass: as more units are run, an increasingly narrow peak forms around the most probable passing probability.
 \begin{figure}
 \includegraphics[width=\textwidth]{updating_posterior.pdf}
@@ -597,7 +612,7 @@ One of the neat things about Bayesian inference is that the posterior of one ana
 \caption{The uncertainty in the posterior decreases as more samples are conditioned upon.}
 \end{figure}
 \par
-Once the posterior's been calculated, it can be used to predict the behaviour of future units. $\tilde{y}$ denotes the number of future units that pass, $\tilde{n}$ is the number of units tested. The probability of $\tilde{y}$ successes, based on the observed data and additional information, is the weighted average of $\tilde{y}$ successes over all possible values of $\theta$:
+Once the posterior has been calculated, it can be used to predict the behaviour of future units. $\tilde{y}$ denotes the number of future units that pass, $\tilde{n}$ is the number of units tested. The probability of $\tilde{y}$ successes, based on the observed data and additional information, is the weighted average of $\tilde{y}$ successes over all possible values of $\theta$:
 \begin{equation}
 	p(\tilde{y}|y) = \int_{\theta}p(\tilde{y}|\theta, y)\cdot p(\theta|y) \cdot d\theta
 \end{equation}
@@ -613,19 +628,27 @@ Once again, we can avoid some potentially mischievous mathematics by approximati
 Figure \ref{fig:posterior_predictive} shows a plot of this posterior predictive distribution, along with the $5\%$ lower limit on the number of units that will pass. This limit can be interpreted as a bound on the plausible number of units to pass, according to the weighted evidence, or it can be given a frequency interpretation: if we were to run 20 samples of 100 units, we would expect one of these samples to have a pass rate of less than 54 units.
 \begin{figure}
 \includegraphics[width=\textwidth]{posterior_predictive.pdf}
-\caption{}
+\caption{Posterior predictive distribution for the number of passing units in a 100-unit run.}
 \label{fig:posterior_predictive}
 \end{figure}
 Another advantage of Bayesian methods over hypothesis testing is that it's relatively easy to build models that estimate many parameters simultaneously. An instance of this might be when estimating the mean and variance of data that's assumed to have a normal distribution. The only change relative to the single-parameter scenario is that we need to define the prior and likelihood in Equation \ref{eq:unnorm_bay} over two parameters instead of one:
 \begin{equation}
 	p(\theta_1, \theta_2 | y) \propto p(y|\theta_1, \theta_2) \cdot p(\theta_1, \theta_2)
 \end{equation}
-Where $\theta_1$ is the data's mean, $\theta_2$ is its standard deviation, and $y$ is the dataset. Using a joint prior that weakly favours a range of mean and variance values (based on sensible physical estimates) and a normal likelihood $p(y|\theta_1, \theta_2) = N(\theta_1, \theta_2^2)$ results in a distribution of plausible parameter values like that shown in Figure \ref{fig:3d_bayes}.
-\i
+Where $\theta_1$ is the data's mean, $\theta_2$ is its standard deviation, and $y$ is the dataset. Using a joint prior that weakly favours a range of mean and variance values (based on sensible physical estimates) and a normal likelihood $p(y|\theta_1, \theta_2) = \text{N}(\theta_1, \ \theta_2^{\ 2})$ results in a distribution of parameter values like that shown in Figure \ref{fig:multiparameter_bayes}. This distribution makes it immediately clear how much the data reduced uncertainty about what values  are reasonable for the data's mean and standard deviation.
+\begin{figure}
+\centering
+\makebox[0pt]{\includegraphics[width=1.4\textwidth]{multiparameter_bayes.pdf}}
+\caption{Multiparameter Bayesian inference.}
+\label{fig:multiparameter_bayes}
+\end{figure}
+
+In summary, shifting from classical methods to Bayesian ones would make statistics within DCA more transparent to both its engineers and clients. Hypothesis tests and interval estimates are easily misinterpreted and needlessly obscure the amount of certainty in parameter estimates. The jargon of classical statistics can make it unclear what's relevant to the problem at hand, and makes an honest explanation of its methods to non-technical team members difficult and comical. Bayesian methods make it clear how the data and prior knowledge are being combined, and provide results that are more easily interpreted.
+\par
+It is generally recognized that the scientific community as a whole needs to reconsider the practical relevance of hypothesis testing: DCA can hardly be faulted for neglecting to apply ineffective methods.
 
 \subsection*{Markov Chain Monte Carlo}
 As mentioned, DCA have previously used Monte Carlo simulation to approximate the distribution of a tolerance chain's dimension. For problems with many parameters - such as a subassembly of many components - Monte Carlo simulation isn't feasible because it would require an outrageous number of grid points. Instead, the posterior can be approximated using a Markov chain Monte Carlo method. This entails randomly drawing a sequence of values according to their relative probabilities, such that their relative frequencies reflect the posterior distribution.
-\subsection*{Decision Trees}
 
 %%
 \section{Presentation \& Visualization}
@@ -676,5 +699,8 @@ To find the constant of proportionality, we need to divide the r.h.s. by its int
   p(x; a, b) \propto x^{a - 1}\cdot x^{b-1}
 \]
 
-
+Confidence intervals
+\[
+	 = \text{P}\Bigg(\frac{\Big(\frac{\bar{x} - \mu}{\sigma/\sqrt{n}}\Big)}{s/\sqrt{n}\sigma}\Bigg)
+\]
 \end{document}
