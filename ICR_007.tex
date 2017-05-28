@@ -610,15 +610,21 @@ Once again, we can avoid some potentially mischievous mathematics by approximati
 	\small{\texttt{Posterior predictive[i]}} &:= \small{\texttt{Sample(}}\boldsymbol{\tilde{y}}\small{\texttt{, Binomial(}}\tilde{y}, \tilde{n}, \theta\small{\texttt{))}}\\
 	&\quad\quad \small{\texttt{ \} }}
 \end{align}
-Figure \ref{fig:posterior_predictive} shows a plot of this posterior predictive distribution.
+Figure \ref{fig:posterior_predictive} shows a plot of this posterior predictive distribution, along with the $5\%$ lower limit on the number of units that will pass. This limit can be interpreted as a bound on the plausible number of units to pass, according to the weighted evidence, or it can be given a frequency interpretation: if we were to run 20 samples of 100 units, we would expect one of these samples to have a pass rate of less than 54 units.
 \begin{figure}
 \includegraphics[width=\textwidth]{posterior_predictive.pdf}
 \caption{}
 \label{fig:posterior_predictive}
 \end{figure}
+Another advantage of Bayesian methods over hypothesis testing is that it's relatively easy to build models that estimate many parameters simultaneously. An instance of this might be when estimating the mean and variance of data that's assumed to have a normal distribution. The only change relative to the single-parameter scenario is that we need to define the prior and likelihood in Equation \ref{eq:unnorm_bay} over two parameters instead of one:
+\begin{equation}
+	p(\theta_1, \theta_2 | y) \propto p(y|\theta_1, \theta_2) \cdot p(\theta_1, \theta_2)
+\end{equation}
+Where $\theta_1$ is the data's mean, $\theta_2$ is its standard deviation, and $y$ is the dataset. Using a joint prior that weakly favours a range of mean and variance values (based on sensible physical estimates) and a normal likelihood $p(y|\theta_1, \theta_2) = N(\theta_1, \theta_2^2)$ results in a distribution of plausible parameter values like that shown in Figure \ref{fig:3d_bayes}.
+\i
 
-
-\subsection*{Markov Chain Simulation}
+\subsection*{Markov Chain Monte Carlo}
+As mentioned, DCA have previously used Monte Carlo simulation to approximate the distribution of a tolerance chain's dimension. For problems with many parameters - such as a subassembly of many components - Monte Carlo simulation isn't feasible because it would require an outrageous number of grid points. Instead, the posterior can be approximated using a Markov chain Monte Carlo method. This entails randomly drawing a sequence of values according to their relative probabilities, such that their relative frequencies reflect the posterior distribution.
 \subsection*{Decision Trees}
 
 %%
