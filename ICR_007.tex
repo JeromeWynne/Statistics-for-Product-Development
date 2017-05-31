@@ -533,12 +533,26 @@ Its meaning can be understood without explanation - it is a universally familiar
 % How's it useful to DCA?
 % What do they consist of?
 % What are their limitations, and how can they be applied to more difficult problems?
-Typically a test can be viewed in terms of predictor and reponse variables: in a tensile test of a unit for instance, load might be viewed as the reponse and displacement as a predictor. Linear models describe a response as a linear function of some parameters $\beta$, each weighted by possible predictors:
+Typically a test can be viewed in terms of input and reponse variables: in a tensile test of a unit for instance, load might be viewed as the reponse and displacement as a predictor. Linear models describe a response as a linear function of some parameters $\beta$, each weighted by possible predictors. An example of such a model would be:
 \begin{equation}
-	f(x) = \beta_0 + \beta_1 x_1 + \beta_2 e^{x_1^2}+ \beta_3 \text{log} x_2
+	f(x_1, x_2) = \beta_0 + \beta_1 \cdot x_1 + \beta_2 \cdot e^{x_1}+ \beta_3 \cdot x_1 \cdot x_2
 \end{equation}
-Note that the coefficients $\beta_i$ are linear, but the predictors $f(x_i)$ don't have to be (where $x_i$ is a measured quantity\footnote{This quantity can be discrete (e.g. Yes/no, $\{0, 1, 2, 3\}$) or continuous.}).
-Fitting this model such that $f(x)$ tends to be close to $y$ adjusts the coefficients to reflect their associated predictors' influence on the response.
+Where  $x_i$ is a measured quantity, $\beta_j$ is the coefficient of the $j$th term, and $f$ is the model to be fit. Note that while the coefficients $\beta_i$ are linear, the predictors can be any kind of function of the measurements. Fitting this model such that $f(x)$ tends to be close to $y$ adjusts the coefficients to reflect their predictors' influence on the response. A common type of fit is a simple linear fit:
+\begin{equation}
+	f(x_1) = \beta_0 + \beta_1 \cdot x_1
+\end{equation}
+This can be extended to more than one variable, where it becomes known as multiple linear regression:
+\begin{equation}
+	f(x_1, x_2) = \beta_0 + \beta_1 \cdot x_1 + \beta_2 \cdot x_2
+\end{equation}
+Linear regression of a dummy dataset onto one and two predictor variables is shown in Figure \ref{fig:linear_regression}. 
+\begin{figure}
+\includegraphics[width=\textwidth]{linear_fits.pdf}
+\caption{Linear fits}
+\label{fig:linear_regression}
+\end{figure}
+
+
 \newpage
 \subsection*{Bayesian Inference}
 % What is Bayesian inference?
