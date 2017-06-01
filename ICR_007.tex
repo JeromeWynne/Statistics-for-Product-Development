@@ -533,7 +533,14 @@ Its meaning can be understood without explanation - it is a universally familiar
 % How's it useful to DCA?
 % What do they consist of?
 % What are their limitations, and how can they be applied to more difficult problems?
-Typically a test can be viewed in terms of input and reponse variables: in a tensile test of a unit for instance, load might be viewed as the reponse and displacement as a predictor. Linear models describe a response as a linear function of some parameters $\beta$, each weighted by possible predictors. An example of such a model would be:
+Experimental work often tries to an answer questions such as:
+\begin{itemize}
+\item Which factors are having a big effect on the response?
+\item How does this factor affect the reponse? Does it interact with other factors?
+\item Which design variation is better?
+\end{itemize}
+ Regression is a tool that would allow DCA's engineers to answer questions like these. Knowing which design parameters are important for a robust product, and how these parameters interact, .  Being able to use regression models opens up more nuanced questions such as: ``Do $x_1$ and $x_2$ interact? If so, by how much?''.
+ Linear models describe a response as a linear function of some parameters $\beta$, each weighted by possible predictors. An example of such a model would be:
 \begin{equation}
 	f(x_1, x_2) = \beta_0 + \beta_1 \cdot x_1 + \beta_2 \cdot e^{x_1}+ \beta_3 \cdot x_1 \cdot x_2
 \end{equation}
@@ -548,7 +555,7 @@ This can be extended to more than one variable, where it becomes known as multip
 Linear regression of a dummy dataset onto one and two predictor variables is shown in Figure \ref{fig:linear_regression}. 
 \begin{figure}
 \includegraphics[width=\textwidth]{linear_fits.pdf}
-\caption{Linear fits}
+\caption{A simple and a multiple linear fit.}
 \label{fig:linear_regression}
 \end{figure}
 
