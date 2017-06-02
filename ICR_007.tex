@@ -541,19 +541,67 @@ Experimental work often tries to an answer questions such as:
 \item Which design variation is better?
 \end{itemize}
 \vspace{-10pt}
- Regression analysis would allow DCA's engineers to answer questions like these. Knowing what parameters affect the product, and by how much,  focuses development on the things that matter, resuling in a better quality product that's less risky to develop.
+ Regression analysis would allow DCA's engineers to answer questions like these. Knowing what parameters affect the product, and by how much,  focuses development on the things that matter, resulting in a better quality product that's less risky to develop.
  \par
- Regression analysis tries to estimate a response using a function of some predictor variables. Linear regression uses a linear function to predict the reponse. This may sound limiting, since in real life lots of relationships are nonlinear, but nonlinear relationships can be made linear by transformation.
+ Regression estimates a response using a function of some predictor variables. Linear regression uses a linear function to predict the reponse: This may sound limiting, since in real life lots of relationships are nonlinear, but nonlinear relationships can be made linear by transformation.
  \par
-  Say there's a quadratic relationship $y = x^2$: Plotting $y$ against $x$ makes the function appear parabolic. However, if instead $y$ is plotted against $x^2$, the function becomes linear. In other words, by applying a transformation to one of the basis vectors - squaring $x$ - we end up in a space where the variable's relationship is linear
- Linear models describe a response as a linear function of some parameters $\beta$, each weighted by possible predictors. An example of such a model would be:
+  To elaborate on this point a little further, consider a quadratic relationship $y = x^2 + x$: Plotting $y$ against $x$ makes the function appear parabolic. However, if instead $y$ is plotted against $x^2 + x$, it looks linear. By transforming one of the axes we end up in a space where the variable's relationship is linear.
+  \begin{figure}
+  \includegraphics[width=\textwidth]{nonlinear_to_linear.pdf}
+  \caption{Linear functions can be used to model nonlinear relationships by transforming the predictor variables}
+  \label{fig:nonlinear_to_linear}
+  \end{figure}
+  
+  Linear models describe a response $y$ as a linear function of some parameters $\beta_i$, each weighted by possible predictors $g(x)_i$. An example of such a model would be:
 \begin{equation}
 	f(x_1, x_2) = \beta_0 + \beta_1 \cdot x_1 + \beta_2 \cdot e^{x_1}+ \beta_3 \cdot x_1 \cdot x_2
 \end{equation}
-Where  $x_i$ is a measured quantity, $\beta_j$ is the coefficient of the $j$th term, and $f$ is the model to be fit. Note that while the coefficients $\beta_i$ are linear, the predictors can be any kind of function of the measurements. Fitting this model such that $f(x)$ tends to be close to $y$ adjusts the coefficients to reflect their predictors' influence on the response. A common type of fit is a simple linear fit:
+Where  $x_i$ is a measured quantity, $\beta_j$ is the coefficient of the $j$th term, and $f$ is the model to be fit. Note that while the coefficients $\beta_i$ are linear, the predictors can be any kind of function of the measurements. A common type of fit is a simple linear fit, where a single reponse variable is regressed onto one predictor variable and a constant:
 \begin{equation}
 	f(x_1) = \beta_0 + \beta_1 \cdot x_1
 \end{equation}
+This model can be fit by adjusting the $\beta_i$ values so that $f(x)$ is a returns accurate estimates of $y$. To do this, it's necessary to measure how much error there is in $f(x)$'s estimate of $y$. One way is to use the residual sum of squares:
+\begin{equation}
+	\text{RSS}(\beta) = \sum_{i = 1}^m \Big(y_i - \sum_{j = 1}^p \beta_j x_{ij} \Big)^2
+	\label{eq:rss}
+\end{equation}
+This measure of fit is a good one for several reasons, the most intuitive of which is that by minimizing (\ref{eq:rss}) the overall distance between the estimates $\sum_{j = 1}^p \beta_j x_{ij}$ and the responses $y_i$ is minimized. There are two other justifications for this measure of fit: that the estimates  of $\hat{y}$ given by (\ref{eq:rss}) maximize the probability of the observed responses.
+\begin{gather}
+	\text{Assume that the errors in $y$ given $x$ are normal with constant variance and mean zero}\\
+	\epsilon \sim \text{N}(0, \sigma^2) \\
+	p(\epsilon|\beta) = \frac{1}{\sqrt{2\pi}\sigma} \exp (-\frac{\epsilon^2}{2\sigma^2})
+\end{gather}
+Assume that the true response is a linear function in $\beta$, such that $E(Y|X) = X\beta$, then take the log of the likelihood:
+\begin{gather}
+	l(\beta) \propto -(Y - X\beta)^2
+\end{gather}
+Such that maximizing the likelihood is equivalent to minimizing the RSS criterion.
+
+The final way to justify a least squares fit does not require a normality assumption: instead, it is rationalized as providing the lowest variance estimate of $EY$ for a given $X$. In other words, a least squares fit will, on average, be closer to the true response than a linear fit made in some other way.
+
+Start by assuming that $y$ truly is a linear function of $X$, which is a vector of inputs, so that:
+\begin{gather}
+	E[y|X] = X\beta 
+\end{gather}
+Next note that it follows from the above that the least squares fit will be an unbiased estimate, provided that $\boldsymbol{y}$ is drawn i.i.d. at a given $X$:
+\begin{gather}
+	E[X\hat{\beta}] = E[\boldsymbol{X(X^T X)^{-1}X^T y}] \\
+	= \boldsymbol{X(X^T X)^{-1}X^T X}\beta \\
+	\implies E[X\hat{\beta}] = \boldsymbol{X}\beta
+\end{gather}
+Almost there. Now we need to think about other possible estimates of $E[y|X]$. We can see from (16) that our estimate is a linear function of $y$ (Estimable functions?). Imagine another function $\boldsymbol{c^T y}$ that's also linear in $\boldsymbol{y}$. The Gauss-Markov theorem states that the variance of the least-squared estimate is guaranteed to be less than this other linear estimate:
+\begin{equation}
+	\text{Var}(\boldsymbol{X}\hat{\beta}) \leq \text{Var}(\boldsymbol{c^Ty})
+\end{equation} 
+The proof for this is:
+\begin{gather}
+	E[(a^T \hat{\beta} - a^T \beta)^2] \leq E[((c^T y - a^T \hat{\beta}) - ( a^T \beta - a^T \hat{\beta}))^2]\\
+	\leq  E[((c^T y - a^T \hat{\beta}) + ( a^T \hat{\beta} - a^T \beta))^2] \\
+	\leq E[(c^T y - a^T \hat{\beta})^2] + E[( a^T \beta - a^T \hat{\beta})^2] \\
+	\iff 0 \leq E[(c^T y - a^T \hat{\beta})^2]
+\end{gather}
+Is this is a proof? How can you be sure?
+
 This can be extended to more than one variable, where it becomes known as multiple linear regression:
 \begin{equation}
 	f(x_1, x_2) = \beta_0 + \beta_1 \cdot x_1 + \beta_2 \cdot x_2
@@ -565,6 +613,12 @@ Linear regression of a dummy dataset onto one and two predictor variables is sho
 \label{fig:linear_regression}
 \end{figure}
 
+Justifying OLS:
+\begin{itemize}
+	\item Physical nearness as a projection onto the column space of the design matrix.
+	\item Results in maximum likelihood estimate if the errors are i.i.d. normal.
+	\item The Gauss-Markov theorem states that $\hat{\beta}$ is the best linear unbiased estimate. 
+\end{itemize}
 
 \newpage
 \subsection*{Bayesian Inference}
