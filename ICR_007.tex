@@ -543,82 +543,85 @@ Experimental work often tries to an answer questions such as:
 \vspace{-10pt}
  Regression analysis would allow DCA's engineers to answer questions like these. Knowing what parameters affect the product, and by how much,  focuses development on the things that matter, resulting in a better quality product that's less risky to develop.
  \par
- Regression estimates a response using a function of some predictor variables. Linear regression uses a linear function to predict the reponse: This may sound limiting, since in real life lots of relationships are nonlinear, but nonlinear relationships can be made linear by transformation.
- \par
-  To elaborate on this point a little further, consider a quadratic relationship $y = x^2 + x$: Plotting $y$ against $x$ makes the function appear parabolic. However, if instead $y$ is plotted against $x^2 + x$, it looks linear. By transforming one of the axes we end up in a space where the variable's relationship is linear.
-  \begin{figure}
-  \includegraphics[width=\textwidth]{nonlinear_to_linear.pdf}
-  \caption{Linear functions can be used to model nonlinear relationships by transforming the predictor variables}
-  \label{fig:nonlinear_to_linear}
-  \end{figure}
-  
-  Linear models describe a response $y$ as a linear function of some parameters $\beta_i$, each weighted by possible predictors $g(x)_i$. An example of such a model would be:
+ Regression estimates how a response changes with some inputs. Linear regression uses a linear function to predict the reponse: This may sound limiting, since in real life lots of relationships are nonlinear, but nonlinear relationships can be made linear by transformation.
+\par
+  Linear models describe a response $y$ as a linear function of some parameters $\beta_i$, each weighted by a corresponding input $x_i$. An example of such a model would be:
 \begin{equation}
-	f(x_1, x_2) = \beta_0 + \beta_1 \cdot x_1 + \beta_2 \cdot e^{x_1}+ \beta_3 \cdot x_1 \cdot x_2
+	\hat{y} = f(x_1, x_2) = \beta_0 + \beta_1 \cdot x_1 + \beta_2 \cdot e^{x_1}+ \beta_3 \cdot x_1 \cdot x_2
 \end{equation}
-Where  $x_i$ is a measured quantity, $\beta_j$ is the coefficient of the $j$th term, and $f$ is the model to be fit. Note that while the coefficients $\beta_i$ are linear, the predictors can be any kind of function of the measurements. A common type of fit is a simple linear fit, where a single reponse variable is regressed onto one predictor variable and a constant:
+Where $\hat{y}$ is the estimated response, $x_i$ is an input, and $\beta_j$ is the coefficient of the $j$th input. Note that while the coefficients $\beta_j$ are linear, the predictors can be a nonlinear function of the measurements.
+
+This model can be fit by adjusting the $\beta_i$ values so that $\hat{y}$ is a good estimate of the true response. To do this, it's necessary to measure how inaccurate $\hat{y}$ is relative to $y_i$. One way is to use the residual sum of squares:
+\begin{equation}
+	\text{RSS}(\beta) = \sum_{i = 1}^m \Big(y_i - \sum_{j = 1}^p \beta_i x_{ij})^2
+	\label{eq:rss}
+\end{equation}
+Where $y_i$ is the response of the $i$th example, and $x_{ij}$ is the $j$th predictor value of the $i$th example. This measure of fit is a good one for several reasons, the most intuitive of which is that by minimizing it the overall distance between the estimates $\sum_{j = 1}^p \beta_j x_{ij}$ and the responses $y_i$ is minimized\footnote{The residual refers to the difference between an estimated response and a true response at a particular set of inputs. Error refers specficially to random variation of the response around its expected value.} . There are two alternative justifications for this measure of fit, which are both presented in the Appendix.
+
+ A common linear model is a simple linear fit, where a single reponse variable is regressed onto a measurement and a constant:
 \begin{equation}
 	f(x_1) = \beta_0 + \beta_1 \cdot x_1
 \end{equation}
-This model can be fit by adjusting the $\beta_i$ values so that $f(x)$ is a returns accurate estimates of $y$. To do this, it's necessary to measure how much error there is in $f(x)$'s estimate of $y$. One way is to use the residual sum of squares:
-\begin{equation}
-	\text{RSS}(\beta) = \sum_{i = 1}^m \Big(y_i - \sum_{j = 1}^p \beta_j x_{ij} \Big)^2
-	\label{eq:rss}
-\end{equation}
-This measure of fit is a good one for several reasons, the most intuitive of which is that by minimizing (\ref{eq:rss}) the overall distance between the estimates $\sum_{j = 1}^p \beta_j x_{ij}$ and the responses $y_i$ is minimized. There are two other justifications for this measure of fit: that the estimates  of $\hat{y}$ given by (\ref{eq:rss}) maximize the probability of the observed responses.
-\begin{gather}
-	\text{Assume that the errors in $y$ given $x$ are normal with constant variance and mean zero}\\
-	\epsilon \sim \text{N}(0, \sigma^2) \\
-	p(\epsilon|\beta) = \frac{1}{\sqrt{2\pi}\sigma} \exp (-\frac{\epsilon^2}{2\sigma^2})
-\end{gather}
-Assume that the true response is a linear function in $\beta$, such that $E(Y|X) = X\beta$, then take the log of the likelihood:
-\begin{gather}
-	l(\beta) \propto -(Y - X\beta)^2
-\end{gather}
-Such that maximizing the likelihood is equivalent to minimizing the RSS criterion.
-
-The final way to justify a least squares fit does not require a normality assumption: instead, it is rationalized as providing the lowest variance estimate of $EY$ for a given $X$. In other words, a least squares fit will, on average, be closer to the true response than a linear fit made in some other way.
-
-Start by assuming that $y$ truly is a linear function of $X$, which is a vector of inputs, so that:
-\begin{gather}
-	E[y|X] = X\beta 
-\end{gather}
-Next note that it follows from the above that the least squares fit will be an unbiased estimate, provided that $\boldsymbol{y}$ is drawn i.i.d. at a given $X$:
-\begin{gather}
-	E[X\hat{\beta}] = E[\boldsymbol{X(X^T X)^{-1}X^T y}] \\
-	= \boldsymbol{X(X^T X)^{-1}X^T X}\beta \\
-	\implies E[X\hat{\beta}] = \boldsymbol{X}\beta
-\end{gather}
-Almost there. Now we need to think about other possible estimates of $E[y|X]$. We can see from (16) that our estimate is a linear function of $y$ (Estimable functions?). Imagine another function $\boldsymbol{c^T y}$ that's also linear in $\boldsymbol{y}$. The Gauss-Markov theorem states that the variance of the least-squared estimate is guaranteed to be less than this other linear estimate:
-\begin{equation}
-	\text{Var}(\boldsymbol{X}\hat{\beta}) \leq \text{Var}(\boldsymbol{c^Ty})
-\end{equation} 
-The proof for this is:
-\begin{gather}
-	E[(a^T \hat{\beta} - a^T \beta)^2] \leq E[((c^T y - a^T \hat{\beta}) - ( a^T \beta - a^T \hat{\beta}))^2]\\
-	\leq  E[((c^T y - a^T \hat{\beta}) + ( a^T \hat{\beta} - a^T \beta))^2] \\
-	\leq E[(c^T y - a^T \hat{\beta})^2] + E[( a^T \beta - a^T \hat{\beta})^2] \\
-	\iff 0 \leq E[(c^T y - a^T \hat{\beta})^2]
-\end{gather}
-Is this is a proof? How can you be sure?
-
-This can be extended to more than one variable, where it becomes known as multiple linear regression:
+This model describes a line: it can be extended to more than one variable, where it becomes known as multiple linear regression:
 \begin{equation}
 	f(x_1, x_2) = \beta_0 + \beta_1 \cdot x_1 + \beta_2 \cdot x_2
 \end{equation}
-Linear regression of a dummy dataset onto one and two predictor variables is shown in Figure \ref{fig:linear_regression}. 
+The coefficients of a three-parameter linear model describe a plane; Linear regression of a dummy dataset onto one and two predictor variables is shown in Figure \ref{fig:linear_regression}. 
 \begin{figure}
 \includegraphics[width=\textwidth]{linear_fits.pdf}
 \caption{A simple and a multiple linear fit.}
 \label{fig:linear_regression}
 \end{figure}
 
-Justifying OLS:
-\begin{itemize}
-	\item Physical nearness as a projection onto the column space of the design matrix.
-	\item Results in maximum likelihood estimate if the errors are i.i.d. normal.
-	\item The Gauss-Markov theorem states that $\hat{\beta}$ is the best linear unbiased estimate. 
-\end{itemize}
+From a practical standpoint, regression models should be fit using software. Matlab, R, or Octave can all be used to fit regression models. By setting up the problem such that the $N$ observed responses are in a column vector $\mathbf{y}$, their associated $p$ inputs form the rows of a matrix $\mathbf{X}$, which is $N \times p$, and the $p$ coefficients are in a column vector $\beta$, it's possible to succinctly write the RSS criterion, then minimize it analytically:
+\begin{align}
+	\text{RSS}(\beta) &= (\mathbf{y - X}\beta)^T(\mathbf{y - X}\beta) \\
+	\frac{\partial \text{RSS}}{\partial \beta} &= -2\mathbf{X}^T(\mathbf{y - X}\beta) = 0 \\
+	\implies &\beta = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T \mathbf{y} \label{eq:normal_eqtn}
+\end{align}
+The uncertainty in the fit can be quantified, although this would probably be of limited relevance to DCA's work since its engineers are understandably interested in practical rather than statistical significance. 
+
+As a case study to show why linear models are useful, consider a test in which the load delivered by three groups of ten units is measured. The difference between the groups is categorical: the groups correspond to three component variations $A, B,$ and $C$. Since there isn't a natural order to the variations, it's necessary to code the difference between the units in a sensible way. There are several ways to do this, although a simple indicator stating whether a unit has a particular modification is sufficient: this way, the regression coefficients will be the differerence between the average response overall and the average response within a group.
+\begin{table}
+\centering
+\caption{Dummy coding of groups.}
+\begin{tabular}{c c c c c}
+\toprule
+\textbf{Unit ID}                 & $\mathbf{x_A}$ & $\mathbf{x_B}$ & $\mathbf{x_C}$ & \textbf{Load, $\mathbf{y}$ [N]} \\
+\midrule
+1                       & 1 & 0 & 0 & 5.43         \\
+2                       & 0 & 1 & 0 & 7.48         \\ 
+& & \vdots & & \\
+30 & 0 & 1 & 0 & 6.47 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Next the model is set up:
+\begin{gather}
+	\hat{y} = \beta_0 x_A + \beta_{1}x_B + \beta_{2}x_C = x \beta \\[5mm]
+	\mathbf{X} = 
+		{\tiny
+			\begin{bmatrix}
+				x_1 \\ x_2 \\ \vdots \\ x_{30}
+			\end{bmatrix}
+			=
+			\begin{bmatrix}
+				 1 & 0 & 0 \\  0 & 1 & 0 \\ \vdots & \vdots & \vdots \\ 0 & 1 & 0
+			\end{bmatrix}}
+	\quad \mathbf{y} = {\tiny \begin{bmatrix} 5.43 \\ 7.48 \\ \vdots \\ 6.47 \end{bmatrix}}
+	\quad \beta = {\tiny \begin{bmatrix} \beta_0 \\ \beta_1 \\ \beta_2 \end{bmatrix}}
+\end{gather}
+We can then use the normal equation (Equation \ref{eq:normal_eqtn}) to make the least-squares fit. As it happens in this case, $\beta_A$, $\beta_B$, and $\beta_C$ represent the average responses within each group. Something to be quite careful of is not to include redundancy in the 
+ 
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{categorical_regression.pdf}
+\caption{Unit responses by group.}
+\label{fig:categorical_regression}
+\end{figure}
+
+% Why too many regression coefficients makes life hard
+
 
 \newpage
 \subsection*{Bayesian Inference}
@@ -784,4 +787,42 @@ Confidence intervals
 \[
 	 = \text{P}\Bigg(\frac{\Big(\frac{\bar{x} - \mu}{\sigma/\sqrt{n}}\Big)}{s/\sqrt{n}\sigma}\Bigg)
 \]
+
+
+Justifying the least-squares fit.
+\begin{gather}
+	\text{Assume that the errors in $y$ given $x$ are normal with constant variance and mean zero}\\
+	\epsilon \sim \text{N}(0, \sigma^2) \\
+	p(\epsilon|\beta) = \frac{1}{\sqrt{2\pi}\sigma} \exp (-\frac{\epsilon^2}{2\sigma^2})
+\end{gather}
+Assume that the true response is a linear function in $\beta$, such that $E(Y|X) = X\beta$, then take the log of the likelihood:
+\begin{gather}
+	l(\beta) \propto -(Y - X\beta)^2
+\end{gather}
+Such that maximizing the likelihood is equivalent to minimizing the RSS criterion.
+
+The final way to justify a least squares fit does not require a normality assumption: instead, it is rationalized as providing the lowest variance estimate of $EY$ for a given $X$. In other words, a least squares fit will, on average, be closer to the true response than a linear fit made in some other way.
+
+Start by assuming that $y$ truly is a linear function of $X$, which is a vector of inputs, so that:
+\begin{gather}
+	E[y|X] = X\beta 
+\end{gather}
+Next note that it follows from the above that the least squares fit will be an unbiased estimate, provided that $\boldsymbol{y}$ is drawn i.i.d. at a given $X$:
+\begin{gather}
+	E[X\hat{\beta}] = E[\boldsymbol{X(X^T X)^{-1}X^T y}] \\
+	= \boldsymbol{X(X^T X)^{-1}X^T X}\beta \\
+	\implies E[X\hat{\beta}] = \boldsymbol{X}\beta
+\end{gather}
+Almost there. Now we need to think about other possible estimates of $E[y|X]$. We can see from (16) that our estimate is a linear function of $y$ (Estimable functions?). Imagine another function $\boldsymbol{c^T y}$ that's also linear in $\boldsymbol{y}$. The Gauss-Markov theorem states that the variance of the least-squared estimate is guaranteed to be less than this other linear estimate:
+\begin{equation}
+	\text{Var}(\boldsymbol{X}\hat{\beta}) \leq \text{Var}(\boldsymbol{c^Ty})
+\end{equation} 
+The proof for this is:
+\begin{gather}
+	E[(a^T \hat{\beta} - a^T \beta)^2] \leq E[((c^T y - a^T \hat{\beta}) - ( a^T \beta - a^T \hat{\beta}))^2]\\
+	\leq  E[((c^T y - a^T \hat{\beta}) + ( a^T \hat{\beta} - a^T \beta))^2] \\
+	\leq E[(c^T y - a^T \hat{\beta})^2] + E[( a^T \beta - a^T \hat{\beta})^2] \\
+	\iff 0 \leq E[(c^T y - a^T \hat{\beta})^2]
+\end{gather}
+Is this is a proof? How can you be sure?
 \end{document}
