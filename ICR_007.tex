@@ -744,7 +744,29 @@ As mentioned, DCA have previously used Monte Carlo simulation to approximate the
 %%
 \section{Presentation \& Visualization}
 \subsection{Why Visualization is Important}
-Visualization serves to expose patterns in data in a way that's immediately interpretable. It allows the gist of lots of information to be seen without, or with as little, explanation as possible. 
+Good visualization exposes patterns in data in a way that's immediately interpretable and precise. Bad visualization can be an effective tool for lying: Figure \ref{fig:bad_visualization} is an example of this. A visualization is a mapping from the numerical domain of a dataset to the visual domain of a plot.
+
+DCA's use of visualization could be improved by:
+\begin{itemize}
+\item Seeing plots as a deliverable for communicating quality and professionalism.
+\item Using plots to understand data as well as present it - in the same way that fiddling with prototypes inspires ideas, visual representations of data can suggest things that aren't clear in formal analyses.
+\item Presenting summaries rather than raw data where appropriate.
+\item Faceting line plots - overlaid line charts are crude representations of data, that will generally only show obvious differences. This is mentioned because of DCA's reliance on line plots.
+\end{itemize}
+Designing a visualization means giving thought to:
+\begin{itemize}
+\item Data - are the variables continuous, categorical, or ordered categorical?
+\item Geometry of datapoints - points, lines, or bars
+\item Datapoint aesthetics - color, size, shape, and position of the geometries
+\item Scales - mappings from data to aesthetics
+\item Summary statistics - plottable summaries of the data
+\item Facets - using a grid to separate plots
+\item Themes - typeface, non-data colours, axes and so on.
+\end{itemize}
+The most important of these are the choice of geometry, aesthetics, and scale. Aesthetics can represent dimensions that aren't displayed via a plot's axes. Geometry carries information such as resolution, chronology,  and connectivity. Scales can skew perception of effects, and should be chosen carefully.
+
+
+
 \subsection{Scatter plots}
 \subsection{Box plots}
 \subsection{Separation Plots}
