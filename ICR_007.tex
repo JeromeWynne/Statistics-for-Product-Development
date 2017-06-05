@@ -765,6 +765,7 @@ Designing a visualization means giving thought to:
 \end{itemize}
 The most important of these are the choice of geometry, aesthetics, and scale. Aesthetics can represent dimensions that aren't displayed via a plot's axes. Geometry carries information such as resolution, chronology,  and connectivity. Scales can skew perception of effects, and should be chosen carefully.
 
+\cite{hastie2013elements}, \cite{gelman2013bayesian}, \cite{faraway2004linear}, \cite{blitzstein2014linear}, \cite{jaynes2003probability}, \cite{wickham2009ggplot2}, \cite{montgomery2000design}, \cite{kruschke2015doing}, \cite{iso2014statistical}.
 
 
 \subsection{Scatter plots}
@@ -788,7 +789,14 @@ http://mdwardlab.com/sites/default/files/GreenhillWardSacks.pdf
 %% CONCLUSIONS AND RECOMMENDATIONS %%
 \chapter{Conclusions \& Recommendations}
 
+
 \newpage
+%% BIBLIOGRAPHY
+\bibliographystyle{ieeetr}
+\bibliography{icr}
+
+\newpage
+%% APPENDIX %%
 \appendix
 \chapter{}
 Probability allows us to analyze a system without requiring complete mechanical knowledge of it. `'Randomness'' refers to sources of variation that aren't measured. You may have heard of probabilities as representing `'Degrees of belief''. To understand what a belief is, consider this example. We machine a coin that we check is a symmetric disk of homogeneous density. I flip the coin ten times, and it comes up heads every single time. You might be surprised by this, and accuse me of flipping it in a controlled way. I then ask you how I can flip it in a way that is fair. What is your response?
@@ -855,4 +863,6 @@ The proof for this is:
 	\iff 0 \leq E[(c^T y - a^T \hat{\hat{\beta}})^2]
 \end{gather}
 Is this is a proof? How can you be sure?
+
+
 \end{document}
