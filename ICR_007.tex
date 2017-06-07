@@ -338,7 +338,7 @@ Analysis of the data collected. & Analyses are run as soon as data is available,
  &  &  & Time invested in analyses should be seen as what makes an experiment practically useful, rather than a formality between experiments. \\ 
 \cmidrule{1-4}
 Conclusions and recommendations & Conclusions are incorporated into client memos and presentations. Interim results are presented at internal meetings - graphics play an important role in communicating results. & The importance of graphics is realized and put to good effect in client presentations. & Charts exist beyond those being used that may make it easier to demonstrate experimental results. \\ 
- &  & Conclusions are presented in a way that is accessible and avoids needless technicalities. & Experimental results are not supplemented by estimates of uncertainty. \\ 
+ &  & Conclusions are presented in a way that is accessible and avoids needless technicalities. & Experimental results are not supplemented by estimates of uncertainty. \\
 \bottomrule
 \label{tab:exp_procedure}
 \end{longtable}
@@ -385,24 +385,27 @@ Analyses in DCA rely heavily on expert knowledge of the systems being tested and
 The reports surveyed contained summary statistics, such as arithmetic means, variances, maximums, minimums, and so on. A few made use of interval estimates as informed by a regulatory standard, and one report applied a t-test. These tools will now be explained, and their usefulness and possible weaknesses detailed.
 \par
 \subsection*{Summary Statistics}
- A summary statistic is a value describes an aspect of a random variable's distribution. A random variable (r.v.) is a function that maps events onto real numbers. For example, we could define an r.v. $X$ that maps the outcomes of a coin toss onto the numbers 1 and 0:
+ Randomness simply means variation in an event as a result of unseen factors. A random variable (r.v.) is a function that maps events onto real numbers. For example, we could define an r.v. $X$ that maps the outcomes of a coin toss onto the numbers 1 and 0:
  \begin{align}
 	X(\texttt{Coin lands Heads}) = 1 \\
 	X(\texttt{Coin lands Tails}) =0
  \end{align}
-Usually the choice of mapping is quite natural - for example, we might use an r.v. that counts the number of sucesses in many trials, or that takes on the value of a measurement.
+Usually the choice of mapping is quite natural - for example, we might use an r.v. that counts the number of sucesses in many trials, or that takes on the value of a measurement. 
 \par
-Variation in the events that an r.v. maps from is described using a probability distribution. Each value is weighted according to its probability or, in the case of continuous-valued r.v.s, its contribution per unit length to the cumulative probability. Figure \ref{fig:example_pd} highlights this difference.
+Variation in the events that an r.v. maps from is described using a probability distribution. Each value is weighted according to its probability or, in the case of continuous-valued r.v.s, the ratio of the width of an interval of values to its probability. Figure \ref{fig:example_pd} highlights this difference.
 \par
-The essential problem of experimental statistics is understanding the behaviour of a broader population from just a sample. In product design, this means using measurements from a limited number of prototypes to estimate the variation in a much larger population of units. The attributes of this variation - such as its spread and average - can be estimated using summary statistics.
+The essential problem of experimental statistics is trying to understand the behaviour of a broader population from just a sample. In product design, this means estimating the distribution of a population using measurements from just a limited number of prototypes. The attributes of this distribution - such as its spread and average - can be estimated using summary statistics.
  \par
-A mean of several independent measurements, for example, approximates the mean of the underlying population's distribution. The accuracy of this estimate improves as more samples are tested, with diminishing returns, a relationship that is shown in Figure \ref{fig:se_with_sample_size}. This estimate's average difference to the true mean is called the standard error, and it corresponds to $\frac{\sigma}{\sqrt{n}}$, where $\sigma$ is the standard deviation of the population and $n$ is number of units in the sample. DCA implicitly appeal to this relationship when they choose to run more units in a test, although it did not seem to be used actively to gauge appropriate sample sizes.
+A sample's mean response, for example, approximates the mean response of a population. This result is regularly used in DCA to discriminate between the performance of two or more populations, each representing possible design variants. The accuracy of this estimate improves as more samples are tested, with diminishing returns, a relationship that is shown in Figure \ref{fig:se_with_sample_size}. Because a sample may not be representative of its population, it's usually useful to understand how far off the sample mean could be from the true mean.The sample mean's average difference to the true mean is called the standard error, and it corresponds to $\frac{\sigma}{\sqrt{n}}$, where $\sigma$ is the standard deviation of the population and $n$ is number of units in the sample. DCA implicitly appeal to this relationship when they choose to run more units in a test, recognising that bigger samples tend to better represent their populations.
 \begin{figure}[h]
 \includegraphics[width=\textwidth]{se_with_sample_size.pdf}
 \caption{Convergence of sample mean to population mean.}
 \label{fig:se_with_sample_size}
 \end{figure}
-Certain summary statistics can be thought of as estimates of a distribution's parameters. These are values that constrain a particular distribution's shape. The normal distribution's shape, for example, can be specified by supplying just two values: the variance (spread) and mean (location). Viewing statistics as an exercise in estimating a distribution's parameters will be seen again later, in the section on Bayesian inference.
+
+Certain summary statistics can be thought of as estimates of a distribution's parameters. These are values that constrain a particular distribution's shape. The normal distribution's shape, for example, can be specified by supplying just two values: the variance (spread) and mean (location). Viewing statistics as an exercise in estimating a distribution makes handling the uncertainty inherent in test results more natural, and avoids misleading people with small-sample point estimates. DCA's engineers at particularly at risk of the latter because their experiments are usually constrained by the number of units that can be tested.
+
+ Estimating a distribution will be seen again later, in the section on Bayesian inference. Interval estimates are a tool for quantifying the uncertainty on an estimate, and can be made with assumptions about the distribution's shape, or without. They need to be interpreted carefully, and an appropriately careful explanation of two of the most often used interval estimates - confidence and tolerance intervals - will now be presented.
 
 \begin{figure}
 \includegraphics[width=\textwidth]{probability_distributions.pdf}
@@ -413,24 +416,29 @@ Certain summary statistics can be thought of as estimates of a distribution's pa
 
 \newpage
 \subsection*{Tolerance Intervals}
-DCA's most sophisticated statistical analysis is based on ISO 16269-6, \emph{Determination of statistical tolerance intervals}. This standard outlines how to construct tolerance intervals under either no assumptions about the random variable's distribution, or the assumption that the random variable has a normal distribution. A tolerance interval is a range of values that contain a particular fraction of the population to a given confidence level; a confidence level is the proportion of intervals constructed that will contain that fraction of the population. So tolerance intervals allow us to make statements about the performance of a population, with clear limits on that statement's uncertainty. A derivation of a one-sided interval is given in Appendix A, and can be summarized as:
+DCA's most sophisticated statistical analysis is based on ISO 16269-6, \emph{Determination of statistical tolerance intervals}. This standard outlines how to construct tolerance intervals under either no assumptions about the random variable's distribution, or the assumption that the random variable has a normal distribution. A tolerance interval is a range of values that contain a particular fraction of the population. Because this interval is only an estimate, they can only contain the advertised fraction of the population most of the time. The proportion of time that an interval would, on average, contain the specified fraction of the population is called the confidence level. To elaborate a little further, if many $99\%$ tolerance intervals were constructed for different samples of the same size to a $95\%$ confidence level, then $95\%$ of the intervals estimated would contain at least $99\%$ of the population. Figure \ref{fig:tolerance_intervals} shows what this means.
+
+So tolerance intervals allow us to make statements about the performance of a population, with clear limits on that statement's uncertainty. Tolerance intervals are derived by thinking about the probability that a member of the population will be within a particular range. For a one-sided tolerance limit - a value for which at least $p\%$ of the population is greater than or less than - this means:
 \begin{enumerate}
-	\item Defining $k$ such that
+	\item Defining $k$ such that the probability a member of the population $(mu + u sigma)$ is greater than $k$ sample standard deviations from the sample mean is eqaul to $1 - a$.
 		\begin{equation}
 			P(\bar{x} + ks \geq \mu + u_p \sigma) = 1 - \alpha
 			\label{eq:tol_interval}
 		\end{equation}
 	Where $\bar{x}$ is the sample mean, $s$ is the sample standard deviation, $\mu$ is the true mean of the population, $\sigma$ is its true standard deviation, and $u_p$ is such that $\mu + u_p\sigma$ is greater than $p\%$ of the population. $\alpha$ is the confidence level. \newline In words, $k$ is such that $\bar{x} + ks$ will  be greater than the $p\%$ of the population $(1 - \alpha)\%$ of the time.
-	\item If $x$ is assumed to have a normal distribution then $u_p$ can be read off a table of normal values, and by definition $\frac{(n-1)s^2}{\sigma^2}$ will have a chi-square distribution (see Appendix A). What this means is that $k$ has the same distribution as a $t$-distributed r.v. centered at $\sqrt{n}u_p$ and scaled by $\frac{1}{\sqrt{n}}$:
+	\item Assuming $x$ has a normal distribution then $u_p$ can be read off a table of normal values, and by definition $\frac{(n-1)s^2}{\sigma^2}$ will have a chi-square distribution (see Appendix A). What this means is that $k$ has the same distribution as a $t$-distributed r.v. centered at $\sqrt{n}u_p$ and scaled by $\frac{1}{\sqrt{n}}$:
 		\begin{equation}
 			k = \frac{1}{\sqrt{n}}t_{n - 1}(\sqrt{n}u_p) 
 		\end{equation}
+		This is a normal distribution that's more spread out - the bigger spread represents the uncertainty on account of the fact that the true variance isn't known.
 	\item  Bonanza! The lower interval containing at least $95\%$  of the population is
 \begin{equation}
 	\Big(-\infty, \bar{x} + \frac{t_{1 - \alpha}(\sqrt{n}u_p, n - 1)\cdot s}{\sqrt{n}}\Big]
 \end{equation}
-A fraction $1 - \alpha$ of these intervals will contain less than $p\%$ of the population, as shown in Figure \ref{fig:tolerance_intervals}.
+A fraction $1 - \alpha$ of these intervals will contain less than $p\%$ of the population, as shown in Figure \ref{fig:tolerance_intervals}. 
 \end{enumerate}
+DCA use tolerance intervals in a particular test to check that a certain proportion of the population satisfies a performance threshold. Their use isn't widespread, and previously it's been the case that $k$ values haven't been properly updated according to the conditions of new tests.
+
 
 \begin{figure}[H]
 \includegraphics[width=\textwidth]{tolerance_intervals.pdf}
@@ -446,9 +454,10 @@ The strengths and suggestions for DCA's tolerance intervals are listed in Table 
 \toprule
 \textbf{Strengths}	&	\textbf{Shortcomings} \\
 \toprule
-Provides a threshold indicating roughly where a certain fraction of the population is. & Can be misinterpreted as specifying the probability that a constructed interval contains at least $95\%$ of the population. \\
-Plug-and-play & Normality assumption needs checking \\
- & Repeated use at a low confidence level increases the probability that the limit will be under-estimated. \\
+Provides a threshold indicating roughly where a certain fraction of the population is. & Confidence levels can be misinterpreted as specifying the probability that a constructed interval contains at least $95\%$ of the population. \\
+In line with the expectations of regulatory standards & Normality assumption needs checking \\
+Can be setup to be applied without theoretical understanding & Repeated use at a low confidence level increases the probability that the limit will be under-estimated. \\
+& k-values need to be looked up - could easily be done incorrectly if the theory isn't understood.\\
 \bottomrule
 \end{tabular}
 \label{tab:tol_intervals}
@@ -457,7 +466,7 @@ Plug-and-play & Normality assumption needs checking \\
 \newpage
 % Confidence intervals
 \subsection*{Confidence Intervals}
-Another tool that DCA's engineers occasionally use is confidence intervals, which indicate a range of values that a population parameter is likely to fall within. This range will only contain the population parameter a certain fraction of the time however, a problem that's unavoidable since there will always be a chance that an unrepresentative sample is drawn. For example, if we were to construct a confidence interval for the population mean of 100 samples, each of 5 units, the confidence level would tell us how many of these intervals would - on average - contain the actual value of the population mean. Figure \ref{fig:confidence_intervals} demonstrates this idea. Confidence intervals can be placed on any parameter estimate, although they're usually used to quantify the uncertainty on a mean. Their derivation is similar to a tolerance interval's: the two-sided one is as follows:
+Another tool that DCA's engineers occasionally use is confidence intervals, which indicate a range of values that a parameter is likely to fall within. As with tolerance intervals, this range will only contain the population parameter a certain fraction of the time however, a problem that's unavoidable since there will always be a chance that an unrepresentative sample is drawn. For example, if we were to construct a confidence interval for the population mean of 100 samples, each of 5 units, the confidence level would tell us how many of these intervals would - on average - contain the actual value of the population mean. Figure \ref{fig:confidence_intervals} demonstrates this idea. Confidence intervals can be placed on any parameter estimate, although they're usually used to quantify the uncertainty on an estimate of the population mean. Their derivation is similar to a tolerance interval's:
 \begin{align}
 	\text{P}(\bar{x} - ks \leq \mu \leq \bar{x} + ks) &= 1 - 2\cdot \text{P}(\bar{x} - ks \leq \mu) = 1 - \alpha \nonumber\\
 	\implies \frac{\alpha}{2} &= \text{P}(\frac{\bar{x} - \mu}{s} \leq k) 
@@ -471,10 +480,11 @@ The last line implies that $k$ has a $t$-distribution with $n - 1$ degrees of fr
 \caption{}
 \label{fig:confidence_intervals}
 \end{figure}
+Confidence intervals suffer from similar problems to tolerance intervals. DCA's engineers use them very rarely.
 
 \newpage
-\subsection*{Monte Carlo Simulation}
-Monte Carlo simulation approximates a quantity by simulating the random process generating it . In DCA it's been used to analze tolerance chains in products. The use case was somewhat similar to the following: the 95th percentile of some analytically inconvenient combination of distributions, each corresponding to a part dimension, was needed. Take $Y \sim \text{Binom}(n = 10, p = X)$ as an example, where $X \sim \text{Beta}(a = 7, b = 3)$\footnote{The beta distribution is a continuous and generates a number between $0$ and $1$, which makes it useful in modelling the distribution of a probability.}. Rather than attempt to derive the distribution of this dimension's value directly, tens of thousands of values of $y$ were first generated according to $Y$'s distribution using a computer. Each of these values were then used to generate a value of $x$ from $\text{Binom}(n = 10, p = y)$. The resulting frequencies of the $x$ values then represented the dimension's distribution. It was then possible to calculate the mean by averaging over all the $x$ values obtained. A diagram of this process is shown in Figure \ref{fig:monte_carlo}.
+\subsection*{Monte Carlo Estimation}
+Monte Carlo estimation approximates a quantity by simulating the random process generating it . In DCA it's been used to analze tolerance chains in products. The use case was somewhat similar to the following: the tolerance limit of a combination of distributions, each corresponding to a part dimension, was needed. Take $X \sim \text{Binom}(n = 10, p = Y)$ as an example, where $Y \sim \text{Beta}(a = 7, b = 3)$\footnote{The beta distribution is a continuous and generates a number between $0$ and $1$, which makes it useful in modelling the distribution of a probability.}. Rather than attempt to derive the distribution of this dimension's value directly, tens of thousands of values of $y$ were first generated according to $Y$'s distribution using a computer. Each of these values were then used to generate a value of $x$ from $\text{Binom}(n = 10, p = y)$. The resulting frequencies of the $x$ values then represented the dimension's distribution. It was then possible to calculate the mean by averaging over all the $x$ values obtained. A diagram of this process is shown in Figure \ref{fig:monte_carlo}.
 \begin{figure}[b!]
 \includegraphics[width=0.87\textwidth]{monte_carlo_simulation.pdf}
 \caption{Process diagram for a Monte Carlo simulation.}
@@ -486,9 +496,7 @@ Monte Carlo simulation approximates a quantity by simulating the random process 
 \section{Visualizing Experimental Data}
 Visualization is essential to clearly and convincingly summarizing an experiment's results. Graphical tools allow engineers and clients to see for themselves what's been discovered. A plot should relevant, easily interpretable, and accurately convey its underlying data.
 \par
-DCA's reports and client presentations frequently contain plots of the data collected from an experiment, typically generated using either Microsoft Excel or Matlab. The plots used are line and bar charts, along with the occasional scatterplot.
-\par
-Line charts are particularly ubiquitous in DCA because they're directly plottable from the raw data provided by axial and torsional testing machines. As a consequence of this many graphical summaries are usually overlaid line plots, similar to that shown in Figure \ref{fig:line_plots}. The effectiveness of this use-case is evaluated in Table \ref{tab:line_chart}: in short, this type of plot can include a lot of redundant information and can make it difficult to see how individual units are behaving.
+DCA's reports and client presentations frequently contain plots of the data collected from an experiment, typically generated using either Microsoft Excel or Matlab. The plots used are line and bar charts, along with the occasional scatterplot. Line charts are particularly ubiquitous in DCA because they're directly plottable from the raw data provided by axial and torsional testing machines. As a consequence of this many graphical summaries are usually overlaid line plots, similar to that shown in Figure \ref{fig:line_plots}. The effectiveness of this use-case is evaluated in Table \ref{tab:line_chart}: in short, this type of plot can include a lot of redundant information and can make it difficult to see how individual units are behaving. On the other hand, it takes very little time to prepare, and can be related to patterns observed over the course of an experimental run. Specific problems that DCA suffer from are: not providing sufficient resolution, smoothing, and using an inappropriate line thickness.
 \par
 Bar charts are also used fairly frequently to display performance relative to a nominal value, and a particular format of scatterplot is used to present the results of a tolerance limit analysis. The latter is shown in Figure \ref{fig:tolerance_intervals_plot}. 
 \begin{table}[h!]
@@ -519,9 +527,15 @@ Its meaning can be understood without explanation - it is a universally familiar
 	\label{fig:tolerance_intervals_plot}
 \end{figure}
 
+\section{Review}
+The report so far has presented and critiqued the statistical methods currently being used by DCA's engineers. ...CONTINUE
+
 %%  SUGGESTED METHODS %%
 \chapter{Suggested Methods}\label{suggested_methods}
 \label{chap:modernstats}
+
+Having assessed DCA currently uses statistics, it's possible to suggest methods from modern statistical practice that would give them new capabilties and improve their existing attempts. This section again is structured according to the steps in an experimental process.
+
 \section{Analysis}
 \subsection*{Regression Analysis}
 % What's a regression model?
@@ -544,39 +558,30 @@ Experimental work often tries to an answer questions such as:
 \begin{equation}
 	\hat{y} = f(x_1, x_2) = \hat{\beta}_0 + \hat{\beta}_1 \cdot x_1 + \hat{\beta}_2 \cdot e^{x_1}+ \hat{\beta}_3 \cdot x_1 \cdot x_2
 \end{equation}
-Where $\hat{y}$ is the estimated response, $x_i$ is an input, and $\hat{\beta}_j$ is the coefficient of the $j$th input. Note that while the coefficients $\hat{\beta}_j$ are linear, the predictors can be a nonlinear function of the measurements.
+Where $\hat{y}$ is the estimated response, $x_i$ is an input, and $\hat{\beta}_j$ is the coefficient of the $j$th input. Note that while the coefficients $\hat{\beta}_j$ are linear, the predictors $x_j$ can be nonlinear functions of the measurements.
 
-This model can be fit by adjusting the $\hat{\beta}_i$ values so that $\hat{y}$ is a good estimate of the true response. To do this, it's necessary to measure how inaccurate $\hat{y}$ is relative to $y_i$. One way is to use the residual sum of squares:
+This model can be fit by adjusting the $\hat{\beta}_i$ values so that $\hat{y}$ is a good estimate of the true response. To do this, it's necessary to measure how inaccurate $\hat{y}$ is relative to $y_i$. One way of measuring fit inaccuracy is the residual sum of squares:
 \begin{equation}
 	\text{RSS}(\hat{\beta}) = \sum_{i = 1}^m \Big(y_i - \sum_{j = 1}^p \hat{\beta}_i x_{ij})^2
 	\label{eq:rss}
 \end{equation}
-Where $y_i$ is the response of the $i$th example, and $x_{ij}$ is the $j$th predictor value of the $i$th example. This measure of fit is a good one for several reasons, the most intuitive of which is that by minimizing it the overall distance between the estimates $\sum_{j = 1}^p \hat{\beta}_j x_{ij}$ and the responses $y_i$ is minimized\footnote{The residual refers to the difference between an estimated response and a true response at a particular set of inputs. Error refers specficially to random variation of the response around its expected value.} . There are two alternative justifications for this measure of fit, which are both presented in the Appendix.
+Where $y_i$ is the response of the $i$th example, and $x_{ij}$ is the $j$th predictor value of the $i$th example. This measure of fit is a good one for several reasons, the most intuitive of which is that it minimizes the overall distance between the estimates $\sum_{j = 1}^p \hat{\beta}_j x_{ij}$ and the responses $y_i$ \footnote{The residual refers to the difference between an estimated response and a true response at a particular set of inputs. Error refers specficially to deviation of a response around its expected value.} . There are two alternative justifications for least squares, which are both presented in the Appendix.
 
- A common linear model is a simple linear fit, where a single reponse variable is regressed onto a measurement and a constant:
-\begin{equation}
-	f(x_1) = \hat{\beta}_0 + \hat{\beta}_1 \cdot x_1
-\end{equation}
-This model describes a line: it can be extended to more than one variable, where it becomes known as multiple linear regression:
-\begin{equation}
-	f(x_1, x_2) = \hat{\beta}_0 + \hat{\beta}_1 \cdot x_1 + \hat{\beta}_2 \cdot x_2
-\end{equation}
-The coefficients of a three-parameter linear model describe a plane; Linear regression of a dummy dataset onto one and two predictor variables is shown in Figure \ref{fig:linear_regression}. 
+ Figure \ref{fig:linear_regression}. 
 \begin{figure}
 \includegraphics[width=\textwidth]{linear_fits.pdf}
 \caption{A simple and a multiple linear fit.}
 \label{fig:linear_regression}
 \end{figure}
 
-From a practical standpoint, regression models should be fit using software. Matlab, R, or Octave can all be used to fit regression models. By setting up the problem such that the $N$ observed responses are in a column vector $\mathbf{y}$, their associated $p$ inputs form the rows of a matrix $\mathbf{X}$, which is $N \times p$, and the $p$ coefficients are in a column vector $\hat{\beta}$, it's possible to succinctly write the RSS criterion, then minimize it analytically:
+From a practical standpoint, regression models should be fit using software. Matlab, R, or Octave can all be used to fit regression models. By setting up the problem such that the $N$ observed responses are in a column vector $\mathbf{y}$, their associated $p$ inputs form the rows of a matrix $\mathbf{X}$, which is $N \times p$, and the $p$ coefficients are in a column vector $\hat{\beta}$, it's possible to succinctly write the RSS criterion, then minimize it:
 \begin{align}
 	\text{RSS}(\hat{\beta}) &= (\mathbf{y - X}\hat{\beta})^T(\mathbf{y - X}\hat{\beta}) \\
 	\frac{\partial \text{RSS}}{\partial \hat{\beta}} &= -2\mathbf{X}^T(\mathbf{y - X}\hat{\beta}) = 0 \\
 	\implies &\hat{\beta} = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T \mathbf{y} \label{eq:normal_eqtn}
 \end{align}
-The uncertainty in the fit can be quantified, although this would probably be of limited relevance to DCA's work since its engineers are understandably interested in practical rather than statistical significance. 
 
-As a case study to show why linear models are useful, consider a test in which the load delivered by three groups of ten units is measured. The difference between the groups is categorical: the groups correspond to three design variations $A, B,$ and $C$. Since there isn't a natural order to the variations, it's necessary to code the difference between the units in a sensible way. There are several ways to do this, although a simple indicator stating whether a unit has a particular modification is sufficient.
+As a case study to show why linear models are useful, consider a test in which the load delivered by three groups of ten units is measured. The differences between the groups are categorical: the groups correspond to three design variations $A, B,$ and $C$. Since there isn't a natural order to the variations, it's necessary to encode this difference in a sensible way. There are several ways to do this, and a simple indicator stating whether a unit has a particular modification is sufficient. Table 5 shows this encoding. As will hopefully become apparent, choosing how to encode categorical variables matters a good deal with regards to how the regression coefficients beta should be interpreted.
 \begin{table}
 \centering
 \caption{Dummy coding of groups.}
@@ -608,12 +613,13 @@ Next the model is set up:
 	\quad \mathbf{y} = {\tiny \begin{bmatrix} 5.43 \\ 7.48 \\ \vdots \\ 6.47 \end{bmatrix}}
 	\quad \hat{\beta} = {\tiny \begin{bmatrix} \hat{\beta}_0 \\ \hat{\beta}_1 \\ \hat{\beta}_2 \end{bmatrix}}
 \end{gather}
-We can then use the normal equation (Equation \ref{eq:normal_eqtn}) to make the least-squares fit. As it happens, in this case $\hat{\beta}_A$, $\hat{\beta}_B$, and $\hat{\beta}_C$ would be the average responses of each group, as is shown in Figure \ref{fig:categorical_regression}.
+We can then use the normal equation (Equation \ref{eq:normal_eqtn}) to make the least-squares fit. As it happens, in this case $\hat{\beta}_A$, $\hat{\beta}_B$, and $\hat{\beta}_C$ are the average responses of each group, as is shown in Figure \ref{fig:categorical_regression}.
 \begin{figure}[h]
 \includegraphics[width=\textwidth]{categorical_regression.pdf}
 \caption{Unit responses by group.}
 \label{fig:categorical_regression}
 \end{figure}
+
  Something to be quite careful of is redundant encoding of groups. For example, if we were to include a constant term $\hat{\beta}_4$ in the model above, then there would be many ways to express the group effects: $\hat{\beta}_4$ could be any constant value, and $\hat{\beta}_1, \hat{\beta}_2, \hat{\beta}_3$ would be set to deviate from this constant to the group averages. This means that attempts to evaluate Equation \ref{eq:normal_eqtn} will be unsuccessful or unstable\footnote{The instability is caused by numerical errors in calculating the inverse directly.}.
 
 The fit of a linear model attempts to estimate the true relationship between the inputs and response. In other words, $\hat{\beta}$ are estimates of the parameters $\beta$:
