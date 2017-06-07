@@ -214,16 +214,6 @@
 \chapter*{Notation \& Glossary}
 \begin{tabular} {p{2.7cm}p{10cm}}
 \textbf{Attribute} & A measurable property of a \textit{unit}. \\[0.5cm]
-\textbf{Block} & A set of \textit{units} thought to share some common \textit{attribute} that influences their \textit{response}. \\[0.5cm]
-\textbf{Event} & A set of \textit{outcomes}.\\[0.5cm]
-\textbf{Experiment$^{1}$} & The controlled collection of data. \\[0.5cm]
-\textbf{Experiment$^{2}$} & Physically realizing an outcome of the system under study. \\[0.5cm]
-\textbf{Factors} & \textit{Treatments} that are discrete. For example, lubricated/unlubricated.\\[0.5cm]
-\textbf{Outcome} & A possible result of a \textit{trial}. \\[0.5cm]
-\textbf{Probability} & A method for quantifying uncertainty, or a value representing the uncertainty of an event. \\[0.5cm]
-\textbf{Response} & The measured performance of a \textit{unit}. \\[0.5cm]
-\textbf{Treatment} & A modification applied to a \textit{unit}.\\[0.5cm]
-\textbf{Unit} & A single test specimen - in the context of product testing, this is likely to be a prototype build of the product.
 \end{tabular}
 
 \newpage
@@ -274,9 +264,11 @@ All aspects of an investigation - from experiment design through to presenting t
 Most lab work is by engineers on medical projects. Occasionally engineers working on fast-moving consumer goods (such as toothbrushes or lotion bottles) will run tests to compare design variations or verify performance relative to some baseline. In general however, the timeframes and functional requirements of such products limit the relevance of extensive experimental investigations to them: medical products on the other hand, see a good deal of the test lab.
 \par
 % When do they test them and why?
-Product testing can be done at any point over a development cycle, however as can be seen in Figure \ref{fig:time_of_tests}, the rate of testing increases as a product develops. Towards a product's relase date is when resolving minor performance issues becomes a worthwhile pursuit, exploration for future product variants become a possibility, and rehearsal for fast-approaching regulatory tests becomes essential.
+Product testing can be done at any point over a development cycle, however as can be seen in Figure \ref{fig:tests_per_quarter}, the rate of testing increases as a product develops. Towards a product's relase date is when resolving minor performance issues becomes a worthwhile pursuit, exploration for future product variants become a possibility, and rehearsal for fast-approaching regulatory tests becomes essential.
 \begin{figure}
-\label{fig:time_of_tests}
+\includegraphics[width=\textwidth]{tests_per_quarter.pdf}
+\caption{Frequency of tests in terms of time until project launch.}
+\label{fig:tests_per_quarter}
 \end{figure}
 \par
 % How do they test them?
@@ -477,7 +469,7 @@ The last line implies that $k$ has a $t$-distribution with $n - 1$ degrees of fr
 \end{equation}
 \begin{figure}[H]
 \includegraphics[width=\textwidth]{confidence_intervals.pdf}
-\caption{}
+\caption{99$\%$ confidence intervals, to a $5\%$ confidence level, for 100 10-unit samples.}
 \label{fig:confidence_intervals}
 \end{figure}
 Confidence intervals suffer from similar problems to tolerance intervals. DCA's engineers use them very rarely.
@@ -699,7 +691,7 @@ Where $\texttt{Uniform}$ returns the probability density of the uniform distribu
 The posterior list would contain the probability density for each passing proportion $\theta$, and is again shown in Figure \ref{fig:binom_bayes_inference}. The pointy part indicates more probable values - a taller, pointier peak represents a more certain estimate because a few values have a much higher probability than lots of others. In the same spirit, the flat prior that was used can be understood as highly uncertain.
 \begin{figure}
 \includegraphics[width=\textwidth]{Bayesian_inference.pdf}
-\caption{}
+\caption{Combining an uninformative prior with a likelihood distribution to form a posterior distribution of plausible parameter values.}
 \label{fig:binom_bayes_inference}
 \end{figure}
 
