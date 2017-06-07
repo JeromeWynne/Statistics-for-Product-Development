@@ -620,22 +620,23 @@ We can then use the normal equation (Equation \ref{eq:normal_eqtn}) to make the 
 \label{fig:categorical_regression}
 \end{figure}
 
- Something to be quite careful of is redundant encoding of groups. For example, if we were to include a constant term $\hat{\beta}_4$ in the model above, then there would be many ways to express the group effects: $\hat{\beta}_4$ could be any constant value, and $\hat{\beta}_1, \hat{\beta}_2, \hat{\beta}_3$ would be set to deviate from this constant to the group averages. This means that attempts to evaluate Equation \ref{eq:normal_eqtn} will be unsuccessful or unstable\footnote{The instability is caused by numerical errors in calculating the inverse directly.}.
+ Something to be quite careful of is redundantly encoding the groups. If a constant term $\hat{\beta}_4$ were to be included in the model above, then there would be many equivalent ways to express the group effects: $\hat{\beta}_4$ could be any constant value, and $\hat{\beta}_1, \hat{\beta}_2, \hat{\beta}_3$ would be set to deviate from this constant to the group averages. This means that attempts to evaluate Equation \ref{eq:normal_eqtn} will be unsuccessful or unstable\footnote{The instability is caused by numerical errors in calculating the inverse directly.}.
 
 The fit of a linear model attempts to estimate the true relationship between the inputs and response. In other words, $\hat{\beta}$ are estimates of the parameters $\beta$:
 \begin{equation}
 	y = X\beta + \varepsilon
 \end{equation}
-Where $\varepsilon$ is the error in the response - variation caused by unmonitored variables. In this example, $\beta_1, \beta_2, \beta_3$ are the true group means, and $\hat{\beta}_1, \hat{\beta}_2, \hat{\beta}_3$ are going to be estimates of them. These estimates aren't going to be perfect, and their standard errors can be calculated to get a feel for how accurate they really are. To reemphasize, a standard error is the average difference between an estimate of a coefficient over many samples, and the true coefficient. They can be made smaller by reducing the group variance, or by making the sample sizes bigger.  DCA's engineers should seek to minimize variation that isn't relevant to the investigation because this will make it easier to see the effects of the inputs on the reponse for a given sample size. Calculation of standard errors is described in the Appendix.
+Where $\varepsilon$ is the error in the response - variation caused by unmonitored variables. In the example, $\beta_1, \beta_2, \beta_3$ are the true group means, and $\hat{\beta}_1, \hat{\beta}_2, \hat{\beta}_3$ are estimates of them. These estimates aren't going to be perfect, and their standard errors can be calculated to get a feel for how accurate they really are. To reemphasize, a standard error is the average difference between an estimate of a parameter over many samples, and the true parameter value. Standard error can be made smaller by reducing the group variance, or by making the sample sizes bigger.  DCA's engineers should seek to minimize variation that isn't relevant to the investigation because this will make it easier to see the effects of the inputs on the reponse for a given sample size. Calculation of standard errors is described and explained in the Appendix.
 
-A reasonable criticism of the above example is that it effectively just a drawn-out calculation of the group sample means. This is true, until the experiment is extended to involve another variable, this time a continuous one, say the volume of a lubricant applied to each design variant. Then we can adjust model to estimate the effects of the lubricant on the load output of each mechanism:
+A reasonable criticism of the above example is that it effectively just a drawn-out calculation of the group sample means. This is true, until the experiment is extended to involve another variable, this time a continuous one, say the volume of a lubricant applied to each design variant. Then the model can be adjustedl to estimate the effects of the lubricant on the load output of each mechanism:
 \begin{equation}
 	\hat{y} = \hat{\beta}_0 x_A + \hat{\beta}_{1}x_B + \hat{\beta}_{2}x_C + \hat{\beta}_3 x_A x_l + \hat{\beta}_4 x_B x_l + \hat{\beta}_5 x_C x_l
 \end{equation}
-Where $x_l$ is the volume of lubricant applied. $\hat{\beta}_3, \hat{\beta}_4, \hat{\beta}_5$ are the change in output force for each design variant per unit volume of lubricant. The results of this model would allow an engineer to see not only how good design variants are relative to one another, but also how much lubricant would need to be applied to bring the performance of one in line with another.
+Where $x_l$ is the volume of lubricant applied, and $\hat{\beta}_3, \hat{\beta}_4, \hat{\beta}_5$ are the change in output force for each design variant per unit volume of lubricant. This model would allow an engineer to see not only how good design variants are relative to one another, but also how much lubricant would need to be applied to bring the performance of one in line with another. Point being, linear models are powerful because they can be adapted to many situations, and because they provide a consistent way of disentangling the effects of experimental treatments.
 
-Assessing the significance of differences between groups is frequently called Analysis of Variance (ANOVA). It's called this because the analysis focuses on decomposing variation into its sources. Two test statistics, the t and F statistics, can be used to run hypothesis tests on possible sources of variation. ANOVA can be viewed as linear regression with an emphasis on hypothesis testing. As discussed in the next section, hypothesis tests can be misleading. Furthermore, in complicated models, the canned formulae provided by some statistics resources, certain websites in particular, can become unwieldy and confusing, which could make its results suspect and difficult to explain. By contrast, the structure and basic principles of a linear model are consistent across a variety of model sizes. For this reason, it's suggested that DCA focus on learning to use linear models rather than attempt to use ANOVA.
+As an aside, assessing the significance of differences between groups is frequently called Analysis of Variance (ANOVA). It's called this because the analysis focuses on decomposing variation into its sources. Two test statistics, the $t$ and $F$ statistics, can be used to run hypothesis tests on possible sources of variation. Under certain assumptions, these tests provide guidance as to whether a treatment induces an effect or not. It's relevant here because ANOVA can be viewed as linear regression with an emphasis on hypothesis testing. As discussed in the next section, hypothesis tests can be misleading. Furthermore, in complicated models, the canned formulae provided by some statistics resources, certain websites in particular, can become unwieldy and confusing, which could make its results suspect and difficult to explain. By contrast, the structure and basic principles of a linear model are consistent across a variety of model sizes. For this reason, it's suggested that DCA focus on learning to use linear models rather than attempt to use ANOVA.
 
+Linear models would be useful to DCA because they can be used to figure out where variation in a response is coming from, which is the fundamental objective of most experiments. Identifying the factors that have the largest effect on performance, and quantifying those effects, is the first step in understanding how to change a design to make it both better-performing and more robust. Used in combination with multiple-factor experiment designs, linear models could reduce the time and resources taken to conclude an experimental investigation, and would offer a tool for aligning theoretical understanding with empirical evidence.
 
 \newpage
 \subsection*{Bayesian Inference}
@@ -643,58 +644,57 @@ Assessing the significance of differences between groups is frequently called An
 % How can it be useful to DCA?
 % What does it consist of?
 % How does it relate to other statistical methods, what are its limitations, and how can it be used for more difficult problems?
-Summary statistics state what the most likely value for a parameter\footnote{Reminder: a parameter is a number that controls the shape of a distribution.} is, based on the data alone. They don't say how much more likely this value is is than other values, or let knowledge besides the data be included.
-\par
- In reality, a sample will suggest a distribution of plausible values, and there will be expert knowledge that can be used. Bayesian inference combines this knowledge with the collected data to estimate a distribution of possible parameter values. Figure \ref{fig:annotated_posterior} points out the benefits of determining how probable particular parameter values are, compared to the point estimates provided by summary statistics.
+Summary statistics such as the coefficients of a linear model or a sample variance state what the most likely value for a parameter\footnote{Reminder: a parameter is a number that controls the shape of a distribution.} is, based on the data alone. They don't say how much more likely this value is is than other values, or let knowledge besides the data be included. In reality, a sample will suggest a distribution of plausible values, and there will be expert knowledge that can be used since it will be known roughly what values are realistic.. Bayesian inference combines readily available knowledge with the experimental data to estimate a distribution of possible parameter values. Figure \ref{fig:annotated_posterior} points out the benefits of making distributional rather than point estimates.
 \begin{figure}[b]
 \includegraphics[width=\textwidth]{annotated_posterior.pdf}
 \caption{An annotated posterior distribution.}
 \label{fig:annotated_posterior}
 \end{figure}
 \par
-Bayesian methods would be useful to DCA because they're more easily understood, visualized, and explained than classical methods, and are relevant to a broader range of situations. They also allow expert knowledge to be used, making it possible to reach a sanitary comprimise between gut-feel and experimental observation. These claims will can be explained and justified in the context of an example.
+Bayesian methods would be useful to DCA because they're more easily understood, visualized, and explained than classical methods\footnote{``Classical methods'' here refers to tools such as hypothesis tests and interval estimates}, and are relevant to a broader range of situations. They also allow expert knowledge to be used, making it possible to reach a sanitary comprimise between gut-feel and experimental observation. Finally, their emphasis on distribution rather than point estimates better reflects the underlying uncertainty in analytical results. These claims will  be explained in the context of an example.
 \par
-The proportion of units passing a specification test is a useful measure of a design's suitability for the problem at hand. Using the results from a test sample and the expertise of an engineering team, it's possible to estimate what pass rates would be likely if the design were to be produced in larger volumes by a similar method.
+The proportion of units passing a test is a useful measure of a design's suitability for the problem at hand. Using the results from a test sample and the expertise of an engineering team, and Bayes' theorem, it's possible to estimate what pass rates would be likely if the design were to be produced in larger volumes.
 \par
-Say that a sample of $n$ units are tested, and $n$ pass. The engineering team also collude to produce a distribution for the passing rate $\theta$ that's tall near values they think probable and shallow near ones that seem unlikely. The team's aim is then to calculate the probability of a unit passing, given their data and preliminary estimates: Bayes' theorem can be used to do this.
+Say that a sample of $n$ units are tested, and $y$ pass. The engineering team collude to sketch out a distribution for the passing rate $\theta$ that's tall near values they think probable and low near ones that seem unlikely. The team is to calculate the probability of a unit passing, given their experimental data and preliminary distribution: Bayes' theorem can be used to do this.
 \begin{equation}
   p(\theta|y) = \frac{p(y|\theta)\cdot p(\theta)}{\int_{\theta}p(y|\theta)\cdot p(\theta)\cdot d\theta}
   \label{eq:bayes}
 \end{equation}
-Expression (\ref{eq:bayes}) means that a passing proportion is more probable if it makes the number of units seen to pass more likely and seems sensible to the engineering team. The denominator of this expression is constant w.r.t. $\theta$, so that
+In words, this means that a passing proportion is more probable if it makes the the number of units that really did pass in the sample more likely and seems sensible to the engineering team. The denominator of this expression is constant w.r.t. $\theta$, making it possible to express the above as:
 \begin{align}
   p(\theta|y) &\propto p(y | \theta)\cdot p(\theta)   \label{eq:unnorm_bay} \\
   \small{\texttt{Posterior}} &\propto\small{{\texttt{Likelihood} \cdot \texttt{Prior}}} \nonumber
 \end{align}
-(\ref{eq:unnorm_bay}) makes it clear that to estimate $p(\theta|y)$, two things are needed:
+(\ref{eq:unnorm_bay}) makes it clear that to estimate $p(\theta|y)$, two things are used:
 \begin{itemize}
-\item The probability of the data assuming a particular passing proportion, $p(y|\theta)$ (the \emph{likelihood}).
+\item The probability of the data - y in n units passing - given a particular population passing proportion, $p(y|\theta)$ (the \emph{likelihood}).
 \item  The probability of a passing proportion according to the engineerig team, $p(\theta)$ (the \emph{prior}).
 \end{itemize}
-The likelihood is the probability of $y$ units passing and $(n-y)$ units failing. Assuming that passes and failures and independent and the units come from populations with the same underlying passing probability, then the probability of $y$ passes given that $\theta$ of that population would pass is:
+In this case, the likelihood is the probability of $y$ units passing and $(n-y)$ units failing. Assuming that passes and failures and independent and that the units come from the same population, then the probability of $y$ passes given that $\theta$ of that population would pass is:
 \begin{gather}
   p(y|\theta) = \binom{n}{y} \theta^y (1 - \theta)^{n - y}
   \label{eq:binom_likelihood}
 \end{gather}
+In a more general sense, the likelihood is the probability of observing the data given that it was being generated according to the model parameterized by $\theta$.
 The prior distribution, $p(\theta)$, encodes knowledge of what passing proportions are probable. If the engineering team is unsure what the passing proportion would be, then they may assume that all values are equally likely:
 \begin{equation}
-  p(\theta) = 1 \quad \theta \in [0, 1]
+  p(\theta) = 1 \qquad \theta \in [0, 1]
   \label{eq:unif_prior}
 \end{equation}
-Figure \ref{fig:binom_bayes_inference} displays the prior and likelihood distributions. At this point it's possible to do one of two things: the posterior can either be evaluated analytically, or it can be computed. Irrespective of the method chosen, the expression being evaluated is:
+Figure \ref{fig:binom_bayes_inference} displays these prior and likelihood distributions. At this point the engineering team can do one of two things: they can evaluate the posterior analytically, or approximate it using a computer. Irrespective of the method chosen, the expression being evaluated is:
 \begin{equation}
 	p(\theta|y) = \texttt{constant}\cdot p(y|\theta) \cdot p(\theta)
 	\label{eq:example_bayes}
 \end{equation}
 In practice, (\ref{eq:example_bayes}) is calculated using a computer. A grid of $\theta$ values is defined, and their prior probabilities and likelihoods are calculated in line with the functions in (\ref{eq:unif_prior}) and (\ref{eq:binom_likelihood}). This process can be described by the pseudocode:
-\begin{align}
+\begin{align*}
   \quad n &:= \small{\texttt{No. of units tested}} \\
    \quad y &:= \small{\texttt{No. of units that passed}} \\
   \boldsymbol{\theta} & := (0, \ 0.01, \ \dots, \ 1) \\
   \small{\texttt{Prior}} &:= \small{\texttt{Uniform}}(\boldsymbol{\theta}, [0, 1]) \\
   \small{\texttt{Likelihood}} &:= \small{\texttt{Binomial}}(y, n, \boldsymbol{\theta}) \\ 
   \small{\texttt{Posterior}} &:= \small{\texttt{Prior} \odot \texttt{Likelihood}}
-\end{align}
+\end{align*}
 Where $\texttt{Uniform}$ returns the probability density of the uniform distribution for each value in $\boldsymbol{\theta}$ (i.e. a list of ones), $\texttt{Binomial}$ returns the probability of $y$ in $n$ units passing given each of the passing probabilities in $\boldsymbol{\theta}$, and $\odot$ is the element-wise product.
 The posterior list would contain the probability density for each passing proportion $\theta$, and is again shown in Figure \ref{fig:binom_bayes_inference}. The pointy part indicates more probable values - a taller, pointier peak represents a more certain estimate because a few values have a much higher probability than lots of others. In the same spirit, the flat prior that was used can be understood as highly uncertain.
 \begin{figure}
@@ -702,14 +702,9 @@ The posterior list would contain the probability density for each passing propor
 \caption{}
 \label{fig:binom_bayes_inference}
 \end{figure}
-\par
-One of the neat things about Bayesian inference is that the posterior of one analysis can be used as the prior of the next: this means that the information from tests is able to accumulate. This idea is shown in Figure \ref{fig:updating_posterior.pdf} - the flat prior represents initial ignorance about whether a unit will pass: as more units are run, an increasingly narrow peak forms around the most probable passing probability.
-\begin{figure}
-\includegraphics[width=\textwidth]{updating_posterior.pdf}
-\label{fig:updating_posterior}
-\caption{The uncertainty in the posterior decreases as more samples are conditioned upon.}
-\end{figure}
-\par
+
+To recap what's been do so far, the prior knowledge of the engineering team was combined with experimental observations to come up with a likely range of values for the true passing proportion for a population. Taking the product of the prior probability of parameter values with the likelihood of the data produced a posterior distribution indicating the probability of values based on both osurces of information.
+
 Once the posterior has been calculated, it can be used to predict the behaviour of future units. $\tilde{y}$ denotes the number of future units that pass, $\tilde{n}$ is the number of units tested. The probability of $\tilde{y}$ successes, based on the observed data and additional information, is the weighted average of $\tilde{y}$ successes over all possible values of $\theta$:
 \begin{equation}
 	p(\tilde{y}|y) = \int_{\theta}p(\tilde{y}|\theta, y)\cdot p(\theta|y) \cdot d\theta
@@ -723,17 +718,27 @@ Once again, we can avoid some potentially mischievous mathematics by approximati
 	\small{\texttt{Posterior predictive[i]}} &:= \small{\texttt{Sample(}}\boldsymbol{\tilde{y}}\small{\texttt{, Binomial(}}\tilde{y}, \tilde{n}, \theta\small{\texttt{))}}\\
 	&\quad\quad \small{\texttt{ \} }}
 \end{align}
-Figure \ref{fig:posterior_predictive} shows a plot of this posterior predictive distribution, along with the $5\%$ lower limit on the number of units that will pass. This limit can be interpreted as a bound on the plausible number of units to pass, according to the weighted evidence, or it can be given a frequency interpretation: if we were to run 20 samples of 100 units, we would expect one of these samples to have a pass rate of less than 54 units.
+Figure \ref{fig:posterior_predictive} shows a plot of the posterior predictive, along with the $5\%$ lower limit on the number of units that will pass. This limit can be interpreted as a bound on the plausible number of units to pass, according to the evidence,
 \begin{figure}
 \includegraphics[width=\textwidth]{posterior_predictive.pdf}
 \caption{Posterior predictive distribution for the number of passing units in a 100-unit run.}
 \label{fig:posterior_predictive}
 \end{figure}
-Another advantage of Bayesian methods over hypothesis testing is that it's relatively easy to build models that estimate many parameters simultaneously. An instance of this might be when estimating the mean and variance of data that's assumed to have a normal distribution. The only change relative to the single-parameter scenario is that we need to define the prior and likelihood in Equation \ref{eq:unnorm_bay} over two parameters instead of one:
+
+The process of inference just described would be valuable to DCA because it would provide a direct representation of how likely particular values are for key performance parameters. Unlike with standard errors, the uncertainty in the estimate is immediately apparent, and the effect of increasing sample size on accuracy is also clear, since the posterior of one analysis can be used as the prior of the next: this means that the information from tests is able to accumulate. This principle is shown in Figure \ref{fig:updating_posterior.pdf}, where the flat prior represents initial ignorance about whether a unit will pass: as more units are run, an increasingly narrow peak forms around the most probable passing probability.
+\begin{figure}
+\includegraphics[width=\textwidth]{updating_posterior.pdf}
+\label{fig:updating_posterior}
+\caption{The uncertainty in the posterior decreases as more samples are conditioned upon.}
+\end{figure}
+\par
+
+Another advantage of Bayesian methods over hypothesis testing is that it's relatively easy to build models that estimate many parameters simultaneously. An instance of this might be when estimating the mean and the variance of data that's assumed to have a normal distribution. The only change relative to the single-parameter scenario is that we need to define the prior and likelihood in Equation \ref{eq:unnorm_bay} over two parameters instead of one:
 \begin{equation}
 	p(\theta_1, \theta_2 | y) \propto p(y|\theta_1, \theta_2) \cdot p(\theta_1, \theta_2)
 \end{equation}
-Where $\theta_1$ is the data's mean, $\theta_2$ is its standard deviation, and $y$ is the dataset. Using a joint prior that weakly favours a range of mean and variance values (based on sensible physical estimates) and a normal likelihood $p(y|\theta_1, \theta_2) = \text{N}(\theta_1, \ \theta_2^{\ 2})$ results in a distribution of parameter values like that shown in Figure \ref{fig:multiparameter_bayes}. This distribution makes it immediately clear how much the data reduced uncertainty about what values  are reasonable for the data's mean and standard deviation.
+Where $\theta_1$ is the data's mean, $\theta_2$ is its standard deviation, and $y$ is the dataset. Using a joint prior that weakly favours a range of mean and variance values (based on sensible physical estimates) and a normal likelihood $p(y|\theta_1, \theta_2) = \text{N}(\theta_1, \ \theta_2^{\ 2})$ results in a distribution of parameter values like that shown in Figure \ref{fig:multiparameter_bayes}. This distribution shows how the data reduced uncertainty about what values are reasonable for the mean and standard deviation. This distribution would probably be easier to explain to clients and colleagues than confidence intervals or hypothesis tests.
+
 \begin{figure}
 \centering
 \makebox[0pt]{\includegraphics[width=1.4\textwidth]{multiparameter_bayes.pdf}}
@@ -741,24 +746,24 @@ Where $\theta_1$ is the data's mean, $\theta_2$ is its standard deviation, and $
 \label{fig:multiparameter_bayes}
 \end{figure}
 
-In summary, shifting from classical methods to Bayesian ones would make statistics within DCA more transparent to both its engineers and clients. Hypothesis tests and interval estimates are easily misinterpreted and needlessly obscure the amount of certainty in parameter estimates. The jargon of classical statistics can make it unclear what's relevant to the problem at hand, and makes an honest explanation of its methods to non-technical team members difficult and comical. Bayesian methods make it clear how the data and prior knowledge are being combined, and provide results that are more easily interpreted.
+Shifting from classical methods to Bayesian ones would make statistics within DCA more transparent to both its engineers and clients. Hypothesis tests and interval estimates are easily misinterpreted and are opaque representations of the certainty in parameter estimates, since they are usually presented simply as numerical values. The jargon of classical statistics can make it unclear what's relevant to the problem at hand, and makes an honest explanation of its methods to non-technical team members difficult. Bayesian methods make it clear how the data and prior knowledge are being combined, and provide results that are more easily interpreted. On the other hand, sophisticated Bayesian models require careful thought to be applied effectively, and  may take longer to set up as a result. However, a couple of models could probably answer most questions asked in experimental work, such that once a model is set up it can be used to analyze data from many different experiments.
 \par
-It is generally recognized that the scientific community as a whole needs to reconsider the practical relevance of hypothesis testing: DCA can hardly be faulted for neglecting to apply ineffective methods.
+It is generally recognized that the scientific community as a whole needs to reconsider the practical relevance of hypothesis testing: DCA can hardly be faulted for neglecting to apply ineffective methods. Tolerance and confidence intervals are useful, but can be prone to misinterpretation. 
 
 \subsection*{Markov Chain Monte Carlo}
-As mentioned, DCA have previously used Monte Carlo simulation to approximate the distribution of a tolerance chain's dimension. For problems with many parameters - such as a subassembly of many components - Monte Carlo simulation isn't feasible because it would require an outrageous number of grid points. Instead, the posterior can be approximated using a Markov chain Monte Carlo method. This entails randomly drawing a sequence of values according to their relative probabilities, such that their relative frequencies reflect the posterior distribution. [TBC]
+As mentioned, DCA have previously used Monte Carlo simulation to approximate the distribution of a tolerance chain's dimension. For problems with many parameters - such as a subassembly of many components - Monte Carlo simulation isn't feasible because it would require too many values to be stored in a computer's memory. Instead, the posterior can be approximated using a Markov chain Monte Carlo method, which provides a method for estimating the posterior even if the domain of parameter combinations is extremely large. The details won't be presented here, but in future if DCA should choose to construct models containing many parameters they will probably need to use it. The basic idea is to generate a sequence of values according to their relative probabilities, such that the relative frequency of values in the chain converges towards the posterior distribution. 
 
 %%
 \section{Presentation \& Visualization}
 \subsection{Why Visualization is Important}
-Good visualization exposes patterns in data in a way that's immediately interpretable and precise. Bad visualization can be an effective tool for lying: Figure \ref{fig:bad_visualization} is an example of this. A visualization is a mapping from the numerical domain of a dataset to the visual domain of a plot.
+Good visualization exposes patterns in data in a way that's immediately interpretable and precise. A visualization is a mapping from the numerical domain of a dataset to the visual domain of a plot. Data isn't stored in a way that can be interpreted easily, so it needs to be transformed for it to be useful - maths is one means of transforming it to reveal patterns, and plots are another.
 
 DCA's use of visualization could be improved by:
 \begin{itemize}
-\item Seeing plots as a deliverable for communicating quality and professionalism.
+\item Presenting summary plots rather than raw data where appropriate.
+\item Providing only as much information as is needed to understand the results - is the entire group's results necessary, or just one unit's?
 \item Using plots to understand data as well as present it - in the same way that fiddling with prototypes inspires ideas, visual representations of data can suggest things that aren't clear in formal analyses.
-\item Presenting summaries rather than raw data where appropriate.
-\item Faceting line plots - overlaid line charts are crude representations of data, that will generally only show obvious differences. This is mentioned because of DCA's reliance on line plots.
+\item Faceting line plots - overlaid line charts are crude representations of data that will generally only show obvious differences. This is mentioned because of DCA's reliance on line plots.
 \end{itemize}
 Designing a visualization means giving thought to:
 \begin{itemize}
@@ -770,15 +775,10 @@ Designing a visualization means giving thought to:
 \item Facets - using a grid to separate plots
 \item Themes - typeface, non-data colours, axes and so on.
 \end{itemize}
-The most important of these are the choice of geometry, aesthetics, and scale. Aesthetics can represent dimensions that aren't displayed via a plot's axes. Geometry carries information such as resolution, chronology,  and connectivity. Scales can skew perception of effects, and should be chosen carefully.
+This many elements may seem overwhelming, and has a justification, although the most important ones are choice of geometry, aesthetics, and scales. Aesthetics can represent dimensions that aren't displayed via a plot's axes. Geometry carries information such as resolution, chronology,  and connectivity. Scales can skew perception of effects, and should be chosen carefully.
 
 \cite{hastie2013elements}, \cite{gelman2013bayesian}, \cite{faraway2004linear}, \cite{blitzstein2014linear}, \cite{jaynes2003probability}, \cite{wickham2009ggplot2}, \cite{montgomery2000design}, \cite{kruschke2015doing}, \cite{iso2014statistical}.
 
-
-\subsection{Scatter plots}
-\subsection{Box plots}
-\subsection{Separation Plots}
-http://mdwardlab.com/sites/default/files/GreenhillWardSacks.pdf
 
 %%
 \section{Software}
@@ -806,12 +806,15 @@ http://mdwardlab.com/sites/default/files/GreenhillWardSacks.pdf
 %% APPENDIX %%
 \appendix
 \chapter{}
+\subsection{What is probability theory, and what is a probability?}
 Probability allows us to analyze a system without requiring complete mechanical knowledge of it. `'Randomness'' refers to sources of variation that aren't measured. You may have heard of probabilities as representing `'Degrees of belief''. To understand what a belief is, consider this example. We machine a coin that we check is a symmetric disk of homogeneous density. I flip the coin ten times, and it comes up heads every single time. You might be surprised by this, and accuse me of flipping it in a controlled way. I then ask you how I can flip it in a way that is fair. What is your response?
 \par
 If you say that it should come heads as many times as tails, then the experiment is no longer random, as we know what the outcome will be. You may gesticulate and say ``You need to flip it \emph{randomly}''. I would press you to tell me what this means - I require a mechanism to decide how to flip the coin, and physical mechanisms are deterministic.
 \par
-The probability of an outcome can only be evaluated relative to a set of assumptions you make about the mechanism generating those outcomes. You had a preconceived notion that the way I flipped the coin would favor neither heads nor tails, and therefore saw ten heads as supremely improbable.
+Point being, the probability of an outcome can only be evaluated relative to a set of assumptions you make about the mechanism generating those outcomes. You had a preconceived notion that the way I flipped the coin would favor neither heads nor tails, and therefore saw ten heads as supremely improbable. It is exactly these kinds of assumptions that form the basis of statistical analyses. Being able to express physical assumptions mathematically gives an analytical voice to our physical understanding of the world, and should ideally feel as natural as that understanding.
 \newpage
+
+\subsection{Standard Error of a Sample Mean}
 We can see this by recognizing that the sum of independent observation's variances is equal to the variance of the variance of the sum of the observations:
 \begin{align}
  \text{Var}\sum_{i = 1}^n X_i &= \sum_{i = 1}^n \text{Var}X_i\\
@@ -828,13 +831,13 @@ To find the constant of proportionality, we need to divide the r.h.s. by its int
   p(x; a, b) \propto x^{a - 1}\cdot x^{b-1}
 \]
 
-Confidence intervals
+\subsection{Confidence intervals}
 \[
 	 = \text{P}\Bigg(\frac{\Big(\frac{\bar{x} - \mu}{\sigma/\sqrt{n}}\Big)}{s/\sqrt{n}\sigma}\Bigg)
 \]
 
 
-Justifying the least-squares fit.
+\subsection{Justifications for Least-Squares Regression}
 \begin{gather}
 	\text{Assume that the errors in $y$ given $x$ are normal with constant variance and mean zero}\\
 	\epsilon \sim \text{N}(0, \sigma^2) \\
