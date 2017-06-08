@@ -300,7 +300,7 @@ These constitute the makings of any well-designed experiment, and they are evide
 \par
 This being said, DCA lacks a framework for planning experimental investigations. As a consequence of this, fundamental activities such as verifying that experimental set-ups produce repeatable results, scoping an investigation, and running screening experiments to systematically close off avenues of enquiry are sometimes forgotten. The dominant experimental strategy within the company is a best-guess approach: one treatment is tested in each experiment, chosen based on the expert insight of the engineering team. This method's most serious shortcoming is that if the treatment does not elicit the desired effect, then the next factor to vary must be guessed at, a process that can continue almost indefinitely. Furthermore, if a treatment is successful, then it may be tempting to stop the investigation when a better solution is actually available, allowing luck to play too large a role in a product's design.
 \par
-To systematically detail DCA's experimental procedure, it is compared against conventional experimental steps in Table \ref{tab:exp_procedure}.
+DCA's experimental procedure is compared against conventional experimental steps in Table \ref{tab:exp_procedure}.
 
 \begin{landscape}
 \vspace*{-3cm}
@@ -528,6 +528,44 @@ The report so far has presented and critiqued the statistical methods currently 
 
 Having assessed DCA currently uses statistics, it's possible to suggest methods from modern statistical practice that would give them new capabilties and improve their existing attempts. This section again is structured according to the steps in an experimental process.
 
+\section{Experiment Design}
+Experiments design is motivated by trying to find efficient ways to explain variation in performance. To understand what factors determine a product's performance, this variation must be split into components attributable to product factors. The factors can be tuned to produce a desirable response. Experimental investigations should be planned to methodically work out what the effects of factors are on the response, with the available resources. Response surface methodologies would allow DCA's engineers to do this in a way that is resource-efficient, and is in some measure plannable.
+
+\subsection{Response Surface Methodologies}
+In any given one of DCA's products, it's likely that most parameters will either need to be:
+\begin{itemize}
+	\item Kept within a range - for example, criticial dimensions
+	\item Maximized or minimized - such as mechanism friction or split line prominence
+\end{itemize}
+Response surface methodologies try to achieve these objectives by sequentially identifying the factors that affect the response parameter. The general idea is to:
+\begin{enumerate}
+\item Start by determining what the first-order effects of factors are on the response. In other words, estimate the coefficients in the model:
+\begin{equation}
+	f(x_1, ..., x_n) = x_0 + \sum_{i = 1}^n \beta_i \cdot x_i
+\end{equation}
+\item Incrementally optimize the response based on the model. If the response were being maximized, this would mean adjusting the factors $x_i$ until the reponse $f(x)$ stops increasing. 
+\item Determine what the second-order interaction effects are in the vicinity of the first-order optimum. That is, fit a model of the form:
+\begin{equation}
+	f(x_1, ..., x_n) = x_0 + \sum_{i = 1}^n \sum_{j = 1}^n \beta_{ij}\cdot x_i \cdot x_j
+\end{equation}
+\item Optimize the response according to these second-order effects (described in the Appendix).
+\end{enumerate}
+Something missing from the above steps is that a shot of common sense is needed at each stage - factors that have a negligible effect on the response need to be discarded to avoid having to test a staggering number of second-order treatments to test. The structure of an RSM assumes that first-order effects are likely to be larger than interactions. 
+
+To estimate first-order effects, two factor levels need to be defined, then every combination of factor levels - $2^k$ in total - need to be tested.  To estimate error of course, replicates of each combination of factors need to be tested. To make these estimates more efficient, replicates at only a few points can be run. If these points are centered relative to the other factors, then they can suggest whether the changes seen moving towards the surrounding points are probably attributable to error or an effect. Figure \ref{fig:centered_points} shows what a center point is.
+
+Central composite designs can be used to fit the second-order model: these consists of a testing all combinations of factors, replicating at the center points described above, then displacing one factor at a time from each of these center points. This type of experiment provides just the right amount of information to characterise the reponse surface around the center points (see the Appendix's discussion of orthogonality).
+
+\begin{figure}
+\includegraphics[width=\textwidth]{central_composite_design.pdf}
+\label{fig:centered_points}
+\caption{A central composite design - the points indicate factor combinations to be tested, and the lines suggest the experiment's intentions.}
+\end{figure}
+
+ DCA could use response surface methodologies to converge more quickly on a solution than their current best-guess approach. Additionally, the solutions found using this method would be approximately optimal, rather than sufficient - this means better products, and more satisfied clients. It can be difficult to get hold of the resources to run a large experiment, and to convince a client that it will be worthwhile, but perserverance will repay itself in the risk, possible embarassment, and possible loss of business avoided as a result. Furthermore, investigations relying on - admittedly expert - guessing will consume more resources than planned investigations. The experiment designs presented here provide an idea of the minimum up-front cost needed to understand the effects of a set of factors on a response. If this cost is too high, and the factors can't be reasonably discounted, then the objectives of the investigation should be refined.
+
+
+\newpage
 \section{Analysis}
 \subsection*{Regression Analysis}
 % What's a regression model?
