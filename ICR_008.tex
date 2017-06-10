@@ -222,21 +222,25 @@
 \textbf{Randomness}	& Variation caused by unmonitored or unknown factors. \\[0.5cm]
 \textbf{Random variable}	& A function mapping physical events onto real numbers. \\[0.5cm]
 \textbf{Probability}	& The proportion of evidence in favour of a particular event, relative to the overall evidence for any event. \\[0.5cm]
-\textbf{Probability density}	& The ratio of an interval's probability to its width.
+\textbf{Probability density}	& The ratio of an interval's probability to its width.\\[0.5cm]
+\textbf{Treatment} & The modification or substance being studied in an experiment.
 \end{tabular}
 
 \newpage
 \chapter*{\large Acknowledgements}
-\vspace*{-\baselineskip}
-Beyonc\'{e}, J.D.Sallinger, and Santa Claus. \\
+\vspace*{-2\baselineskip}
+I would like to thank Matt Edwards and Paul Harper: Matt, for providing feedback that improved every section of this report, and Paul, for the support that he has given and continues to give to all students of Engineering Design.\\
 
 
+\chapter*{\large Declaration}
+\vspace*{-2\baselineskip}
+I confirm that the work presented here is wholly my own and has been generated as a result of my own thought and study. Where I have consulted the work of others it is mentioned, and where my work was part of a group effort my contribution is made clear. Where the work of another is quoted, the source is given.
 
 %% INTRODUCTION %%
 \newpage
 \chapter{Introduction}
 % A) Why statistics was used in DCA
-DCA Design International is a 150-person product design consultancy based in Warwick. Their work is oriented towards the mechanical design of medical and consumer products: their past clients include Unilever, Sanofi-Aventis, and GSK. The products they engineer are usually hand-held items such as insulin injector pens or deoderant cans: Figure \ref{fig:dca_profile} shows two of their most prolific designs. DCA's competitors are other global medium-to-large technical product design consultancies focusing on the medical, consumer, and transport sectors such as SeymourPowell and Cambridge Consultants.
+DCA Design International is a 150-person product design consultancy based in Warwick. Their work is oriented towards the mechanical design of medical and consumer products: their past clients include Unilever, Sanofi, and GSK. The products they engineer are usually hand-held items such as insulin injector pens and deoderant cans: Figure \ref{fig:dca_profile} shows two of their most prolific designs. DCA's competitors are other global medium-to-large technical product design consultancies focusing on the medical, consumer, and transport sectors such as Seymourpowell and Cambridge Consultants.
 \par
 \begin{figure}[b]
 \includegraphics[width=\textwidth]{DCA_profile.pdf}
@@ -244,9 +248,9 @@ DCA Design International is a 150-person product design consultancy based in War
 \label{fig:dca_profile}
 \end{figure}
 \par
-DCA employs about sixty mechanical engineers. Each of them are general-purpose technical consultants that are capabl of fulfilling the engineering demands of a project, be that design, physical prototyping, or analysis. DCA's substantial investment in engineering distinguishes it from other product design consultancies, many of which do not have the expertise to handle a product's technical development. This investment is manifest in both the its engineering workforce and its ownership of four test labs. The experimental work that makes use of these labs is one of DCA's value propositions as a consultancy, and it is the collection, analysis, and presentation of this experimental data that is the focus of this report. Data-oriented activities constitute the scientific discipline of statistics.
+DCA employs about sixty mechanical engineers. Each of them are general-purpose technical consultants that are capable of fulfilling the engineering demands of a project, be they design, physical prototyping, or analysis. DCA's substantial investment in engineering distinguishes it from other product design consultancies, many of which do not have the expertise to handle a product's technical development. This investment is manifest in both the its engineering workforce and its ownership of four test labs. The experimental work that makes use of these labs is one of DCA's value propositions to prospective clients: the way in which DCA handles experimental data contributes to its success in securing new clients and satisfying current ones. Collection, analysis, and presentation of DCA's experimental data is the focus of this report. These data-oriented activities constitute the scientific discipline of statistics.
 \par
-Statistics makes it possible to profile - and therefore understand and predict - the variation of real-world systems. This is critical to robust product design: knowing what factors affect performance, and by how much, is essential to making a product reliable.
+Statistics makes it possible to profile, understand, and predict variation in a product's performance. Engineers can, therefore, use statistics to design products that are more robust, less costly to manufacture, and of a higher quality than they would be otherwise.
 \par
 The first half of this report evaluates how DCA currently applies statistics: the second half then suggests methods from modern statistics that would address the weaknesses identified. In particular, Section \ref{chap:dca} explains the company's current investigatory framework and how statistics is currently applied within it. In Section \ref{chap:modernstats} the company's approach is compared to modern statistical practice, in the process of which these alternative methods are detailed and evaluated. Tools for implementing statistical methods are also discussed in the context of DCA's needs. The report concludes with an evaluation of how actionable the suggested methods are, and responds to possible criticisms of the relevance of statistics in a product design consultancy. An appendix summarizing the most useful statistical results, along with definitions of notation and technical terms, is available for reference.
 
@@ -260,7 +264,7 @@ The first half of this report evaluates how DCA currently applies statistics: th
 This section contextualizes DCA's uses of statistics and explains what methods are currently being applied by its engineers. The strengths and shortcomings of each method are listed, and the section closes with a summary and appraisal of DCA's approach.
 \section{The Structure of a Lab Investigation in DCA}
 % What does a testing sequence look like?
-A lab investigation in DCA consists of a series of experiments to understand the behaviour of a product or process. It begins with the needed knowledge being identified. Experiments are then be designed, executed, and analyzed until the knowledge is acquired or is deemed no longer relevant. This process is depicted in Figure \ref{fig:investigation_diagram}.
+A lab investigation in DCA consists of a series of experiments to understand the behaviour of a product or process. It begins with the needed knowledge being identified. Experiments are then designed, executed, and analyzed until the knowledge is acquired or is deemed no longer relevant. This process is depicted in Figure \ref{fig:investigation_diagram}.
 \begin{figure}[h!]
 \centering
 \includegraphics[width=1.2\textwidth]{Lab_Investigation_Diagram.pdf}
@@ -270,20 +274,20 @@ A lab investigation in DCA consists of a series of experiments to understand the
 % What departments in DCA test their products?
 All aspects of an investigation - from experiment design through to presenting the results to a client - are handled by engineers assigned to the project associated with that investigation. Typically investigations focus on a particular product parameter, such as the volume of fluid dispensed by an injector, or the propensity of a inhaler to fail upon being dropped. 
 \par
-Most lab work is by engineers on medical projects. Occasionally engineers working on fast-moving consumer goods (such as toothbrushes or lotion bottles) will run tests to compare design variations or verify performance relative to some baseline. In general however, the timeframes and functional requirements of such products limit the relevance of extensive experimental investigations to them: medical products on the other hand, see a good deal of the test lab.
+Most lab work is performed by engineers assigned to medical projects. Occasionally engineers working on fast-moving consumer goods (such as toothbrushes or lotion bottles) will run tests to compare design variations or verify performance relative to some baseline. In general however, the timeframes and functional requirements of such products limit the relevance of extensive experimental investigations to them: medical products on the other hand are subject to strict regulation relating to product failure modes, and must therefore be extensively tested.
 \par
 % When do they test them and why?
-Product testing can be done at any point over a development cycle, however as can be seen in Figure \ref{fig:tests_per_quarter}, the rate of testing increases as a product develops. Towards a product's relase date is when resolving minor performance issues becomes a worthwhile pursuit, exploration for future product variants become a possibility, and rehearsal for fast-approaching regulatory tests becomes essential.
+Product testing can be done at any point over a development cycle, however as can be seen in Figure \ref{fig:tests_per_quarter}, the rate of testing increases as a product develops. Towards a product's release date is when resolving minor performance issues becomes a worthwhile pursuit, exploration for future product variants becomes a possibility, and rehearsal for fast-approaching regulatory tests becomes essential.
 \begin{figure}
 \includegraphics[width=\textwidth]{tests_per_quarter.pdf}
-\caption{Frequency of tests in terms of time until project launch.}
+\caption{Testing frequency over the development of a single medical product.}
 \label{fig:tests_per_quarter}
 \end{figure}
 \par
 % How do they test them?
 The equipment supporting this work includes axial and torsional testing machines, environment chambers, coordinate measuring machines, mass balances, and high-speed cameras, among other engineering instruments. Investigations commonly revolve around a particular experimental set-up, however other experiments are sometimes conceived to provide supplementary information. With that in mind, this report attempts to be data-agnostic in its recommendations of analytical techniques.
 \par
-Other engineering activities that DCA's engineers apply statistics to are tolerance analysis and, increasingly, predictive user interfaces. Unfortunately, the latter cannot be discussed for confidentiality reasons; the former can be, and is - see the section on Monte Carlo estimation. Outside of engineering, statistics is used to varying degrees within the Human Factors and upper management od DCA, however these applications aren't talked about here.
+Other engineering activities that DCA's engineers apply statistics to are tolerance analysis and, increasingly, predictive user interfaces. Unfortunately, the latter cannot be discussed for confidentiality reasons; the former can be, and is - see the section on Monte Carlo estimation. Outside of engineering, statistics is used to varying degrees within the Human Factors and upper management of DCA, however these applications aren't talked about here.
 \par
 To help make sense of how statistics is applied in DCA's lab investigations, its use at each step of an experimental procedure - planning and execution, analysis, and presentation - is discussed in order. For any experimental investigation to be successful, the experiments themselves need to be given careful thought, and should be conducted in a similar spirit. Experiment design aims to guide such thought.
 
@@ -678,7 +682,7 @@ To minimize the first term, $\hat{\beta_0}$ can be set to group A's mean - the o
 \begin{figure}[h]
 \includegraphics[width=\textwidth]{alt_categorical_regression.pdf}
 \caption{Regression coefficients for alteranative categorical encoding.}
-\label{fig:categorical_regression}
+\label{fig:alt_categorical_regression}
 \end{figure}
 
 The fit of a linear model attempts to estimate the true relationship between the inputs and response. In other words, $\hat{\beta}$ are estimates of the parameters $\beta$:
@@ -787,8 +791,8 @@ Figure \ref{fig:posterior_predictive} shows a plot of the posterior predictive, 
 The process of inference just described would be valuable to DCA because it would provide a direct representation of how likely particular values are for key performance parameters. Unlike with standard errors, the uncertainty in the estimate is immediately apparent, and the effect of increasing sample size on accuracy is also clear, since the posterior of one analysis can be used as the prior of the next: this means that the information from tests is able to accumulate. This principle is shown in Figure \ref{fig:updating_posterior}, where the flat prior represents initial ignorance about whether a unit will pass: as more units are run, an increasingly narrow peak forms around the most probable passing probability.
 \begin{figure}
 \includegraphics[width=\textwidth]{updating_posterior.pdf}
-\label{fig:updating_posterior}
 \caption{The uncertainty in the posterior decreases as more samples are conditioned upon.}
+\label{fig:updating_posterior}
 \end{figure}
 \par
 
