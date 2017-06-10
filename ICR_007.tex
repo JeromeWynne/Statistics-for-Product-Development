@@ -18,6 +18,7 @@
 \usepackage{lscape}
 \usepackage{mdwlist}
 \usepackage{longtable}
+\usepackage{mathtools}
 \usepackage[T1]{fontenc}
 
 \setlength{\parskip}{\baselineskip}%
@@ -211,9 +212,17 @@
 
 % Notation
 \newpage
-\chapter*{Notation \& Glossary}
-\begin{tabular} {p{2.7cm}p{10cm}}
-\textbf{Attribute} & A measurable property of a \textit{unit}. \\[0.5cm]
+\chapter*{Glossary}
+\begin{tabular} {p{3.5cm}p{10cm}}
+\textbf{Factor} & A controlled variable that may affect the response in an experiment. \\[0.5cm]
+\textbf{Response} & The outcome of testing a unit.\\[0.5cm]
+\textbf{Unit}	& An individual example of the population being studied.\\[0.5cm]
+\textbf{Population}	& A collection of units subject to the same sources of variation. \\[0.5cm]
+\textbf{Experiment} & Varying factors in a controlled manner, and recording their effects on a response.\\[0.5cm]
+\textbf{Randomness}	& Variation caused by unmonitored or unknown factors. \\[0.5cm]
+\textbf{Random variable}	& A function mapping physical events onto real numbers. \\[0.5cm]
+\textbf{Probability}	& The proportion of evidence in favour of a particular event, relative to the overall evidence for any event. \\[0.5cm]
+\textbf{Probability density}	& The ratio of an interval's probability to its width.
 \end{tabular}
 
 \newpage
@@ -488,8 +497,13 @@ Monte Carlo estimation approximates a quantity by simulating the random process 
 \section{Visualizing Experimental Data}
 Visualization is essential to clearly and convincingly summarizing an experiment's results. Graphical tools allow engineers and clients to see for themselves what's been discovered. A plot should relevant, easily interpretable, and accurately convey its underlying data.
 \par
-DCA's reports and client presentations frequently contain plots of the data collected from an experiment, typically generated using either Microsoft Excel or Matlab. The plots used are line and bar charts, along with the occasional scatterplot. Line charts are particularly ubiquitous in DCA because they're directly plottable from the raw data provided by axial and torsional testing machines. As a consequence of this many graphical summaries are usually overlaid line plots, similar to that shown in Figure \ref{fig:line_plots}. The effectiveness of this use-case is evaluated in Table \ref{tab:line_chart}: in short, this type of plot can include a lot of redundant information and can make it difficult to see how individual units are behaving. On the other hand, it takes very little time to prepare, and can be related to patterns observed over the course of an experimental run. Specific problems that DCA suffer from are: not providing sufficient resolution, smoothing, and using an inappropriate line thickness.
-\par
+DCA's reports and client presentations frequently contain plots of the data collected from an experiment, typically generated using either Microsoft Excel or Matlab. The plots used are line and bar charts, along with the occasional scatterplot. Line charts are particularly ubiquitous in DCA because they're directly plottable from the raw data provided by axial and torsional testing machines. As a consequence of this many graphical summaries are usually overlaid line plots, similar to that shown in Figure \ref{fig:line_chart}. The effectiveness of this use-case is evaluated in Table \ref{tab:line_chart}. This type of plot can include a lot of redundant information and can make it difficult to see how individual units are behaving.  Line charts can also conceal the actual resolution of the data collected, particularly if a spline fit or graphical smoothing has been applied\footnote{As is a default in Excel.}. Figure \ref{fig:line_chart} is a representative chart from a DCA test report showing an overlay of the results from many units. Criticisms aside, directly plotting raw data requires very little time, and is easily relatable to patterns observed over the course of an experimental run.
+\begin{figure}
+\includegraphics[width=\textwidth]{overlaid_line_charts.pdf}
+\caption{A representative use of line charts from a DCA test report.}
+\label{fig:line_chart}
+\end{figure}
+
 Bar charts are also used fairly frequently to display performance relative to a nominal value, and a particular format of scatterplot is used to present the results of a tolerance limit analysis. The latter is shown in Figure \ref{fig:tolerance_intervals_plot}. 
 \begin{table}[h!]
 \caption{Evaluation of the line chart.}
@@ -507,12 +521,6 @@ Its meaning can be understood without explanation - it is a universally familiar
 \end{tabular}
 \label{tab:line_chart}
 \end{table}
-
-\begin{figure}
-	\includegraphics[width=\textwidth]{overlaid_line_chart.pdf}
-	\caption{Sample summary line chart from a DCA test report.}
-	\label{fig:line_plots}
-\end{figure}
 \begin{figure}
 	\includegraphics[width=\textwidth]{tolerance_intervals_plot.pdf}
 	\caption{Tolerance interval plot.}
@@ -522,6 +530,8 @@ Its meaning can be understood without explanation - it is a universally familiar
 \section{Review}
 The report so far has presented and critiqued the statistical methods currently being used by DCA's engineers. ...CONTINUE
 
+
+\newpage
 %%  SUGGESTED METHODS %%
 \chapter{Suggested Methods}\label{suggested_methods}
 \label{chap:modernstats}
@@ -531,7 +541,7 @@ Having assessed DCA currently uses statistics, it's possible to suggest methods 
 \section{Experiment Design}
 Experiments design is motivated by trying to find efficient ways to explain variation in performance. To understand what factors determine a product's performance, this variation must be split into components attributable to product factors. The factors can be tuned to produce a desirable response. Experimental investigations should be planned to methodically work out what the effects of factors are on the response, with the available resources. Response surface methodologies would allow DCA's engineers to do this in a way that is resource-efficient, and is in some measure plannable.
 
-\subsection{Response Surface Methodologies}
+\subsection*{Response Surface Methodologies}
 In any given one of DCA's products, it's likely that most parameters will either need to be:
 \begin{itemize}
 	\item Kept within a range - for example, criticial dimensions
@@ -630,7 +640,7 @@ As a case study to show why linear models are useful, consider a test in which t
 
 Next the model is set up:
 \begin{gather}
-	\hat{y} = \hat{\beta}_0 x_A + \hat{\beta}_{1}x_B + \hat{\beta}_{2}x_C = x \hat{\beta} \\[5mm]
+	\hat{y} = \hat{\beta}_0 x_A + \hat{\beta}_{1}x_B + \hat{\beta}_{2}x_C = x \hat{\beta} \label{eq:categorical_regression} \\[5mm]
 	\mathbf{X} = 
 		{\tiny
 			\begin{bmatrix}
@@ -650,7 +660,26 @@ We can then use the normal equation (Equation \ref{eq:normal_eqtn}) to make the 
 \label{fig:categorical_regression}
 \end{figure}
 
+Figure \ref{fig:alt_categorical_regression} shows how the meaning of the regression coefficients could change with choice of encoding. Whereas in Equation \ref{eq:categorical_regression} the fit coefficients were estimates the group means, the coefficients here correspond to the model:
+\begin{equation}
+	\hat{y} = \hat{\beta}_0 + \hat{\beta}_1x_B + \hat{\beta}_2x_C
+\end{equation}
+The practical implication of this is that $x_B$ or $x_C$ are now indicator variables for whether a unit deviates from the mean response $\hat{\beta_0}$.
+\begin{equation}
+	\text{RSS}(\hat{\beta}) = \quad
+					\smashoperator{\sum_{i: x_i \in \{x: x_a = 1\}}}(y_i - \hat{\beta}_0) \quad + \quad
+					 \smashoperator{\sum_{i: x_i \in \{x: x_b = 1\}}}(y_i - (\hat{\beta}_0 + \hat{\beta}_1)) \quad + \quad
+					 \smashoperator{\sum_{i: x_i \in \{x: x_c = 1\}}}(y_i - (\hat{\beta}_0 + \hat{\beta}_2))
+\end{equation}
+To minimize the first term, $\hat{\beta_0}$ can be set to group A's mean - the other two terms can be minimized by letting $\hat{\beta_1}$ and $\hat{\beta_2}$ correspond to the mean deviation of groups B and C from A.
+
  Something to be quite careful of is redundantly encoding the groups. If a constant term $\hat{\beta}_4$ were to be included in the model above, then there would be many equivalent ways to express the group effects: $\hat{\beta}_4$ could be any constant value, and $\hat{\beta}_1, \hat{\beta}_2, \hat{\beta}_3$ would be set to deviate from this constant to the group averages. This means that attempts to evaluate Equation \ref{eq:normal_eqtn} will be unsuccessful or unstable\footnote{The instability is caused by numerical errors in calculating the inverse directly.}.
+ 
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{alt_categorical_regression.pdf}
+\caption{Regression coefficients for alteranative categorical encoding.}
+\label{fig:categorical_regression}
+\end{figure}
 
 The fit of a linear model attempts to estimate the true relationship between the inputs and response. In other words, $\hat{\beta}$ are estimates of the parameters $\beta$:
 \begin{equation}
@@ -681,7 +710,7 @@ Summary statistics such as the coefficients of a linear model or a sample varian
 \label{fig:annotated_posterior}
 \end{figure}
 \par
-Bayesian methods would be useful to DCA because they're more easily understood, visualized, and explained than classical methods\footnote{``Classical methods'' here refers to tools such as hypothesis tests and interval estimates}, and are relevant to a broader range of situations. They also allow expert knowledge to be used, making it possible to reach a sanitary comprimise between gut-feel and experimental observation. Finally, their emphasis on distribution rather than point estimates better reflects the underlying uncertainty in analytical results. These claims will  be explained in the context of an example.
+Bayesian methods would be useful to DCA because they're more easily understood, visualized, and explained than classical methods\footnote{``Classical methods'' here refers to tools such as hypothesis tests and interval estimates.}, and are relevant to a broader range of situations. They also allow expert knowledge to be used, making it possible to reach a sanitary comprimise between gut-feel and experimental observation. Finally, their emphasis on distribution rather than point estimates better reflects the underlying uncertainty in analytical results. These claims will  be explained in the context of an example.
 \par
 The proportion of units passing a test is a useful measure of a design's suitability for the problem at hand. Using the results from a test sample and the expertise of an engineering team, and Bayes' theorem, it's possible to estimate what pass rates would be likely if the design were to be produced in larger volumes.
 \par
@@ -755,7 +784,7 @@ Figure \ref{fig:posterior_predictive} shows a plot of the posterior predictive, 
 \label{fig:posterior_predictive}
 \end{figure}
 
-The process of inference just described would be valuable to DCA because it would provide a direct representation of how likely particular values are for key performance parameters. Unlike with standard errors, the uncertainty in the estimate is immediately apparent, and the effect of increasing sample size on accuracy is also clear, since the posterior of one analysis can be used as the prior of the next: this means that the information from tests is able to accumulate. This principle is shown in Figure \ref{fig:updating_posterior.pdf}, where the flat prior represents initial ignorance about whether a unit will pass: as more units are run, an increasingly narrow peak forms around the most probable passing probability.
+The process of inference just described would be valuable to DCA because it would provide a direct representation of how likely particular values are for key performance parameters. Unlike with standard errors, the uncertainty in the estimate is immediately apparent, and the effect of increasing sample size on accuracy is also clear, since the posterior of one analysis can be used as the prior of the next: this means that the information from tests is able to accumulate. This principle is shown in Figure \ref{fig:updating_posterior}, where the flat prior represents initial ignorance about whether a unit will pass: as more units are run, an increasingly narrow peak forms around the most probable passing probability.
 \begin{figure}
 \includegraphics[width=\textwidth]{updating_posterior.pdf}
 \label{fig:updating_posterior}
@@ -802,10 +831,31 @@ Designing a visualization means giving thought to:
 \item Datapoint aesthetics - color, size, shape, and position of the geometries
 \item Scales - mappings from data to aesthetics
 \item Summary statistics - plottable summaries of the data
-\item Facets - using a grid to separate plots
+\item Facets - plotting subsets of the data separately
 \item Themes - typeface, non-data colours, axes and so on.
 \end{itemize}
-This many elements may seem overwhelming, and has a justification, although the most important ones are choice of geometry, aesthetics, and scales. Aesthetics can represent dimensions that aren't displayed via a plot's axes. Geometry carries information such as resolution, chronology,  and connectivity. Scales can skew perception of effects, and should be chosen carefully.
+This many elements may seem overwhelming, and can be justified, although the most important ones are choice of geometry, aesthetics, and scales. Aesthetics can represent dimensions that aren't displayed via a plot's axes. Geometry carries information such as resolution, chronology,  and connectivity. Scales can skew perception of effects, and should be chosen carefully.
+
+ In DCA, experimental results are regularly discussed in team meetings. These discussions are guided by charts of the results; the conclusions of these meetings will guide an experimental investigation, and can only be as well-informed as those charts permit. If charts contain irrelevant or misleading information, an investigation may stall.
+  While default options in programs like Excel and Matlab can be very useful for quickly surveying data, they are rarely ideal for focusing technical discussions. The same applies to plotting raw time series data directly - gross structure can be made apparent, but there will almost certainly be both a clearer way to express it and relevant information will be submerged in a sea of noise.
+
+To show what's meant by the above criticism, consider Figure \ref{fig:}, which is an imitation of the plot shown in Figure \ref{fig:line_chart}. 
+
+\begin{figure}
+\includegraphics[width=\textwidth]{thinned_line_chart.pdf}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=\textwidth]{strip_plot.pdf}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=\textwidth]{imitation_line_chart.pdf}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=\textwidth]{annotated_line_chart.pdf}
+\end{figure}
 
 \cite{hastie2013elements}, \cite{gelman2013bayesian}, \cite{faraway2004linear}, \cite{blitzstein2014linear}, \cite{jaynes2003probability}, \cite{wickham2009ggplot2}, \cite{montgomery2000design}, \cite{kruschke2015doing}, \cite{iso2014statistical}.
 
@@ -845,7 +895,7 @@ Point being, the probability of an outcome can only be evaluated relative to a s
 \newpage
 
 \subsection{Standard Error of a Sample Mean}
-We can see this by recognizing that the sum of independent observation's variances is equal to the variance of the variance of the sum of the observations:
+We can see this by recognizing that the sum of independent observation's variances is equal to the variance of the sum of the observations:
 \begin{align}
  \text{Var}\sum_{i = 1}^n X_i &= \sum_{i = 1}^n \text{Var}X_i\\
 	\text{Var}n\bar{X} &= n\text{Var}X \\
