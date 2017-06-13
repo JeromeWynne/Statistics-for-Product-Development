@@ -20,6 +20,7 @@
 \usepackage{longtable}
 \usepackage{mathtools}
 \usepackage[T1]{fontenc}
+\usepackage{longtable}
 
 \setlength{\parskip}{\baselineskip}%
 \setlength{\parindent}{0pt}%
@@ -213,21 +214,22 @@
 % Notation
 \newpage
 \chapter*{Glossary}
-\begin{tabular} {p{3.5cm}p{10cm}}
+\begin{longtable} {p{3.5cm}p{10cm}}
+\textbf{Confounding factor} & A difference between treatment groups that could be affecting the repsonse, thereby making it unclear whether this difference or the treatment is affecting the response. \\[0.5cm]
 \textbf{Experiment} & Varying factors in a controlled manner, and recording their effects on a response.\\[0.5cm]
 \textbf{Factor} & A controlled variable that may affect the response in an experiment. \\[0.5cm]
 \textbf{Level} & The degree or class to which a factor is set to, such as the volume of lubricant applied, or the mechanism subassembly chosen. \\[0.5cm]
 \textbf{Nuisance variable} & A source of variation in the response that is not the subject of an experiment. \\[0.5cm]
+\textbf{Probability}	& The proportion of evidence in favour of a particular event, relative to the overall evidence for any event. \\[0.5cm]
 \textbf{Probability density}	& The ratio of an interval's probability to its width.\\[0.5cm]
 \textbf{Population}	& A collection of units subject to the same sources of variation. \\[0.5cm]
 \textbf{Randomness}	& Variation caused by unmonitored or unknown factors. \\[0.5cm]
 \textbf{Ranges}   & The region of a factor's domain over which to choose levels. \\[0.5cm]
 \textbf{Random variable}	& A function mapping physical events onto real numbers. \\[0.5cm]
-\textbf{Probability}	& The proportion of evidence in favour of a particular event, relative to the overall evidence for any event. \\[0.5cm]
 \textbf{Response} & The outcome of testing a unit.\\[0.5cm]
 \textbf{Treatment} & The design variation being studied in an experiment. \\[0.5cm]
 \textbf{Unit}	& An individual example of the population being studied.
-\end{tabular}
+\end{longtable}
 
 \newpage
 \chapter*{\large Acknowledgements}
@@ -243,7 +245,7 @@ I confirm that the work presented here is wholly my own and has been generated a
 \newpage
 \chapter{Introduction}
 % A) Why statistics was used in DCA
-DCA Design International is a 150-person product design consultancy based in Warwick. Their work is oriented towards the mechanical design of medical and consumer products: their past clients include Unilever, Sanofi, and GSK. The products they engineer are usually hand-held items such as insulin injector pens and deoderant cans: Figure \ref{fig:dca_profile} shows two of their most prolific designs. DCA's competitors are other global medium-to-large technical product design consultancies focusing on the medical, consumer, and transport sectors such as Seymourpowell and Cambridge Consultants.
+DCA Design International is a 150-person product design consultancy based in Warwick. Its work is oriented towards the mechanical design of medical and consumer products for clients such as Unilever, Sanofi, and GSK. Figure \ref{fig:dca_profile} shows two of the company's most prolific designs. DCA's competitors are other global medium-to-large technical product design consultancies focusing on the medical, consumer, and transport sectors such as Seymourpowell and Cambridge Consultants.
 \par
 \begin{figure}[b]
 \includegraphics[width=\textwidth]{DCA_profile.pdf}
@@ -251,11 +253,11 @@ DCA Design International is a 150-person product design consultancy based in War
 \label{fig:dca_profile}
 \end{figure}
 \par
-DCA employs about sixty mechanical engineers. Each of them are general-purpose technical consultants that are capable of fulfilling the engineering demands of a project, be they design, physical prototyping, or analysis. DCA's substantial investment in engineering distinguishes it from other product design consultancies, many of which do not have the expertise to handle a product's technical development. This investment is manifest in both the its engineering workforce and its ownership of four test labs. The experimental work that makes use of these labs is one of DCA's value propositions to prospective clients: the way in which DCA handles experimental data contributes to its success in securing new clients and satisfying current ones. Collection, analysis, and presentation of DCA's experimental data is the focus of this report. These data-oriented activities constitute the scientific discipline of statistics.
+DCA employs approximately sixty mechanical engineers, each of whom are general-purpose technical consultants that are capable of fulfilling the engineering demands of a project. These demands will consist of design, analysis, and prototyping work, in proportions varying according to the project. DCA's substantial investment in engineering distinguishes it from other product design consultancies, many of which have less expertise available to handle a product's technical development \cite{designweek}. This investment is manifest in both the its engineering workforce and its ownership of four test labs. The experimental work that makes use of these labs is one of DCA's value propositions to prospective clients: the way in which DCA handles experimental data contributes to its success in securing new clients and satisfying current ones. The way in which DCA's engineers collect, analyse, and present experimental data is the focus of this report. These data-oriented activities constitute the scientific discipline of statistics.
 \par
-Statistics makes it possible to profile, understand, and predict variation in a product's performance. Engineers can, therefore, use statistics to design products that are more robust, less costly to manufacture, and of a higher quality than they would be otherwise.
+Statistics makes it possible to profile, understand, and predict variation in a product's performance. Engineers can use statistics to design products that are more robust, less costly to manufacture, and of a higher quality than they would be otherwise. Being able to use statistical tools fluently would elevate DCA's capacity as a technical consultancy.
 \par
-The first half of this report evaluates how DCA currently applies statistics: the second half then suggests methods from modern statistics that would address the weaknesses identified. In particular, Section \ref{chap:dca} explains the company's current investigatory framework and how statistics is currently applied within it. In Section \ref{chap:modernstats} the company's approach is compared to modern statistical practice, in the process of which these alternative methods are detailed and evaluated. Tools for implementing statistical methods are also discussed in the context of DCA's needs. The report concludes with an evaluation of how actionable the suggested methods are, and responds to possible criticisms of the relevance of statistics in a product design consultancy. An appendix summarizing the most useful statistical results, along with definitions of notation and technical terms, is available for reference.
+The first half of this report evaluates how DCA currently applies statistics: the second half then suggests alternative statistical methods that might be useful to the company. Section \ref{chap:dca} explains DCA's current investigatory framework and how statistics is applied within it. In Section \ref{chap:modernstats} the company's approach is compared to modern statistical practice. Software for implementing statistical methods is also discussed, since it is necessary to apply the methods proposed. The report concludes with an evaluation of how actionable the suggested methods are, and responds to possible criticisms of the relevance of statistics in a product design consultancy. An appendix summarizing the most useful statistical results, along with definitions of notation and technical terms, is available for reference.
 
 \newpage
 
@@ -275,12 +277,12 @@ A lab investigation in DCA consists of a series of experiments to understand the
 \label{fig:investigation_diagram}
 \end{figure}
 % What departments in DCA test their products?
-All aspects of an investigation - from experiment design through to presenting the results to a client - are handled by engineers assigned to the project associated with that investigation. Typically investigations focus on a particular product parameter, such as the volume of fluid dispensed by an injector, or the propensity of a inhaler to fail upon being dropped. 
+All aspects of an investigation - from experiment design through to presenting the results to a client - are handled by engineers assigned to the project associated with that investigation. 
 \par
-Most lab work is performed by engineers assigned to medical projects. Occasionally engineers working on fast-moving consumer goods (such as toothbrushes or lotion bottles) will run tests to compare design variations or verify performance relative to some baseline. In general however, the timeframes and functional requirements of such products limit the relevance of extensive experimental investigations to them: medical products on the other hand are subject to strict regulation relating to product failure modes, and must therefore be extensively tested.
+Most lab work is performed by engineers assigned to medical projects. Occasionally engineers working on fast-moving consumer goods (such as toothbrushes or lotion bottles) will run tests to compare design variations or verify performance relative to some baseline. In general however, the timeframes and functional requirements of such products limit the relevance of extensive experimental investigations. Medical products, on the other hand, are subject to strict regulation relating to product failure modes, and must therefore be extensively tested.
 \par
 % When do they test them and why?
-Product testing can be done at any point over a development cycle, however as can be seen in Figure \ref{fig:tests_per_quarter}, the rate of testing increases as a product develops. Towards a product's release date is when resolving minor performance issues becomes a worthwhile pursuit, exploration for future product variants becomes a possibility, and rehearsal for fast-approaching regulatory tests becomes essential.
+Tests can be conducted at any point in a product's development, however as can be seen in Figure \ref{fig:tests_per_quarter}, the rate of testing increases as a product develops and varies dramatically according to project stage. Towards a product's release date is when resolving minor performance issues becomes a worthwhile pursuit, exploration for future product variants becomes a possibility, and rehearsal for fast-approaching regulatory tests becomes essential.
 \begin{figure}
 \includegraphics[width=\textwidth]{tests_per_quarter.pdf}
 \caption{Testing frequency over the development of a single medical product.}
@@ -290,73 +292,40 @@ Product testing can be done at any point over a development cycle, however as ca
 % How do they test them?
 The equipment supporting this work includes axial and torsional testing machines, environment chambers, coordinate measuring machines, mass balances, and high-speed cameras, among other engineering instruments. Investigations commonly revolve around a particular experimental set-up, however other experiments are sometimes conceived to provide supplementary information. With that in mind, this report attempts to be data-agnostic in its recommendations of analytical techniques.
 \par
-Other engineering activities that DCA's engineers apply statistics to are tolerance analysis and, increasingly, predictive user interfaces. Unfortunately, the latter cannot be discussed for confidentiality reasons; the former can be, and is - see the section on Monte Carlo estimation. Outside of engineering, statistics is used to varying degrees within the Human Factors and upper management of DCA, however these applications aren't talked about here.
+Other engineering activities that DCA's engineers apply statistics to are tolerance analysis and, increasingly, predictive user interfaces. Unfortunately, the latter cannot be discussed for confidentiality reasons; the former can be, and is. Statistics is used to varying degrees within the Human Factors and upper management of DCA, however these applications aren't described here.
 \par
-To help make sense of how statistics is applied in DCA's lab investigations, its use at each step of an experimental procedure - planning and execution, analysis, and presentation - is discussed in order. For any experimental investigation to be successful, the experiments themselves need to be given careful thought, and should be conducted in a similar spirit. Experiment design aims to guide such thought.
+To help make sense of how statistics is applied in DCA's lab investigations, each step of an experimental procedure is reviewed in turn. These steps are:
+\begin{enumerate}
+\item Planning and execution.
+\item Analysis
+\item Presentation and visualization.
+\end{enumerate}
+Investigatory strategy guides the choice of all of the above, and is examined as part of Subsection 2.2. For any experimental investigation to be successful, the experiments themselves need to be given careful thought, and should be conducted in a similar spirit - in other words, the experiments need to be designed.
 
 %%
 \section{Experiment Design}
-Experiment design can be used to make products that perform better, are more reliable, less risky to develop, and have a uniquely justifiable development process. It is expertise that would elevate DCA's capacity as a technical consultancy.
+Experiment design can be used to make products that perform better, are more reliable, less risky to develop, and have a uniquely justifiable development process. Design of Experiments refers to both experiment designs and a broader philosophy of systematic experimentation. An experiment design is a particular structure of experiment; good experimental design produces data that is unambiguous and relevant to an experimental objective.
 \par
-Design of Experiments refers to both experiment designs and a broader philosophy of systematic experimentation. An experiment design is a particular structure of experiment, such as comparing the effects of two factors each at two levels. Good experimental design produces data that is unambiguous and relevant to an experimental objective.
-\par
-Three principles guide the design of robust experiments:
+Three principles form the backbone of robust experimentation:
 \begin{description}
 \item[Replication]{Testing a particular treatment on more than one unit. Replication allows experimental error to be estimated and, since unbiased errors cancel on being averaged, provides a more precise estimate of a treatment's effect.}
 \item[Randomization]{Randomly allocating treatments to units and the sequence in which units are tested averages out the effects of nuisance variables, and validates the important analytical assumption that observations are randomly drawn from a population.}
-\item[Blocking]{Blocking allows the effects of a nuisance factor to be averaged out during analysis, by accounting for unit differences when assigning treatments - see Figure \ref{fig:blocking}. A block is a set of similar units.}
+\item[Blocking]{Blocking accounts for the effects of nuisance variables when assigning treatments - units are grouped on the basis of a shared attribute, then treatments are distributed evenly among the groups. See Figure \ref{fig:blocking} for further explanation.}
 \end{description}
-These constitute the makings of any well-designed experiment, and they are evident in DCA's labwork: units are blocked according to factors such as component batches and time of assembly, testing and assembly sequences are randomized, and engineers are keen to provide replicates in their tests.
-
+These principles constitute the makings of any well-designed experiment, and they are evident in DCA's labwork: units are blocked according to factors such as component batches and time of assembly, testing and assembly sequences are randomized, and engineers are keen to provide replicates in their tests. The experimental designs used in the company are enumerated, explained, and critiqued in Table \ref{tab:exp_designs}.
+\par
+In spite of the company's awareness of these fundamental aspects of experiment design, there is a tendency to forget to consider how the data collected will be analyzed when planning an experiment, and to think about how to structure an investigation. Analysis should be considered from during the planning stages since it is what will make apparent the test's outcome. By thinking about how the collected data should be analysed, possible confounding factors can be identified and controlled.
+\par
+DCA also lacks a framework for planning experimental investigations. As a consequence of this, fundamental activities such as verifying that experimental set-ups produce repeatable results, scoping an investigation, and running screening experiments to systematically close off avenues of enquiry are routinely forgotten. The dominant experimental strategy within the company is a best-guess approach: one treatment is tested in each experiment, chosen based on the expert insight of the engineering team. This method's most serious shortcoming is that if the treatment does not elicit the desired effect, then the next factor to vary must be guessed at, a process that can continue almost indefinitely. Furthermore, if a treatment is successful, then its investigation may be concluded when in fact a better solution exists.
+\par
 \begin{figure}
 \includegraphics[width=\textwidth]{Blocking.pdf}
 \caption{Diagram of what blocking involves.}
 \label{fig:blocking}
 \end{figure}
 \par
-This being said, DCA lacks a framework for planning experimental investigations. As a consequence of this, fundamental activities such as verifying that experimental set-ups produce repeatable results, scoping an investigation, and running screening experiments to systematically close off avenues of enquiry are sometimes forgotten. The dominant experimental strategy within the company is a best-guess approach: one treatment is tested in each experiment, chosen based on the expert insight of the engineering team. This method's most serious shortcoming is that if the treatment does not elicit the desired effect, then the next factor to vary must be guessed at, a process that can continue almost indefinitely. Furthermore, if a treatment is successful, then its investigation may be concluded when in fact a better solution exists.
-\par
-DCA's experimental procedure is compared against conventional experimental steps in Table \ref{tab:exp_procedure}.
-
-\begin{landscape}
-\vspace*{-3cm}
-{\tiny
-\begin{longtable}{p{4cm} p{7cm} p{6cm} p{6cm}}
-\caption{Comparison of DCA's experimental procedure with conventional practice.}\\
-\toprule[0.15em]
-\textbf{Experimental step} & \textbf{DCA's implementation} & \textbf{Strengths} & \textbf{Suggestions} \\
-\toprule[0.15em]
-Recognition and statement of the problem. & Problems in need of experimental work were identified in either other experiments or design-side activities. These problems were not formally stated, but were agreed in loose terms among the engineering team. & The benefits that experimental investigations provide, such as empirical validity and flexibility, were recognized. & A precise problem statement would focus investigations towards a particular end, and allow progress towards that end to be gauged. It would also make it clear to the team, client, and management, exactly what an investigation aims to achieve. \\ 
- &  &  & Specific problem statements would have made it easier to review previous work - without them, it was difficult to determine where one investigation began and another ended. \\ 
-\cmidrule{1-4}
-Choice of factors, levels, and ranges. & These choices were made in engineering team meetings, which occured weekly. Factors were identified haphazardly, which was detrimental to the course of investigations because it was sometimess unclear which nuisance variables a previous experiment had controlled. Ranges and levels were chosen according to expert knowledge. The number of levels tended to be small (2 or 3) because differences rather than overall responses were of interest. & The level choices were well-justified using either physical reasoning or previous experimental results. & Monitoring which factors are controlled and uncontrolled would allow a response's variation to be broken down into its components , and would improve the validity of the data collected.\\ 
- &  & Deciding which factors are relevant in a meeting used the entire team's engineering knowledge and critical thinking skills. & A meeting should be a place to review a choice, not to make it - conversation is not methodical and can easily miss relevant information.\\
- & & Stating whether factors are controlled would avoid mistakes when interpreting results. \\ 
-\cmidrule{1-4}
-Selection of the response variable. & The response variable would be mentioned on an experiment's cover sheet (e.g. torque output of mechanism), but its relation to the investigation's objective was not always documented. More than one way to measure the response variable would almost always be considered. & Engineers in the company could generate many possible response variables, and analyze their respective merits. & Precursor experiments comparing the candidate response variables may reduce the length of investigations. \\ 
- &  & The response variable chosen is chosen carefully to closely represent the system under study. & Documenting the alternative response variables would make it easier to clearly outline why one method is superior, and to transition between testing methods as circumstances change. \\ 
-\cmidrule{1-4}
-Choice of experimental design. & Experiments are designed within meetings. They will involved randomization, replication, and blocking, but do not take advantage of formal experiment designs suited to particular problem constraints (e.g. resource limitations). The desired analysis is not stated beforehand, and the majority of tests are comparative. & Simple experiment designs are easily communicated, executed, and documented. & A well-chosen experimental design can reduce the resources (time, materials, and effort) expended in satisfying the investigation's objective. \\ 
- &  &  & Considering analysis beforehand makes it possible to ensure analytical assumptions are met. \\ 
-\cmidrule{1-4}
-Performing the experiment. & Experiments are run in on-site laboratories. Frequently run experiments have protocols; hand-written observations and summaries of important information (date, experimenter, purpose etc.) are mandatory for all experiments. & Labs provide experimental control over nuisance variables. & Experimental fixtures should be shown to generate repeatable, reliable results before being used. \\ 
- & & Images of test set-up would make it much easier to retrospectively understand an experiment. \\ 
- &  & Experiments are run by engineers solving the problem - this makes engineers personally responsible for their results, and exposes them to undocumented experimental information. \\ 
-\cline{1-4}
-Analysis of the data collected. & Analyses were run as soon as data is available, and were handled by the engineer that conducted the experiment. Excel - and occasionally Matlab - were used to analyze test data. The conclusions resulting from analyses tended to be judgemental as opposed to statistical. Compared to the time spent running the experiment, analysis was brief, and the lack of forethought about an appropriate form of analysis meant that analytical conclusions were sometimes lacking. & Engineering expertise was applied to explain experimental results in a physically meaningful way. & Statistics should have been used more regularly ensure that sound analytical conclusions were drawn - subjective assessment alone is susceptible to various biases that can lead to lost time and confusion.\\ 
- &  &  & More time should be allocated to analysis in experimental investigations. Of the one-hundred or so test reports surveyed, very few of them did more than plot line charts of the raw data: analysis is crucial for an experiment to be useful, and neglecting to spend invest time in it can mean that dozens of experiments are run when a few would suffice.\\ 
-\cmidrule{1-4}
-Conclusions and recommendations & Experimental conclusions were presented to clients via presentations, memos, and technical reports. Interim results were presented every week in team meetings. & The importance of graphics was realized and put to good effect in client presentations. & Charts exist beyond those currently being used that may make it easier to explain investigation outcomes. \\ 
- &  \\
-\bottomrule
-\label{tab:exp_procedure}
-\end{longtable}
-}
-\end{landscape}
 
 
-\par
-The experimental designs used in the company are enumerated, explained, and critiqued in Table \ref{tab:exp_designs}. As mentioned, the core problem with DCA's experimental strategy is its narrow focus on testing specifics - running a few large experiments considering many different treatments at once can be much more efficient than many very specific experiments. Moreover, there is no understanding of what constitutes a statistically efficient design -...
 \renewcommand\arraystretch{1.5}
 \begin{table}[H]
 \hspace*{-2.25cm}
@@ -380,18 +349,22 @@ The experimental designs used in the company are enumerated, explained, and crit
 	\label{tab:exp_designs}
 \end{table}
 
-After an experiment is designed, it must be run. DCA is very well endowed to run experiments, and has a system in place for documenting the date, purpose, and conditions of an individual experiment. Stating whether factors are controlled would avoid mistakes when interpreting results, allow the company to make more effective use of its experimental equipment
+After an experiment is designed, it must be run. As has been mentioned, DCA is well endowed to run experiments, and has a system in place for documenting the date, purpose, and conditions of an individual experiment. These documents are scanned and stored on a local network, where they can be referred to at a later date. These documents are useful, but could be improved by:
+\begin{itemize}
+	\item Listing what factors were controlled and which were uncontrolled. This would help future users of the test data avoid mistakes when interpreting results.
+	\item Providing a reference to a test in which the experimental apparatus and procedure used was verified.
+	\item Including an image of the experiment so that the experiment can be understood by other engineers.
+	\item A specific statement of how the collected data will be analyzed. This is to ensure that the results of an experiment are used in the way intended by the overall investigation.
+\end{itemize}
 
-Once an experiment has been planned and run, it remains to analyze the raw data to extract useful information. A well-designed experiment's analysis should write itself - the purpose should be evident from the beginning. Methods for constructing an analysis are now discussed.
+Once an experiment has been planned and executed, it remains to analyze the raw data to extract useful information. DCA's analyses will now be discussed.
 
-\newpage
+\vspace{48pt}
 %%
-\section{Analysis of Experimental Data}
-The content of several hundred test reports was tabulated to inform this discussion, which focuses on summary statistics and interval estimates.
-\par
+\section{Analysis}
 Analyses in DCA rely heavily on expert knowledge of the systems being tested and rarely on statistical results. This is probably because the relevance of statistics may not be clear, and how it might be applied even less so, which is understandable. It's widely agreed that most people's experience with statistics is one of discomfort and bemusement. Having said this, relying on intuition alone risks falling prey to cognitive biases, missing valuable information that isn't superficially obvious, and being unable to properly relate physical behaviours to experimental observations. Foregoing statistics when analyzing product behaviour severely handicaps the ability of an engineer to design a robust product.
 \par
-The reports surveyed contained summary statistics, such as arithmetic means, variances, maximums, minimums, and so on. A few made use of interval estimates as informed by a regulatory standard, and one report applied a t-test. These tools will now be explained, and their usefulness and possible weaknesses detailed.
+The reports surveyed contained summary statistics, such as arithmetic means, variances, maximums, minimums, and so on. A few made use of interval estimates as informed by a regulatory standard, and one report applied a t-test. These tools will now be explained, and their usefulness and possible weaknesses detailed. FIGURE X DISPLAYS THE USE OF STATISTICAL TOOLS IN DCA.
 \par
 \subsection*{Summary Statistics}
  Randomness refers to variation in a response as a result of uncontrolled factors. If a coin is always flipped according to the same process, then it will always land in the same orientation. By contrast, if a coin is flipped by hand, then the person doing the flipping has a limited amount of control over the factors affecting the flip. As a result, there is uncertainty as to what the outcome of that flip will be. There are two ways to reduce this uncertainty: Either make assumptions about how those factors vary, or take measurements of them. The former method allows real-world knowledge to state what outcomes are possible what their relative propensities are. Conversely, measurements allow the factor effects to be estimated, meaning that sources of variation in the response can be accounted for.
@@ -480,7 +453,7 @@ Monte Carlo estimation approximates a quantity by simulating the random process 
 
 
 \newpage
-\section{Visualizing Experimental Data}
+\section{Visualization}
 Visualization is essential to clearly and convincingly summarizing an experiment's results. Graphical tools allow engineers and clients to see for themselves what's been discovered. A plot should be relevant, easily interpretable, and accurately convey its underlying data.
 \par
 DCA's reports and client presentations frequently contain plots of the data collected from an experiment, typically generated using either Microsoft Excel or Matlab. The plots used are line and bar charts, along with the occasional scatterplot. Line charts are particularly ubiquitous in DCA because they're directly plottable from the raw data provided by axial and torsional testing machines. As a consequence of this many graphical summaries are usually overlaid line plots, similar to that shown in Figure \ref{fig:line_chart}. The effectiveness of this use-case is evaluated in Table \ref{tab:line_chart}. This type of plot can include a lot of redundant information and can make it difficult to see how individual units are behaving.  Line charts can also conceal the actual resolution of the data collected, particularly if a spline fit or graphical smoothing has been applied\footnote{As is a default in Excel.}. Figure \ref{fig:line_chart} is a representative chart from a DCA test report showing an overlay of the results from many units. Criticisms aside, directly plotting raw data requires very little time, and is easily relatable to patterns observed over the course of an experimental run.
@@ -515,6 +488,43 @@ Its meaning can be understood without explanation - it is a universally familiar
 
 \section{Review}
 The report so far has presented and critiqued the statistical methods currently being used by DCA's engineers. ...CONTINUE
+DCA's experimental procedure is compared against conventional experimental steps in Table \ref{tab:exp_procedure}.
+
+\begin{landscape}
+\vspace*{-3cm}
+{\tiny
+\begin{longtable}{p{4cm} p{7cm} p{6cm} p{6cm}}
+\caption{Comparison of DCA's experimental procedure with conventional practice.}\\
+\toprule[0.15em]
+\textbf{Experimental step} & \textbf{DCA's implementation} & \textbf{Strengths} & \textbf{Suggestions} \\
+\toprule[0.15em]
+Recognition and statement of the problem. & Problems in need of experimental work were identified in either other experiments or design-side activities. These problems were not formally stated, but were agreed in loose terms among the engineering team. & The benefits that experimental investigations provide, such as empirical validity and flexibility, were recognized. & A precise problem statement would focus investigations towards a particular end, and allow progress towards that end to be gauged. It would also make it clear to the team, client, and management, exactly what an investigation aims to achieve. \\ 
+ &  &  & Specific problem statements would have made it easier to review previous work - without them, it was difficult to determine where one investigation began and another ended. \\ 
+\cmidrule{1-4}
+Choice of factors, levels, and ranges. & These choices were made in engineering team meetings, which occured weekly. Factors were identified haphazardly, which was detrimental to the course of investigations because it was sometimess unclear which nuisance variables a previous experiment had controlled. Ranges and levels were chosen according to expert knowledge. The number of levels tended to be small (2 or 3) because differences rather than overall responses were of interest. & The level choices were well-justified using either physical reasoning or previous experimental results. & Monitoring which factors are controlled and uncontrolled would allow a response's variation to be broken down into its components , and would improve the validity of the data collected.\\ 
+ &  & Deciding which factors are relevant in a meeting used the entire team's engineering knowledge and critical thinking skills. & A meeting should be a place to review a choice, not to make it - conversation is not methodical and can easily miss relevant information.\\
+ & & Stating whether factors are controlled would avoid mistakes when interpreting results. \\ 
+\cmidrule{1-4}
+Selection of the response variable. & The response variable would be mentioned on an experiment's cover sheet (e.g. torque output of mechanism), but its relation to the investigation's objective was not always documented. More than one way to measure the response variable would almost always be considered. & Engineers in the company could generate many possible response variables, and analyze their respective merits. & Precursor experiments comparing the candidate response variables may reduce the length of investigations. \\ 
+ &  & The response variable chosen is chosen carefully to closely represent the system under study. & Documenting the alternative response variables would make it easier to clearly outline why one method is superior, and to transition between testing methods as circumstances change. \\ 
+\cmidrule{1-4}
+Choice of experimental design. & Experiments are designed within meetings. They will involved randomization, replication, and blocking, but do not take advantage of formal experiment designs suited to particular problem constraints (e.g. resource limitations). The desired analysis is not stated beforehand, and the majority of tests are comparative. & Simple experiment designs are easily communicated, executed, and documented. & A well-chosen experimental design can reduce the resources (time, materials, and effort) expended in satisfying the investigation's objective. \\ 
+ &  &  & Considering analysis beforehand makes it possible to ensure analytical assumptions are met. \\ 
+\cmidrule{1-4}
+Performing the experiment. & Experiments are run in on-site laboratories. Frequently run experiments have protocols; hand-written observations and summaries of important information (date, experimenter, purpose etc.) are mandatory for all experiments. & Labs provide experimental control over nuisance variables. & Experimental fixtures should be shown to generate repeatable, reliable results before being used. \\ 
+ & & Images of test set-up would make it much easier to retrospectively understand an experiment. \\ 
+ &  & Experiments are run by engineers solving the problem - this makes engineers personally responsible for their results, and exposes them to undocumented experimental information. \\ 
+\cline{1-4}
+Analysis of the data collected. & Analyses were run as soon as data is available, and were handled by the engineer that conducted the experiment. Excel - and occasionally Matlab - were used to analyze test data. The conclusions resulting from analyses tended to be judgemental as opposed to statistical. Compared to the time spent running the experiment, analysis was brief, and the lack of forethought about an appropriate form of analysis meant that analytical conclusions were sometimes lacking. & Engineering expertise was applied to explain experimental results in a physically meaningful way. & Statistics should have been used more regularly ensure that sound analytical conclusions were drawn - subjective assessment alone is susceptible to various biases that can lead to lost time and confusion.\\ 
+ &  &  & More time should be allocated to analysis in experimental investigations. Of the one-hundred or so test reports surveyed, very few of them did more than plot line charts of the raw data: analysis is crucial for an experiment to be useful, and neglecting to spend invest time in it can mean that dozens of experiments are run when a few would suffice.\\ 
+\cmidrule{1-4}
+Conclusions and recommendations & Experimental conclusions were presented to clients via presentations, memos, and technical reports. Interim results were presented every week in team meetings. & The importance of graphics was realized and put to good effect in client presentations. & Charts exist beyond those currently being used that may make it easier to explain investigation outcomes. \\ 
+ &  \\
+\bottomrule
+\label{tab:exp_procedure}
+\end{longtable}
+}
+\end{landscape}
 
 
 \newpage
@@ -794,8 +804,7 @@ Shifting from classical methods to Bayesian ones would make statistics within DC
 It is generally recognized that the scientific community as a whole needs to reconsider the practical relevance of hypothesis testing: DCA can hardly be faulted for neglecting to apply ineffective methods. Tolerance and confidence intervals are useful, but can be prone to misinterpretation. 
 
 %%
-\section{Presentation \& Visualization}
-\subsection{Why Visualization is Important}
+\section{Visualization}
 Good visualization exposes patterns in data in a way that's immediately interpretable and precise. A visualization is a mapping from the numerical domain of a dataset to the visual domain of a plot. Data isn't stored in a way that can be interpreted easily, so it needs to be transformed for it to be useful - maths is one means of transforming it to reveal patterns, and plots are another.
 
 DCA's use of visualization could be improved by:
