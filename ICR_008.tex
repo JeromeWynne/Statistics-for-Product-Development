@@ -186,7 +186,7 @@
 % – Briefly summarise results, conclusions and
 % recommendations
 {\bfseries Abstract}\\[\baselineskip]
-{Analyzing a product's performance during development is essential to making informed design decisions, yet many engineers are uncomfortable using statistics. This shouldn't be the case: statistical tools offer a means of improving the quality and consistency of design decisions, and of developing exceptionally robust products. Here, DCA's current use of statistics is compared to modern statistical practice. Experimental, analytical, and graphical tools are suggested that would allow DCA to realize the benefits of statistical methods. }
+{Analyzing a product's performance during development is essential to making informed design decisions, yet many engineers are uncomfortable using statistics. This should not be the case: statistical tools offer a means of improving the quality and consistency of design decisions, and of developing exceptionally robust products. Here, DCA's current use of statistics is compared to modern statistical practice. Experimental, analytical, and graphical tools are suggested that would allow DCA to realize the benefits of statistical methods. }
 \vfill
 
 {\scshape \@date}\par
@@ -247,7 +247,7 @@ I confirm that the work presented here is wholly my own and has been generated a
 \newpage
 \chapter{Introduction}
 % A) Why statistics was used in DCA
-DCA Design International is a 150-person product design consultancy based in Warwick. Its work is oriented towards the mechanical design of medical and consumer products for clients such as Unilever, Sanofi, and GSK. Figure \ref{fig:dca_profile} shows two of the company's most prolific designs. DCA's competitors are other global medium-to-large technical product design consultancies focusing on the medical, consumer, and transport sectors such as Seymourpowell and Cambridge Consultants.
+DCA Design International is a 150-person product design consultancy based in Warwick. It orients itself towards the mechanical design of medical and consumer products for clients such as Unilever, Sanofi, and GSK. Figure \ref{fig:dca_profile} shows two of the company's most prolific designs. DCA's competitors are other global medium-to-large technical product design consultancies focusing on the medical, consumer, and transport sectors such as Seymourpowell and Cambridge Consultants.
 \par
 \begin{figure}[b]
 \includegraphics[width=\textwidth]{DCA_profile.pdf}
@@ -255,11 +255,11 @@ DCA Design International is a 150-person product design consultancy based in War
 \label{fig:dca_profile}
 \end{figure}
 \par
-DCA employs approximately sixty mechanical engineers, each of whom are general-purpose technical consultants that are capable of fulfilling the engineering demands of a project. These demands will consist of design, analysis, and prototyping work, in proportions varying according to the project. DCA's substantial investment in engineering distinguishes it from other product design consultancies, many of which have less expertise available to handle a product's technical development \cite{designweek}. This investment is manifest in both the its engineering workforce and its ownership of four test labs. The experimental work that makes use of these labs is one of DCA's value propositions to prospective clients: the way in which DCA handles experimental data contributes to its success in securing new clients and satisfying current ones. The way in which DCA's engineers collect, analyse, and present experimental data is the focus of this report. These data-oriented activities constitute the scientific discipline of statistics.
+DCA employs approximately sixty mechanical engineers, each of whom are general-purpose technical consultants capable of fulfilling the engineering demands of a project. These demands will consist of design, analysis, and prototyping work, in proportions varying according to the project. DCA's substantial investment in engineering distinguishes it from other product design consultancies, many of which have less expertise available to handle a product's technical development \cite{designweek}. This investment is manifest in both its engineering workforce and its ownership of four test labs. The experimental work that makes use of these labs is one of DCA's value propositions to prospective clients: the way in which DCA handles experimental data contributes to its success in securing new clients and satisfying current ones. The way in which DCA's engineers collect, analyze, and present experimental data is the focus of this report. These data-oriented activities constitute the scientific discipline of statistics.
 \par
 Statistics makes it possible to profile, understand, and predict variation in a product's performance. Engineers can use statistics to design products that are more robust, less costly to manufacture, and of a higher quality than they would be otherwise. Being able to use statistical tools fluently would elevate DCA's capacity as a technical consultancy.
 \par
-The first half of this report evaluates how DCA currently applies statistics: the second half then suggests alternative statistical methods that might be useful to the company. Section \ref{chap:dca} explains DCA's current investigatory framework and how statistics is applied within it. In Section \ref{chap:modernstats} the company's approach is compared to modern statistical practice. Software for implementing statistical methods is also discussed, since it is necessary to apply the methods proposed. The report concludes with an evaluation of how actionable the suggested methods are, and responds to possible criticisms of the relevance of statistics in a product design consultancy. An appendix summarizing the most useful statistical results, along with definitions of notation and technical terms, is available for reference.
+The first half of this report evaluates how DCA currently applies statistics: the second half then suggests alternative statistical methods that might be useful to the company. Section \ref{chap:dca} explains DCA's current investigatory framework and how statistics is applied to it. Section \ref{chap:modernstats} then compares the company's approach to modern statistical practice and provides recommendations in the process. Software for implementing statistical methods is also discussed since it will be required to apply the proposed methods. The report concludes with an evaluation of how actionable the suggested methods are, and responds to reasonable criticisms of the relevance of statistics in a product design consultancy. An appendix summarizing the most useful statistical results, along with definitions of notation and technical terms, is available for reference.
 
 \newpage
 
@@ -271,7 +271,7 @@ The first half of this report evaluates how DCA currently applies statistics: th
 This section contextualizes DCA's uses of statistics and explains what methods are currently being applied by its engineers. The strengths and shortcomings of each method are listed, and the section closes with a summary and appraisal of DCA's approach.
 \section{The Structure of a Lab Investigation in DCA}
 % What does a testing sequence look like?
-A lab investigation in DCA consists of a series of experiments to understand the behaviour of a product or process. It begins with the needed knowledge being identified. Experiments are then designed, executed, and analyzed until the knowledge is acquired or is deemed no longer relevant. This process is depicted in Figure \ref{fig:investigation_diagram}.
+A lab investigation in DCA consists of a series of experiments to understand the behaviour of a product or process. It begins with identifying the knowledge needed. Experiments are then designed, executed, and analyzed until the knowledge is acquired or is deemed no longer relevant. This process is depicted in Figure \ref{fig:investigation_diagram}.
 \begin{figure}[h!]
 \centering
 \includegraphics[width=1.2\textwidth]{Lab_Investigation_Diagram.pdf}
@@ -279,9 +279,9 @@ A lab investigation in DCA consists of a series of experiments to understand the
 \label{fig:investigation_diagram}
 \end{figure}
 % What departments in DCA test their products?
-All aspects of an investigation - from experiment design through to presenting the results to a client - are handled by engineers assigned to the project associated with that investigation. 
+All aspects of an investigation - from experiment design through to presenting the results to a client - are handled by engineers assigned to the associated project. 
 \par
-Most lab work is performed by engineers assigned to medical projects. Occasionally engineers working on fast-moving consumer goods (such as toothbrushes or lotion bottles) will run tests to compare design variations or verify performance relative to some baseline. In general however, the timeframes and functional requirements of such products limit the relevance of extensive experimental investigations. Medical products, on the other hand, are subject to strict regulation relating to product failure modes, and must therefore be extensively tested.
+Engineers assigned to medical projects perform the majority of the lab work that takes place at DCA. Occasionally engineers working on fast-moving consumer goods (such as toothbrushes or lotion bottles) will run tests to compare design variations or verify performance relative to some baseline. In general, the timeframes and functional requirements of such products limit the relevance of extensive experimental investigations. Medical products, on the other hand, are subject to strict regulation relating to product failure modes, and must, therefore, be extensively tested.
 \par
 % When do they test them and why?
 Tests can be conducted at any point in a product's development, however as can be seen in Figure \ref{fig:tests_per_quarter}, the rate of testing increases as a product develops and varies dramatically according to project stage. Towards a product's release date is when resolving minor performance issues becomes a worthwhile pursuit, exploration for future product variants becomes a possibility, and rehearsal for fast-approaching regulatory tests becomes essential.
@@ -292,17 +292,17 @@ Tests can be conducted at any point in a product's development, however as can b
 \end{figure}
 \par
 % How do they test them?
-The equipment supporting this work includes axial and torsional testing machines, environment chambers, coordinate measuring machines, mass balances, and high-speed cameras, among other engineering instruments. Investigations commonly revolve around a particular experimental set-up, however other experiments are sometimes conceived to provide supplementary information. With that in mind, this report attempts to be data-agnostic in its recommendations of analytical techniques.
+The equipment supporting this work includes axial and torsional testing machines, environment chambers, coordinate measuring machines, mass balances, and high-speed cameras, among other engineering instruments. Investigations commonly revolve around a particular experimental set-up, but other experiments are sometimes conceived to provide supplementary information. With that in mind, this report attempts to be data-agnostic in its recommendations of analytical techniques.
 \par
-Other engineering activities that DCA's engineers apply statistics to are tolerance analysis and, increasingly, predictive user interfaces. Unfortunately, the latter cannot be discussed for confidentiality reasons; the former can be, and is. Statistics is used to varying degrees within the Human Factors and upper management of DCA, however these applications aren't described here.
+DCA's engineers also apply statistics to are tolerance analysis and, increasingly, predictive user interfaces. Unfortunately, the latter cannot be discussed for confidentiality reasons; the former can be and is. Statistics is used to varying degrees within the Human Factors and upper management of DCA, but these applications are not reviewed here.
 \par
-To help make sense of how statistics is applied in DCA's lab investigations, each step of an experimental procedure is reviewed in turn. These steps are:
+To help make sense of how statistics is applied in DCA's lab investigations, each step of an experimental procedure is analyzed in turn. These steps are:
 \begin{enumerate}
 \item Planning and execution.
 \item Analysis.
 \item Presentation and visualization.
 \end{enumerate}
-Investigatory strategy guides the choice of all of the above, and is examined as part of Subsection 2.2. For any experimental investigation to be successful, the experiments themselves need to be given careful thought, and should be conducted in a similar spirit - in other words, the experiments need to be designed.
+Investigatory strategy guides the choice of all of the above and is examined in Subsection 2.2. For any experimental investigation to be successful, the experiments themselves need to be directed towards a purpose - in other words; the experiments need to be designed.
 
 %%
 \section{Experiment Design}
@@ -311,14 +311,14 @@ Experiment design can be used to make products that perform better, are more rel
 Three principles form the backbone of robust experimentation:
 \begin{description}
 \item[Replication]{Testing a particular treatment on more than one unit. Replication allows experimental error to be estimated and, since unbiased errors cancel on being averaged, provides a more precise estimate of a treatment's effect.}
-\item[Randomization]{Randomly allocating treatments to units and the sequence in which units are tested averages out the effects of nuisance variables, and validates the important analytical assumption that observations are randomly drawn from a population.}
+\item[Randomization]{Randomly allocating treatments to units and the sequence in which units are tested averages out the effects of nuisance variables, and validates the analytical assumption that observations are randomly drawn from a population.}
 \item[Blocking]{Blocking accounts for the effects of nuisance variables when assigning treatments - units are grouped on the basis of a shared attribute, then treatments are distributed evenly among the groups. See Figure \ref{fig:blocking} for further explanation.}
 \end{description}
 These principles constitute the makings of any well-designed experiment, and they are evident in DCA's labwork: units are blocked according to factors such as component batches and time of assembly, testing and assembly sequences are randomized, and engineers are keen to provide replicates in their tests. The experimental designs used in the company are enumerated, explained, and critiqued in Table \ref{tab:exp_designs}.
 \par
-In spite of the company's awareness of these fundamental aspects of experiment design, there is a tendency to forget to consider how the data collected will be analyzed when planning an experiment, and to think about how to structure an investigation. Analysis should be considered from during the planning stages since it is what will make apparent the test's outcome. By thinking about how the collected data should be analysed, possible confounding factors can be identified and controlled.
+Despite the company's awareness of these fundamental aspects of experiment design, there is a tendency to forget to consider how the data collected will be analyzed when planning an experiment, and to think about how to structure an investigation. Analysis should be considered from during the planning stages since it is what will make apparent the test's outcome. By thinking about how the collected data should be analyzed, possible confounding factors can be identified and controlled.
 \par
-DCA also lacks a framework for planning experimental investigations. As a consequence of this, fundamental activities such as verifying that experimental set-ups produce repeatable results, scoping an investigation, and running screening experiments to systematically close off avenues of enquiry are routinely forgotten. The dominant experimental strategy within the company is a best-guess approach: one treatment is tested in each experiment, chosen based on the expert insight of the engineering team. This method's most serious shortcoming is that if the treatment does not elicit the desired effect, then the next factor to vary must be guessed at, a process that can continue almost indefinitely. Furthermore, if a treatment is successful, then its investigation may be concluded when in fact a better solution exists.
+DCA also lacks a framework for planning experimental investigations. As a consequence of this, basic activities such as verifying that experimental set-ups produce repeatable results, scoping an investigation, and running screening experiments to close off unpromising avenues of enquiry are routinely forgotten. The dominant experimental strategy within the company is a best-guess approach: one treatment is tested in each experiment, chosen based on the expert insight of the engineering team. This method's greatest shortcoming is that if the treatment does not elicit the desired effect, then the next factor to vary must be guessed at, a process that can continue almost indefinitely. Furthermore, if a treatment is successful, then its investigation may be concluded when in fact a better solution exists.
 \par
 \begin{figure}
 \includegraphics[width=\textwidth]{Blocking.pdf}
@@ -359,26 +359,26 @@ After an experiment is designed, it must be run. As has been mentioned, DCA is w
 	\item A specific statement of how the collected data will be analyzed. This is to ensure that the results of an experiment are used in the way intended by the overall investigation.
 \end{itemize}
 
-Once an experiment has been planned and executed, it remains to analyze the raw data to extract useful information. DCA's analyses will now be discussed.
+Once an experiment has been planned and executed, it remains to analyze the raw data to extract useful information.
 
 \vspace{48pt}
 %%
 \section{Analysis}
-Analyses in DCA rely heavily on expert knowledge of the systems being tested and rarely on statistical results. This is probably because the relevance of statistics may not be clear, and how it might be applied even less so, which is understandable. It's widely agreed that most people's experience with statistics is one of discomfort and bemusement. Having said this, relying on intuition alone risks falling prey to cognitive biases, missing valuable information that isn't superficially obvious, and being unable to properly relate physical behaviours to experimental observations. Foregoing statistics when analyzing product behaviour severely handicaps the ability of an engineer to design a robust product.
+Analyses in DCA rely heavily on expert knowledge of the systems being tested and rarely on statistical results. This is probably because the relevance of statistics may not be clear, and how it might be applied even less so, which is understandable. It is widely agreed that most people's experience with statistics is one of discomfort and bemusement. Having said this, relying on intuition alone risks falling prey to cognitive biases, missing valuable information that isn't superficially obvious, and being unable to relate physical behaviours to experimental observations. Foregoing statistics when analyzing product behaviour handicaps the ability of an engineer to design a robust product.
 \par
 The reports surveyed contained summary statistics, such as arithmetic means, variances, maximums, minimums, and so on. A few made use of interval estimates as informed by a regulatory standard, and one report applied a t-test. These tools will now be explained, and their usefulness and possible weaknesses detailed. FIGURE X DISPLAYS THE USE OF STATISTICAL TOOLS IN DCA.
 \par
 \subsection*{Summary Statistics}
- Randomness refers to variation in a response as a result of uncontrolled factors. If a coin is always flipped according to the same process, then it will always land in the same orientation. By contrast, if a coin is flipped by hand, then the person doing the flipping has a limited amount of control over the factors affecting the flip. As a result, there is uncertainty as to what the outcome of that flip will be. There are two ways to reduce this uncertainty: Either make assumptions about how those flip-influencing factors vary, or measure them. Assumptions allow real-world knowledge to dictate what outcomes are possible what their relative propensities are. Conversely, measurements allow factor effects to be estimated, meaning that sources of variation in the response can be accounted for.
+ Randomness refers to variation in a response as a result of uncontrolled factors. If a coin is always flipped according to the same process, then it will always land in the same orientation. By contrast, if a coin is flipped by hand, then the person doing the flipping has a limited amount of control over the factors affecting the flip. As a result, there is uncertainty as to what the outcome of that flip will be. There are two ways to reduce this uncertainty: Either make assumptions about how those flip-influencing factors vary or measure them. Assumptions allow real-world knowledge to dictate what outcomes are possible what their relative propensities are. Conversely, measurements allow factor effects to be estimated, accounting for the sources of variation in the response.
  
-  The assumption of normality, for example, is wielded as a claim that the response being observed is influenced by many independent effects, no one of which are especially large (See the Appendix). Alternatively, it may be suggested that no particular outcome is favoured by the system being studied, in which case uniformity could be assumed. In both instances, a distribution of outcomes is assumed based on physical knowledge, making it possible to analyze the system for useful information.
+  The assumption of normality, for example, is wielded as a claim many independent effects, no one of which is especially large, are responsible for a response's variation (See the Appendix). Alternatively, it may be suggested that no particular outcome is favoured by a system, in which case uniformity could be assumed. In both instances, a distribution of outcomes is assumed based on physical knowledge, making it possible to analyze the system for useful information.
  
-Mathematical analysis can be used to understand systems that vary randomly. As with any theory, some tools need to be defined to make the maths possible: a random variable is one of these tools. Despite its name, a random variable (r.v.) is a function that maps events onto real numbers. For example, we could define an r.v. $X$ that maps the outcomes of a coin toss onto the numbers 1 and 0:
+Mathematical analysis can be used to understand systems that vary randomly. As with any theory, some tools need to be defined to make the maths possible: a random variable is one of these tools. Despite its name, a random variable (r.v.) is in fact a function that maps events onto real numbers. For example, we could define an r.v. $X$ that maps the outcomes of a coin toss onto the numbers 1 and 0:
  \begin{align}
 	X(\texttt{Coin lands Heads}) = 1 \\
 	X(\texttt{Coin lands Tails}) =0
  \end{align}
-Usually the choice of mapping is quite natural - for example, we might use an r.v. that counts the number of sucesses in many trials, or that takes on the value of a measurement. 
+Usually, the choice of mapping is quite natural - for example, we might use an r.v. that counts the number of successes in many trials, or that takes on the value of a measurement. 
 \par
 Variation in the events that an r.v. maps from is described using a probability distribution. Each value is weighted according to its probability or, in the case of continuous-valued r.v.s, the ratio of the width of an interval of values to its probability. Figure \ref{fig:example_pd} highlights this difference.
 \begin{figure}[h!]
@@ -389,22 +389,22 @@ Variation in the events that an r.v. maps from is described using a probability 
 \par
 The essential problem of experimental statistics is trying to understand the distribution of a random variable from just a sample. In product design, this means using measurements from just a limited number of prototypes to estimate the behaviour of a much larger number of units. The attributes of a random variable's distribution - such as its spread and average - can be estimated using summary statistics.
  \par
-A sample's mean response, for example, approximates the mean response of a larger population of units. This is regularly used in DCA to discriminate between the performance of two or more populations, each representing possible design variants. The accuracy of this estimate improves as more samples are tested, with diminishing returns, a relationship that is shown in Figure \ref{fig:se_with_sample_size}. A sample may not be representative of its population, so it is sensible to estimate how far a sample mean is likely to be from the population mean. Bigger samples tend to better represent their populations, and more tightly clustered responses means that any one response is likely to be close the population mean. The standard error of the sample mean - the average difference between a sample mean estimate and the population mean - reflects these observations, as it corresponds to $\frac{\sigma}{\sqrt{n}}$, where $\sigma$ is the standard deviation of the population and $n$ is number of units in the sample.
+A sample's mean response, for example, approximates the mean response of a larger population of units. DCA use sample means to discriminate between the performance of two or more populations, each representing possible design variants. The sample mean's accuracy improves as more samples are tested, with diminishing returns, a relationship that is shown in Figure \ref{fig:se_with_sample_size}. A sample may not be representative of its population, so it is sensible to estimate how far a sample mean is likely to be from the population mean. Bigger samples tend to represent their populations better, and tightly clustered responses imply that any one response is likely to be close the population mean. The standard error of the sample mean - the average difference between a sample mean estimate and the population mean - reflects these observations, as it corresponds to $\frac{\sigma}{\sqrt{n}}$, where $\sigma$ is the standard deviation of the population and $n$ is the number of units in the sample.
 \begin{figure}[h]
 \includegraphics[width=\textwidth]{se_with_sample_size.pdf}
 \caption{As sample size increases, the sample mean will - on average - draw closer to the population mean.}
 \label{fig:se_with_sample_size}
 \end{figure}
 
-Certain summary statistics can be thought of as estimates of a distribution's parameters. These are values that constrain a particular distribution's shape. The normal distribution's shape, for example, can be specified by supplying just two values: the variance (spread) and mean (location). Viewing statistics as an exercise in estimating a distribution makes handling the uncertainty inherent in test results more natural, and avoids misleading people with small-sample point estimates. DCA's engineers are particularly at risk of the latter because their experiments are constrained by the number of units that can be tested. Consequently, tools for making distributional estimates are presented in Section \ref{suggested_methods}.
+Certain summary statistics can be thought of as estimates of a distribution's parameters. These are values that constrain a particular distribution's shape. The normal distribution's shape, for example, can be specified by supplying just two values: the variance (spread) and mean (location). The uncertainty inherent in test results is accurately presented by estimating a parameter's distribution, which will capture the amount of certainty warranted by a test. This is not the case for small-sample point estimates. DCA's engineers are particularly at risk of the latter because their experiments are constrained by the number of units that can be tested. Consequently, Section \ref{suggested_methods} contains tools for making distributional estimates.
 
- Estimating a distribution will be seen again later, in the section on Bayesian inference. Interval estimates are a tool for quantifying the uncertainty on an estimate, and can be made with assumptions about the distribution's shape, or without. They need to be interpreted carefully, and an appropriately careful explanation of two of the most often used interval estimates - confidence and tolerance intervals - will now be presented.
+ Estimating a distribution will be seen again later, in the section on Bayesian inference. Interval estimation is an alternative method for quantifying uncertainty: Its results need to be interpreted carefully, and its assumptions need to be verified.
 
 \par
 
 \newpage
 \subsection*{Tolerance Intervals}
-DCA's most sophisticated statistical analysis is based on ISO 16269-6, \emph{Determination of statistical tolerance intervals}. This standard outlines how to construct tolerance intervals under either no assumptions about the random variable's distribution, or the assumption that the random variable is normally distributed.
+DCA's base their most sophisticated statistical analysis on ISO 16269-6, \emph{Determination of statistical tolerance intervals}. This standard outlines how to construct tolerance intervals under either no assumptions about the random variable's distribution, or the assumption that the random variable is normally distributed.
 \par
  A tolerance interval is a range of values that's likely to contain a particular fraction of the population. Because this interval is an estimate, it can only contain the advertised fraction of the population some of the time. The proportion of intervals that would, on average, contain the specified fraction of the population is called the confidence level. If many $99\%$ tolerance intervals were constructed for different samples of the same size to a $95\%$ confidence level, then $95\%$ of the intervals estimated would contain at least $99\%$ of the population. Figure \ref{fig:tolerance_intervals} demonstrates this use case.
 \begin{figure}[h]
@@ -413,7 +413,7 @@ DCA's most sophisticated statistical analysis is based on ISO 16269-6, \emph{Det
 \label{fig:tolerance_intervals}
 \end{figure}
 
-DCA used tolerance intervals in to check that a given proportion of a population satisfied a performance threshold. Their use wasn't widespread, and in some of the reports studied the $k$-values\footnote{A $k$-value is a term used in the ISO standard to represent the number of sample standard deviations from the mean that will contain at least $p\%$ of the population $(1 - \alpha)\%$ of the time, where $(1 - \alpha)$ is the confidence level.} were calculated incorrectly. Furthermore, no efforts were made to test the assumption of normality.
+DCA used tolerance intervals in to check that a given proportion of a population satisfied a performance threshold. Their use was not widespread, and in some of the reports studied the $k$-values\footnote{A $k$-value is a term used in the ISO standard to represent the number of sample standard deviations from the mean that will contain at least $p\%$ of the population $(1 - \alpha)\%$ of the time, where $(1 - \alpha)$ is the confidence level.} were incorrectly calculated. Furthermore, no efforts were made to test the assumption of normality.
 
 The strengths and suggestions for DCA's tolerance intervals are listed in Table \ref{tab:tol_intervals}.
 \begin{table}
@@ -436,17 +436,17 @@ Can be applied without theoretical understanding. & Repeated use at a low confid
 \newpage
 % Confidence intervals
 \subsection*{Confidence Intervals}
-Another tool that DCA's engineers occasionally use is confidence intervals, which indicate a range of values that a parameter is likely to fall within. As with tolerance intervals, this range will only contain the population parameter a certain fraction of the time however, a problem that's unavoidable since there will always be a chance that an unrepresentative sample is drawn. For example, if we were to construct a confidence interval for the population mean of 100 samples, each of 5 units, the confidence level would tell us how many of these intervals would - on average - contain the actual value of the population mean. Figure \ref{fig:confidence_intervals} demonstrates this idea. Confidence intervals can be placed on any parameter estimate, although they're most commonly used to quantify the uncertainty on an estimate of the population mean. Their derivation is similar to a tolerance interval's, and is presented in the Appendix.
+Another tool that DCA's engineers occasionally use is confidence intervals, which indicate a range of values that a parameter is likely to fall within. As with tolerance intervals, this range will only contain the population parameter a certain fraction of the time, a problem that's unavoidable since there will always be a chance that an unrepresentative sample is drawn. For example, if we were to construct a confidence interval for the population mean of 100 samples, each of 5 units, the confidence level would tell us how many of these intervals would - on average - contain the actual value of the population mean. Figure \ref{fig:confidence_intervals} demonstrates this idea. Confidence intervals can be placed on any parameter estimate, although they are most commonly used to quantify the uncertainty on an estimate of the population mean. Their derivation is similar to a tolerance interval's and is in the Appendix.
 
 \begin{figure}[H]
 \includegraphics[width=\textwidth]{confidence_intervals.pdf}
 \caption{Confidence intervals indicate the range of values likely to contain an estimated parameter.}
 \label{fig:confidence_intervals}
 \end{figure}
-Confidence intervals suffer from similar problems to tolerance intervals. DCA's engineers use them very rarely, meaning that decisions are made with limited appreciation for the uncertainty in experimental estimates. If only large differences in effects are of interest, this isn't a substantial problem. However, if subtle differences are important, or sample sizes are severely limited, then it's necessary to quantify an estimate's uncertainty so that erroneous or inappropriately confident conclusions aren't made.
+Confidence intervals suffer from similar problems to tolerance intervals. DCA's engineers use them very rarely, meaning they make decisions with a limited appreciation of the uncertainty in their estimates. If only large differences in effects are of interest, this is not a substantial problem. However, if subtle differences are important, or sample sizes are limited, then it is necessary to quantify an estimate's uncertainty so that erroneous or inappropriately confident conclusions are not made.
 
 \subsection*{Monte Carlo Estimation}
-Monte Carlo estimation approximates a quantity by simulating the random process generating it . In DCA it was used to analyze tolerance chains in products. The use case was somewhat similar to the following: a gap between two components affected a product's function, so the distribution of possible gap values needed to be known. The gap's size was influenced by several part dimensions, each of which had a distinct distribution describing its variation. Rather than attempt to derive the distribution of the gap's size directly, a computer was used to simulate draws of each dimension, then calculate a value for the gap that resulted. The distribution of the gap's size was then approximated by the relative frequencies of the simulated values, which could be used to estimate properties of its distribution such as its mean and variance. A diagram of this process is shown in Figure \ref{fig:monte_carlo}.
+Monte Carlo estimation approximates a quantity by simulating the random process generating it. In DCA it was used to analyze tolerance chains in products. The use case was somewhat similar to the following: a gap between two components affected a product's function, so the distribution of possible gap values needed to be known. Several part dimensions influenced the gap's size, each of which had a distinct distribution describing its variation. Rather than attempt to derive the distribution of the gap's size directly, a computer was used to simulate draws of each dimension, then calculate a value for the gap that resulted. The relative frequencies of the simulated values were then used to approximate the distribution of the gap's size, from which properties such as its mean and variance could be estimated. Figure \ref{fig:monte_carlo} is a diagram of this process.
 \begin{figure}[h!]
 \includegraphics[width=1\textwidth]{MC_estimation.pdf}
 \caption{Process diagram for a Monte Carlo simulation.}
@@ -459,25 +459,25 @@ Monte Carlo estimation is a powerful statistical tool that is easily implemented
 \section{Visualization}
 Visualization is essential to clearly and convincingly summarizing an experiment's results. Graphical tools allow engineers and clients to see for themselves what's been discovered. A plot should be relevant, easily interpretable, and accurately convey its underlying data.
 \par
-DCA's reports and client presentations contain plots of experimental data generated using either Microsoft Excel or Matlab. These plots are line or bar charts, along with the occasional scatterplot. Line charts are used frequently in DCA because they are directly plottable from the raw data output by their axial and torsional testing machines. Bar charts on the other hand tended to be used to higlight differences between groups, such as their means or maximums. Scatter plots were used specfically to present tolerance intervals relative to a set of performance criteria, as is shown in Figure \ref{fig:tolerance_intervals_plot}.
+DCA's reports and client presentations contain plots of experimental data generated using either Microsoft Excel or Matlab. These plots are line or bar charts, along with the occasional scatterplot. Line charts are frequently used in DCA because they are directly plottable from the raw data output by their axial and torsional testing machines. Bar charts, on the other hand, tended to be used to highlight differences between groups, such as their means or maximums. Scatter plots were used specifically to present tolerance intervals relative to a set of performance criteria, as is shown in Figure \ref{fig:tolerance_intervals_plot}.
 \begin{figure}[h!]
 	\includegraphics[width=\textwidth]{tolerance_intervals_plot.pdf}
 	\caption{Tolerance interval plot.}
 	\label{fig:tolerance_intervals_plot}
 \end{figure}
 
-Directly plotting raw data requires very little time, and results in plots that are easily related to patterns observed over the course of an experimental run. These are major benefits in favour of using line charts to quickly understand the results of an experiment. However, there are several reasons why these types of charts aren't suitable for presenting at team meetings, or to clients. Figure \ref{fig:line_chart} was taken from a DCA test report and is of a type that was used regularly in team meetings. In this test, the response of the units at 10.8 seconds was of interest, yet all raw data is plotted. This has various negative corollaries: the redundant information away from 10.8 seconds is distracting, and is of limited use because it isn't possible to see how individual units are behaving.  Even if the other displacements were relevant, the plot would still be somewhat misleading as attention is directed to the group extremes, and cannot be used to see anything besides gross differences between groups. Moreover, line charts can conceal the actual resolution of the data collected, particularly if a spline fit or graphical smoothing has been applied\footnote{Excel automatically smooths line charts.}. Solutions to these problems are suggested in Subsection \ref{suggested_vis}.
+Directly plotting raw data requires very little time, and results in plots that are easily related to patterns observed over the course of an experimental run. These are major benefits in favour of using line charts to understand the results of an experiment quickly. However, there are several reasons why these types of charts are not suitable for presenting at team meetings, or to clients. Figure \ref{fig:line_chart} was taken from a DCA test report and is of a type that was used regularly in team meetings. In this test, the response of the units at 10.8 seconds was of interest, yet all raw data was plotted. Plotting irrelevant data has various negative corollaries: the redundant information away from 10.8 seconds is distracting and of limited use, since it is not possible to see how individual units are behaving.  Even if the other displacements were relevant, the plot would still be somewhat misleading as attention is directed to the group extremes, and cannot be used to see anything besides gross differences between groups. Moreover, line charts can conceal the actual resolution of the data collected, particularly if a spline fit or graphical smoothing has been applied\footnote{Excel automatically smooths line charts.}. Subsection \ref{suggested_vis} suggests solutions to these problems.
 \begin{figure}[h!]
 \includegraphics[width=\textwidth]{imitation_line_chart_2.pdf}
 \caption{A representative use of line charts from a DCA test report. Each shade of blue corresponds to a unique unit.}
 \label{fig:line_chart}
 \end{figure}
 
-As has been mentioned, bar charts and scatter plots were also used within DCA, albeit less frequently than line charts. There are several ways in which the use of these tools could have been improved. Plotting errors bars on bar charts would allow the uncertainty in the estimates to be represented, making group comparisons less prone to unwarranted confidence. Alternatively, the individual unit responses could be included as a scatter plot to give the audience a sense of the sample size used and response variance. Scatter plots are capable of displaying location, spread, density, and sample size information, making them a valuable tool for summarizing experimental data: the response at 10.8 seconds in Figure \ref{fig:line_chart} could easily be captured for each unit then presented in a scatter plot, resulting in a plot that is more easily read and discussed.
+As has been mentioned, bar charts and scatter plots were also used within DCA, albeit less frequently than line charts. There are several ways in which the use of these tools could have been improved. Plotting errors bars on bar charts would allow the uncertainty in the estimates to be represented, making group comparisons less prone to unwarranted confidence. Alternatively, the individual unit responses could be included as a scatter plot to give the audience a sense of the sample size used and response variance. Scatter plots are capable of displaying location, spread, density, and sample size information, making them a valuable tool for summarizing experimental data: the response at 10.8 seconds in Figure \ref{fig:line_chart} could easily be captured for each unit then presented in a scatter plot, resulting in a plot that is easier to read and discuss.
 
 
 \section{Review}
-The report so far has presented and critiqued the statistical methods used by DCA's engineers at each step in an experimental procedure. The way in which experimental investigations are planned has also been detailled, as have its weaknesses. The next section suggests methods that will help DCA use statistics more effectively by:
+The report so far has presented and critiqued the statistical methods used by DCA's engineers at each step in an experimental procedure. Planning of experimental investigations has also been detailed, as has its weaknesses. The next section suggests methods that will help DCA use statistics more effectively by:
 \begin{itemize}
 \item Estimating distributions of plausible parameter values rather than their ``most-likely'' or ``worst-case'' values.
 \item Planning investigations that systematically identify the main factors influencing a response, and the factor levels needed to optimize that response.
@@ -488,7 +488,7 @@ Why these are desirable is explained in the sections to come. In short, they wer
 \item Allow a product's behaviour to be methodically analyzed and optimized.
 \item Represent the uncertainty associated with experimental work more intuitively and transparently.
 \end{itemize}
-DCA's experimental procedure is compared against conventional experimental steps in Table \ref{tab:exp_procedure}.
+Table \ref{tab:exp_procedure} compares DCA's experimental procedure against conventional experimental steps.
 
 \begin{landscape}
 \vspace*{-3cm}
@@ -532,18 +532,20 @@ Conclusions and recommendations & Experimental conclusions were presented to cli
 \chapter{Suggested Methods}\label{suggested_methods}
 \label{chap:modernstats}
 
-Having assessed DCA currently uses statistics, it's possible to suggest methods from modern statistical practice that would give them new capabilties and improve their existing attempts. This section again is structured according to the steps in an experimental process.
+Having assessed DCA's current use of statistics, it is possible to suggest methods from modern statistical practice that would give them new capabilities and improve their existing ones. Like Section 2, this section is categorized by the steps in an experimental process.
 
 \section{Experiment Design}
-Experiment design is motivated by trying to find efficient ways to explain variation in performance. To understand what factors determine a product's performance, this variation must be split into components attributable to product factors. The factors can be tuned to produce a desirable response. Experimental investigations should be planned to methodically work out what the effects of factors are on the response, using the resources available. Response surface methodologies would allow DCA's engineers to do this.
+Experiment design is motivated by trying to find efficient ways to explain response variation. Attributing response variation to product factors is the first step towards tuning those factors to produce a desirable response. Experimental investigations should determine what the effects of factors are on the response, using the resources available. Response surface methodologies would allow DCA's engineers to do this.
 
 \subsection*{Response Surface Methodologies}
-In any given one of DCA's products, it's likely that most parameters will either need to be:
+In any given one of DCA's products, it is likely that most parameters will either need to be:
 \begin{itemize}
-	\item Kept within a range - for example, criticial dimensions
-	\item Maximized or minimized - such as mechanism friction or split line prominence
+	\item Kept within a range - for example, criticial dimensions, or
+	\item Maximized/minimized - such as mechanism friction or split line prominence.
 \end{itemize}
-Response surface methodologies try to achieve these objectives by sequentially identifying the factors that affect the response parameter. The general idea is to:
+Response surface methodologies (RSMs) try to achieve these objectives by sequentially identifying the factors that affect the response parameter. The factors that have the biggest effect on the response are understood first. These factors are optimized, then nuanced effects - such as factor interactions - are explored, before finally optimizing the system with respect to all factors.
+
+Response surface methodologies are built around linear models. The link is clearest when an RSM is broken down into steps:
 \begin{enumerate}
 \item Start by determining what the first-order effects of factors are on the response. In other words, estimate the coefficients in the model:
 \begin{equation}
@@ -596,7 +598,7 @@ Experimental work often tries to an answer questions such as:
 \end{equation}
 Where $\hat{y}$ is the estimated response, $x_i$ is an input, and $\hat{\beta}_j$ is the coefficient of the $j$th input. Note that while the coefficients $\hat{\beta}_j$ are linear, the predictors $x_j$ can be nonlinear functions of the measurements.
 
-This model can be fit by adjusting the $\hat{\beta}_i$ values so that $\hat{y}$ is a good estimate of the true response. To do this, it's necessary to measure how inaccurate $\hat{y}$ is relative to $y_i$. One way of measuring fit inaccuracy is the residual sum of squares:
+This model can be fit by adjusting the $\hat{\beta}_i$ values so that $\hat{y}$ is a good estimate of the true response. To do this, it is necessary to measure how inaccurate $\hat{y}$ is relative to $y_i$. One way of measuring fit inaccuracy is the residual sum of squares:
 \begin{equation}
 	\text{RSS}(\hat{\beta}) = \sum_{i = 1}^m \Big(y_i - \sum_{j = 1}^p \hat{\beta}_i x_{ij})^2
 	\label{eq:rss}
@@ -610,14 +612,14 @@ Where $y_i$ is the response of the $i$th example, and $x_{ij}$ is the $j$th pred
 \label{fig:linear_regression}
 \end{figure}
 
-From a practical standpoint, regression models should be fit using software. Matlab, R, or Octave can all be used to fit regression models. By setting up the problem such that the $N$ observed responses are in a column vector $\mathbf{y}$, their associated $p$ inputs form the rows of a matrix $\mathbf{X}$, which is $N \times p$, and the $p$ coefficients are in a column vector $\hat{\beta}$, it's possible to succinctly write the RSS criterion, then minimize it:
+From a practical standpoint, regression models should be fit using software. Matlab, R, or Octave can all be used to fit regression models. By setting up the problem such that the $N$ observed responses are in a column vector $\mathbf{y}$, their associated $p$ inputs form the rows of a matrix $\mathbf{X}$, which is $N \times p$, and the $p$ coefficients are in a column vector $\hat{\beta}$, it is possible to succinctly write the RSS criterion, then minimize it:
 \begin{align}
 	\text{RSS}(\hat{\beta}) &= (\mathbf{y - X}\hat{\beta})^T(\mathbf{y - X}\hat{\beta}) \\
 	\frac{\partial \text{RSS}}{\partial \hat{\beta}} &= -2\mathbf{X}^T(\mathbf{y - X}\hat{\beta}) = 0 \\
 	\implies &\hat{\beta} = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T \mathbf{y} \label{eq:normal_eqtn}
 \end{align}
 
-As a case study to show why linear models are useful, consider a test in which the load delivered by three groups of ten units is measured. The differences between the groups are categorical: the groups correspond to three design variations $A, B,$ and $C$. Since there isn't a natural order to the variations, it's necessary to encode this difference in a sensible way. There are several ways to do this, and a simple indicator stating whether a unit has a particular modification is sufficient. Table 5 shows this encoding. As will hopefully become apparent, choosing how to encode categorical variables matters a good deal with regards to how the regression coefficients beta should be interpreted.
+As a case study to show why linear models are useful, consider a test in which the load delivered by three groups of ten units is measured. The differences between the groups are categorical: the groups correspond to three design variations $A, B,$ and $C$. Since there isn't a natural order to the variations, it is necessary to encode this difference in a sensible way. There are several ways to do this, and a simple indicator stating whether a unit has a particular modification is sufficient. Table 5 shows this encoding. As will hopefully become apparent, choosing how to encode categorical variables matters a good deal with regards to how the regression coefficients beta should be interpreted.
 \begin{table}
 \centering
 \caption{Dummy coding of groups.}
@@ -681,7 +683,7 @@ The fit of a linear model attempts to estimate the true relationship between the
 \begin{equation}
 	y = X\beta + \varepsilon
 \end{equation}
-Where $\varepsilon$ is the error in the response - variation caused by unmonitored variables. In the example, $\beta_1, \beta_2, \beta_3$ are the true group means, and $\hat{\beta}_1, \hat{\beta}_2, \hat{\beta}_3$ are estimates of them. These estimates aren't going to be perfect, and their standard errors can be calculated to get a feel for how accurate they really are. To reemphasize, a standard error is the average difference between an estimate of a parameter over many samples, and the true parameter value. Standard error can be made smaller by reducing the group variance, or by making the sample sizes bigger.  DCA's engineers should seek to minimize variation that isn't relevant to the investigation because this will make it easier to see the effects of the inputs on the reponse for a given sample size. Calculation of standard errors is described and explained in the Appendix.
+Where $\varepsilon$ is the error in the response - variation caused by unmonitored variables. In the example, $\beta_1, \beta_2, \beta_3$ are the true group means, and $\hat{\beta}_1, \hat{\beta}_2, \hat{\beta}_3$ are estimates of them. These estimates are not going to be perfect, and their standard errors can be calculated to get a feel for how accurate they really are. To reemphasize, a standard error is the average difference between an estimate of a parameter over many samples, and the true parameter value. Standard error can be made smaller by reducing the group variance, or by making the sample sizes bigger.  DCA's engineers should seek to minimize variation that isn't relevant to the investigation because this will make it easier to see the effects of the inputs on the reponse for a given sample size. Calculation of standard errors is described and explained in the Appendix.
 
 A reasonable criticism of the above example is that it is effectively just a drawn-out calculation of the group sample means. This is true, until the experiment is extended to involve another variable, this time a continuous one, say the volume of a lubricant applied to each design variant. Then the model can be adjusted to estimate the effects of the lubricant on the load output of each mechanism:
 \begin{equation}
@@ -689,7 +691,7 @@ A reasonable criticism of the above example is that it is effectively just a dra
 \end{equation}
 Where $x_l$ is the volume of lubricant applied, and $\hat{\beta}_3, \hat{\beta}_4, \hat{\beta}_5$ are the change in output force for each design variant per unit volume of lubricant. This model would allow an engineer to see not only how good design variants are relative to one another, but also how much lubricant would need to be applied to bring the performance of one in line with another. Point being, linear models are powerful because they can be adapted to many situations, and because they provide a consistent way of disentangling the effects of experimental treatments.
 
-As an aside, assessing the significance of differences between groups is frequently called Analysis of Variance (ANOVA). It's called this because the analysis focuses on decomposing variation into its sources. Two test statistics, the $t$ and $F$ statistics, can be used to run hypothesis tests on possible sources of variation. Under certain assumptions, these tests provide guidance as to whether a treatment induces an effect or not. It's relevant here because ANOVA can be viewed as linear regression with an emphasis on hypothesis testing. As discussed in the next section, hypothesis tests can be misleading. Furthermore, in complicated models, the canned formulae provided by some statistics resources, certain websites in particular, can become unwieldy and confusing, which could make its results suspect and difficult to explain. By contrast, the structure and basic principles of a linear model are consistent across a variety of model sizes. For this reason, it's suggested that DCA focus on learning to use linear models rather than attempt to use ANOVA.
+As an aside, assessing the significance of differences between groups is frequently called Analysis of Variance (ANOVA). It is called this because the analysis focuses on decomposing variation into its sources. Two test statistics, the $t$ and $F$ statistics, can be used to run hypothesis tests on possible sources of variation. Under certain assumptions, these tests provide guidance as to whether a treatment induces an effect or not. It is relevant here because ANOVA can be viewed as linear regression with an emphasis on hypothesis testing. As discussed in the next section, hypothesis tests can be misleading. Furthermore, in complicated models, the canned formulae provided by some statistics resources, certain websites in particular, can become unwieldy and confusing, which could make its results suspect and difficult to explain. By contrast, the structure and basic principles of a linear model are consistent across a variety of model sizes. For this reason, it is suggested that DCA focus on learning to use linear models rather than attempt to use ANOVA.
 
 Linear models would be useful to DCA because they can be used to figure out where variation in a response is coming from, which is the fundamental objective of most experiments. Identifying the factors that have the largest effect on performance, and quantifying those effects, is the first step in understanding how to change a design to make it both better-performing and more robust. Used in combination with multiple-factor experiment designs, linear models could reduce the time and resources taken to conclude an experimental investigation, and would offer a tool for aligning theoretical understanding with empirical evidence.
 
@@ -706,9 +708,9 @@ Summary statistics such as the coefficients of a linear model or a sample varian
 \label{fig:annotated_posterior}
 \end{figure}
 \par
-Bayesian methods would be useful to DCA because they're more easily understood, visualized, and explained than classical methods\footnote{``Classical methods'' here refers to tools such as hypothesis tests and interval estimates.}, and are relevant to a broader range of situations. They also allow expert knowledge to be used, making it possible to reach a sanitary comprimise between gut-feel and experimental observation. Finally, their emphasis on distribution rather than point estimates better reflects the underlying uncertainty in analytical results. These claims will  be explained in the context of an example.
+Bayesian methods would be useful to DCA because they are easier to understand, visualize, and explain than classical methods\footnote{``Classical methods'' here refers to tools such as hypothesis tests and interval estimates.}, and are relevant to a broader range of situations. They also allow expert knowledge to be used, making it possible to reach a sanitary comprimise between gut-feel and experimental observation. Finally, their emphasis on distribution rather than point estimates better reflects the underlying uncertainty in analytical results. These claims will  be explained in the context of an example.
 \par
-The proportion of units passing a test is a useful measure of a design's quality. Using the results from a test sample and the expertise of an engineering team, and Bayes' theorem, it's possible to estimate what pass rates would be likely if the design were to be produced in larger volumes.
+The proportion of units passing a test is a useful measure of a design's quality. Using the results from a test sample and the expertise of an engineering team, and Bayes' theorem, it is possible to estimate what pass rates would be likely if the design were to be produced in larger volumes.
 \par
 Say that a sample of $n$ units are tested, and $y$ pass. The engineering team collude to sketch out a distribution for the passing rate $\theta$ that's tall near values they think probable and low near ones that seem unlikely. The team is to calculate the probability of a unit passing, given their experimental data and preliminary distribution: Bayes' theorem can be used to do this.
 \begin{equation}
@@ -786,7 +788,7 @@ The process of inference just described would be valuable to DCA because it woul
 \end{figure}
 \par
 
-Another advantage of Bayesian methods over hypothesis testing is that it's relatively easy to build models that estimate many parameters simultaneously. An instance of this might be when estimating the mean and the variance of data that's assumed to have a normal distribution. The only change relative to the single-parameter scenario is that we need to define the prior and likelihood in Equation \ref{eq:unnorm_bay} over two parameters instead of one:
+Another advantage of Bayesian methods over hypothesis testing is that it is relatively easy to build models that estimate many parameters simultaneously. An instance of this might be when estimating the mean and the variance of data that's assumed to have a normal distribution. The only change relative to the single-parameter scenario is that we need to define the prior and likelihood in Equation \ref{eq:unnorm_bay} over two parameters instead of one:
 \begin{equation}
 	p(\theta_1, \theta_2 | y) \propto p(y|\theta_1, \theta_2) \cdot p(\theta_1, \theta_2)
 \end{equation}
@@ -799,7 +801,7 @@ Where $\theta_1$ is the data's mean, $\theta_2$ is its standard deviation, and $
 \label{fig:multiparameter_bayes}
 \end{figure}
 
-Shifting from classical methods to Bayesian ones would make statistics within DCA more transparent to both its engineers and clients. Hypothesis tests and interval estimates are easily misinterpreted and are opaque representations of the certainty in parameter estimates, since they are presented simply as numerical values. The jargon of classical statistics can make it unclear what's relevant to the problem, and makes an honest explanation of its methods to non-technical team members difficult. Bayesian methods make it clear how the data and prior knowledge are being combined, and provide results that are more easily interpreted. On the other hand, sophisticated Bayesian models require careful thought to be applied effectively, and  may take longer to set up as a result. However, a couple of models could probably answer most questions asked in experimental work, such that once a model is set up it can be used to analyze data from many different experiments.
+Shifting from classical methods to Bayesian ones would make statistics within DCA more transparent to both its engineers and clients. Hypothesis tests and interval estimates are easily misinterpreted and are opaque representations of the certainty in parameter estimates, since they are presented simply as numerical values. The jargon of classical statistics can make it unclear what's relevant to the problem, and makes an honest explanation of its methods to non-technical team members difficult. Bayesian methods make it clear how the data and prior knowledge are being combined, and provide results that are easier to interpret. On the other hand, sophisticated Bayesian models require careful thought to be applied effectively, and  may take longer to set up as a result. However, a couple of models could probably answer most questions asked in experimental work, such that once a model is set up it can be used to analyze data from many different experiments.
 \par
 It is generally recognized that the scientific community as a whole needs to reconsider the practical relevance of hypothesis testing: DCA can hardly be faulted for neglecting to apply ineffective methods. Tolerance and confidence intervals are useful, but can be prone to misinterpretation. 
 
@@ -812,7 +814,7 @@ DCA's use of visualization could be improved by:
 \begin{itemize}
 \item Presenting summary plots rather than raw data where appropriate.
 \item Providing only as much information as is needed to understand the results - is the entire group's results necessary, or just one unit's?
-\item Using plots to understand data as well as present it - in the same way that fiddling with prototypes inspires ideas, visual representations of data can suggest things that aren't clear in formal analyses.
+\item Using plots to understand data as well as present it - in the same way that fiddling with prototypes inspires ideas, visual representations of data can suggest things that are not clear in formal analyses.
 \item Faceting line plots - subplotting the results by factors or conditions. Overlaid line charts are crude representations of data that will generally only show obvious differences. This is mentioned because of DCA's reliance on line plots.
 \end{itemize}
 Designing a visualization means giving thought to:
@@ -825,7 +827,7 @@ Designing a visualization means giving thought to:
 \item Facets - plotting subsets of the data separately
 \item Themes - typeface, non-data colours, axes and so on.
 \end{itemize}
-This many elements may seem overwhelming, and can be justified, although the most important ones are choice of geometry, aesthetics, and scales. Aesthetics can represent dimensions that aren't displayed via a plot's axes. Geometry carries information such as resolution, chronology,  and connectivity. Scales can skew perception of effects, and should be chosen carefully.
+This many elements may seem overwhelming, and can be justified, although the most important ones are choice of geometry, aesthetics, and scales. Aesthetics can represent dimensions that are not displayed via a plot's axes. Geometry carries information such as resolution, chronology,  and connectivity. Scales can skew perception of effects, and should be chosen carefully.
 
  In DCA, experimental results are regularly discussed in team meetings. These discussions are guided by charts of the results; the conclusions of these meetings will guide an experimental investigation, and can only be as well-informed as those charts permit. If charts contain irrelevant or misleading information, an investigation may stall.
   While default options in programs like Excel and Matlab can be very useful for quickly surveying data, they are rarely ideal for focusing technical discussions. The same applies to plotting raw time series data directly - gross structure can be made apparent, but there will almost certainly be both a clearer way to express it and relevant information will be submerged in a sea of noise.
@@ -878,7 +880,7 @@ To show what's meant by the above criticism, consider Figure \ref{fig:}, which i
 \appendix
 \chapter{}
 \subsection{What is probability theory, and what is a probability?}
-Probability allows us to analyze a system without requiring complete mechanical knowledge of it. `'Randomness'' refers to sources of variation that aren't measured. You may have heard of probabilities as representing `'Degrees of belief''. To understand what a belief is, consider this example. We machine a coin that we check is a symmetric disk of homogeneous density. I flip the coin ten times, and it comes up heads every single time. You might be surprised by this, and accuse me of flipping it in a controlled way. I then ask you how I can flip it in a way that is fair. What is your response?
+Probability allows us to analyze a system without requiring complete mechanical knowledge of it. `'Randomness'' refers to sources of variation that are not measured. You may have heard of probabilities as representing `'Degrees of belief''. To understand what a belief is, consider this example. We machine a coin that we check is a symmetric disk of homogeneous density. I flip the coin ten times, and it comes up heads every single time. You might be surprised by this, and accuse me of flipping it in a controlled way. I then ask you how I can flip it in a way that is fair. What is your response?
 \par
 If you say that it should come heads as many times as tails, then the experiment is no longer random, as we know what the outcome will be. You may gesticulate and say ``You need to flip it \emph{randomly}''. I would press you to tell me what this means - I require a mechanism to decide how to flip the coin, and physical mechanisms are deterministic.
 \par
