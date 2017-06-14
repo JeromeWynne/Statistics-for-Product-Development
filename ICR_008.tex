@@ -216,6 +216,8 @@
 \chapter*{Glossary}
 \begin{longtable} {p{3.5cm}p{10cm}}
 \textbf{Confounding factor} & A difference between treatment groups that could be affecting the repsonse, thereby making it unclear whether this difference or the treatment is affecting the response. \\[0.5cm]
+\textbf{Event} & A set of outcomes. \\[0.5cm]
+\textbf{Outcome} & The result of an trial. \\[0.5cm] 
 \textbf{Experiment} & Varying factors in a controlled manner, and recording their effects on a response.\\[0.5cm]
 \textbf{Factor} & A controlled variable that may affect the response in an experiment. \\[0.5cm]
 \textbf{Level} & The degree or class to which a factor is set to, such as the volume of lubricant applied, or the mechanism subassembly chosen. \\[0.5cm]
@@ -297,7 +299,7 @@ Other engineering activities that DCA's engineers apply statistics to are tolera
 To help make sense of how statistics is applied in DCA's lab investigations, each step of an experimental procedure is reviewed in turn. These steps are:
 \begin{enumerate}
 \item Planning and execution.
-\item Analysis
+\item Analysis.
 \item Presentation and visualization.
 \end{enumerate}
 Investigatory strategy guides the choice of all of the above, and is examined as part of Subsection 2.2. For any experimental investigation to be successful, the experiments themselves need to be given careful thought, and should be conducted in a similar spirit - in other words, the experiments need to be designed.
@@ -367,12 +369,11 @@ Analyses in DCA rely heavily on expert knowledge of the systems being tested and
 The reports surveyed contained summary statistics, such as arithmetic means, variances, maximums, minimums, and so on. A few made use of interval estimates as informed by a regulatory standard, and one report applied a t-test. These tools will now be explained, and their usefulness and possible weaknesses detailed. FIGURE X DISPLAYS THE USE OF STATISTICAL TOOLS IN DCA.
 \par
 \subsection*{Summary Statistics}
- Randomness refers to variation in a response as a result of uncontrolled factors. If a coin is always flipped according to the same process, then it will always land in the same orientation. By contrast, if a coin is flipped by hand, then the person doing the flipping has a limited amount of control over the factors affecting the flip. As a result, there is uncertainty as to what the outcome of that flip will be. There are two ways to reduce this uncertainty: Either make assumptions about how those factors vary, or take measurements of them. The former method allows real-world knowledge to state what outcomes are possible what their relative propensities are. Conversely, measurements allow the factor effects to be estimated, meaning that sources of variation in the response can be accounted for.
+ Randomness refers to variation in a response as a result of uncontrolled factors. If a coin is always flipped according to the same process, then it will always land in the same orientation. By contrast, if a coin is flipped by hand, then the person doing the flipping has a limited amount of control over the factors affecting the flip. As a result, there is uncertainty as to what the outcome of that flip will be. There are two ways to reduce this uncertainty: Either make assumptions about how those flip-influencing factors vary, or measure them. Assumptions allow real-world knowledge to dictate what outcomes are possible what their relative propensities are. Conversely, measurements allow factor effects to be estimated, meaning that sources of variation in the response can be accounted for.
  
-  The assumption of normality, for example, is often wielded as a claim that... and the main factors are monitored or controlled in an experiment so that their effect on the response can be eliminated.
- By measuring all factors affecting the flip it would be possible to deduce how exactly how the coin would land
+  The assumption of normality, for example, is wielded as a claim that the response being observed is influenced by many independent effects, no one of which are especially large (See the Appendix). Alternatively, it may be suggested that no particular outcome is favoured by the system being studied, in which case uniformity could be assumed. In both instances, a distribution of outcomes is assumed based on physical knowledge, making it possible to analyze the system for useful information.
  
- In spite of its name, a random variable (r.v.) is a function that maps events onto real numbers. For example, we could define an r.v. $X$ that maps the outcomes of a coin toss onto the numbers 1 and 0:
+Mathematical analysis can be used to understand systems that vary randomly. As with any theory, some tools need to be defined to make the maths possible: a random variable is one of these tools. Despite its name, a random variable (r.v.) is a function that maps events onto real numbers. For example, we could define an r.v. $X$ that maps the outcomes of a coin toss onto the numbers 1 and 0:
  \begin{align}
 	X(\texttt{Coin lands Heads}) = 1 \\
 	X(\texttt{Coin lands Tails}) =0
@@ -386,16 +387,16 @@ Variation in the events that an r.v. maps from is described using a probability 
 \label{fig:example_pd}
 \end{figure}
 \par
-The essential problem of experimental statistics is trying to understand the behaviour of a broader population from just a sample. In product design, this means estimating the distribution of a population using measurements from just a limited number of prototypes. The attributes of this distribution - such as its spread and average - can be estimated using summary statistics.
+The essential problem of experimental statistics is trying to understand the distribution of a random variable from just a sample. In product design, this means using measurements from just a limited number of prototypes to estimate the behaviour of a much larger number of units. The attributes of a random variable's distribution - such as its spread and average - can be estimated using summary statistics.
  \par
-A sample's mean response, for example, approximates the mean response of a population. This result is regularly used in DCA to discriminate between the performance of two or more populations, each representing possible design variants. The accuracy of this estimate improves as more samples are tested, with diminishing returns, a relationship that is shown in Figure \ref{fig:se_with_sample_size}. Because a sample may not be representative of its population, it's useful to understand how far off the sample mean could be from the true mean.The sample mean's average difference to the true mean is called the standard error, and it corresponds to $\frac{\sigma}{\sqrt{n}}$, where $\sigma$ is the standard deviation of the population and $n$ is number of units in the sample.
+A sample's mean response, for example, approximates the mean response of a larger population of units. This is regularly used in DCA to discriminate between the performance of two or more populations, each representing possible design variants. The accuracy of this estimate improves as more samples are tested, with diminishing returns, a relationship that is shown in Figure \ref{fig:se_with_sample_size}. A sample may not be representative of its population, so it is sensible to estimate how far a sample mean is likely to be from the population mean. Bigger samples tend to better represent their populations, and more tightly clustered responses means that any one response is likely to be close the population mean. The standard error of the sample mean - the average difference between a sample mean estimate and the population mean - reflects these observations, as it corresponds to $\frac{\sigma}{\sqrt{n}}$, where $\sigma$ is the standard deviation of the population and $n$ is number of units in the sample.
 \begin{figure}[h]
 \includegraphics[width=\textwidth]{se_with_sample_size.pdf}
-\caption{Convergence of sample mean to population mean.}
+\caption{As sample size increases, the sample mean will - on average - draw closer to the population mean.}
 \label{fig:se_with_sample_size}
 \end{figure}
 
-Certain summary statistics can be thought of as estimates of a distribution's parameters. These are values that constrain a particular distribution's shape. The normal distribution's shape, for example, can be specified by supplying just two values: the variance (spread) and mean (location). Viewing statistics as an exercise in estimating a distribution makes handling the uncertainty inherent in test results more natural, and avoids misleading people with small-sample point estimates. DCA's engineers are particularly at risk of the latter because their experiments are constrained by the number of units that can be tested.
+Certain summary statistics can be thought of as estimates of a distribution's parameters. These are values that constrain a particular distribution's shape. The normal distribution's shape, for example, can be specified by supplying just two values: the variance (spread) and mean (location). Viewing statistics as an exercise in estimating a distribution makes handling the uncertainty inherent in test results more natural, and avoids misleading people with small-sample point estimates. DCA's engineers are particularly at risk of the latter because their experiments are constrained by the number of units that can be tested. Consequently, tools for making distributional estimates are presented in Section \ref{suggested_methods}.
 
  Estimating a distribution will be seen again later, in the section on Bayesian inference. Interval estimates are a tool for quantifying the uncertainty on an estimate, and can be made with assumptions about the distribution's shape, or without. They need to be interpreted carefully, and an appropriately careful explanation of two of the most often used interval estimates - confidence and tolerance intervals - will now be presented.
 
@@ -403,17 +404,19 @@ Certain summary statistics can be thought of as estimates of a distribution's pa
 
 \newpage
 \subsection*{Tolerance Intervals}
-DCA's most sophisticated statistical analysis is based on ISO 16269-6, \emph{Determination of statistical tolerance intervals}. This standard outlines how to construct tolerance intervals under either no assumptions about the random variable's distribution, or the assumption that the random variable has a normal distribution. A tolerance interval is a range of values that contain a particular fraction of the population. Because this interval is only an estimate, they can only contain the advertised fraction of the population most of the time. The proportion of time that an interval would, on average, contain the specified fraction of the population is called the confidence level. To elaborate a little further, if many $99\%$ tolerance intervals were constructed for different samples of the same size to a $95\%$ confidence level, then $95\%$ of the intervals estimated would contain at least $99\%$ of the population. Figure \ref{fig:tolerance_intervals} shows what this means.
-A fraction $1 - \alpha$ of these intervals will contain less than $p\%$ of the population, as shown in Figure \ref{fig:tolerance_intervals}. 
-\begin{figure}[h!]
-\includegraphics[width=\textwidth]{tolerance_intervals.pdf}
-\caption{Fifty tolerance limits versus population limit.}
+DCA's most sophisticated statistical analysis is based on ISO 16269-6, \emph{Determination of statistical tolerance intervals}. This standard outlines how to construct tolerance intervals under either no assumptions about the random variable's distribution, or the assumption that the random variable is normally distributed.
+\par
+ A tolerance interval is a range of values that's likely to contain a particular fraction of the population. Because this interval is an estimate, it can only contain the advertised fraction of the population some of the time. The proportion of intervals that would, on average, contain the specified fraction of the population is called the confidence level. If many $99\%$ tolerance intervals were constructed for different samples of the same size to a $95\%$ confidence level, then $95\%$ of the intervals estimated would contain at least $99\%$ of the population. Figure \ref{fig:tolerance_intervals} demonstrates this use case.
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{tolerance_intervals_2.pdf}
+\caption{Tolerance intervals estimate where the bulk of a population lies.}
 \label{fig:tolerance_intervals}
 \end{figure}
-DCA use tolerance intervals in a particular test to check that a certain proportion of the population satisfies a performance threshold. Their use isn't widespread, and previously it's been the case that $k$ values haven't been properly updated according to the conditions of new tests.
+
+DCA used tolerance intervals in to check that a given proportion of a population satisfied a performance threshold. Their use wasn't widespread, and in some of the reports studied the $k$-values\footnote{A $k$-value is a term used in the ISO standard to represent the number of sample standard deviations from the mean that will contain at least $p\%$ of the population $(1 - \alpha)\%$ of the time, where $(1 - \alpha)$ is the confidence level.} were calculated incorrectly. Furthermore, no efforts were made to test the assumption of normality.
 
 The strengths and suggestions for DCA's tolerance intervals are listed in Table \ref{tab:tol_intervals}.
-\begin{table}[b]
+\begin{table}
 \caption{Evaluation of tolerance intervals.}
 \small
 \hspace*{-.5cm}
@@ -422,9 +425,9 @@ The strengths and suggestions for DCA's tolerance intervals are listed in Table 
 \textbf{Strengths}	&	\textbf{Shortcomings} \\
 \toprule
 Provides a threshold indicating roughly where a certain fraction of the population is. & Confidence levels can be misinterpreted as specifying the probability that a constructed interval contains at least $95\%$ of the population. \\
-In line with the expectations of regulatory standards & Normality assumption needs checking \\
-Can be setup to be applied without theoretical understanding & Repeated use at a low confidence level increases the probability that the limit will be under-estimated. \\
-& k-values need to be looked up - could easily be done incorrectly if the theory isn't understood.\\
+In line with the expectations of regulatory standards. & If normality is assumed, it needs to be checked. \\
+Can be applied without theoretical understanding. & Repeated use at a low confidence level increases the probability that the limit will be under-estimated. \\
+& k-values need to be looked up, which could easily be done incorrectly if the theory isn't understood.\\
 \bottomrule
 \end{tabular}
 \label{tab:tol_intervals}
@@ -437,57 +440,44 @@ Another tool that DCA's engineers occasionally use is confidence intervals, whic
 
 \begin{figure}[H]
 \includegraphics[width=\textwidth]{confidence_intervals.pdf}
-\caption{99$\%$ confidence intervals for 100 10-unit samples.}
+\caption{Confidence intervals indicate the range of values likely to contain an estimated parameter.}
 \label{fig:confidence_intervals}
 \end{figure}
-Confidence intervals suffer from similar problems to tolerance intervals. DCA's engineers use them very rarely.
+Confidence intervals suffer from similar problems to tolerance intervals. DCA's engineers use them very rarely, meaning that decisions are made with limited appreciation for the uncertainty in experimental estimates. If only large differences in effects are of interest, this isn't a substantial problem. However, if subtle differences are important, or sample sizes are severely limited, then it's necessary to quantify an estimate's uncertainty so that erroneous or inappropriately confident conclusions aren't made.
 
-\newpage
 \subsection*{Monte Carlo Estimation}
-Monte Carlo estimation approximates a quantity by simulating the random process generating it . In DCA it's been used to analze tolerance chains in products. The use case was somewhat similar to the following: the tolerance limit of a combination of distributions, each corresponding to a part dimension, was needed. Take $X \sim \text{Binom}(n = 10, p = Y)$ as an example, where $Y \sim \text{Beta}(a = 7, b = 3)$\footnote{The beta distribution is a continuous and generates a number between $0$ and $1$, which makes it useful in modelling the distribution of a probability.}. Rather than attempt to derive the distribution of this dimension's value directly, tens of thousands of values of $y$ were first generated according to $Y$'s distribution using a computer. Each of these values were then used to generate a value of $x$ from $\text{Binom}(n = 10, p = y)$. The resulting frequencies of the $x$ values then represented the dimension's distribution. It was then possible to calculate the mean by averaging over all the $x$ values obtained. A diagram of this process is shown in Figure \ref{fig:monte_carlo}.
-\begin{figure}[b!]
-\includegraphics[width=0.87\textwidth]{monte_carlo_simulation.pdf}
+Monte Carlo estimation approximates a quantity by simulating the random process generating it . In DCA it was used to analyze tolerance chains in products. The use case was somewhat similar to the following: a gap between two components affected a product's function, so the distribution of possible gap values needed to be known. The gap's size was influenced by several part dimensions, each of which had a distinct distribution describing its variation. Rather than attempt to derive the distribution of the gap's size directly, a computer was used to simulate draws of each dimension, then calculate a value for the gap that resulted. The distribution of the gap's size was then approximated by the relative frequencies of the simulated values, which could be used to estimate properties of its distribution such as its mean and variance. A diagram of this process is shown in Figure \ref{fig:monte_carlo}.
+\begin{figure}[h!]
+\includegraphics[width=1\textwidth]{MC_estimation.pdf}
 \caption{Process diagram for a Monte Carlo simulation.}
 \label{fig:monte_carlo}
 \end{figure}
 
+Monte Carlo estimation is a powerful statistical tool that is easily implemented and interpreted. Enlarging its use beyond tolerance analysis to other areas of work at DCA would allow the effects of variation in manufacturing processes on product performance to be predicted, and hypothesis tests to be run by engineers with limited statistical training. Mathematical models were used in the company to analyze a product's performance: randomly sampling the inputs to these models would give DCA's engineers the ability to profile the overall variation in performance, rather than estimate the worst or best case alone. Monte Carlo methods can also be used to conduct hypothesis tests; by considering the probability of the observed sample as indicated by a distribution of samples generated via MC methods.
 
 \newpage
 \section{Visualization}
 Visualization is essential to clearly and convincingly summarizing an experiment's results. Graphical tools allow engineers and clients to see for themselves what's been discovered. A plot should be relevant, easily interpretable, and accurately convey its underlying data.
 \par
-DCA's reports and client presentations frequently contain plots of the data collected from an experiment, typically generated using either Microsoft Excel or Matlab. The plots used are line and bar charts, along with the occasional scatterplot. Line charts are particularly ubiquitous in DCA because they're directly plottable from the raw data provided by axial and torsional testing machines. As a consequence of this many graphical summaries are usually overlaid line plots, similar to that shown in Figure \ref{fig:line_chart}. The effectiveness of this use-case is evaluated in Table \ref{tab:line_chart}. This type of plot can include a lot of redundant information and can make it difficult to see how individual units are behaving.  Line charts can also conceal the actual resolution of the data collected, particularly if a spline fit or graphical smoothing has been applied\footnote{As is a default in Excel.}. Figure \ref{fig:line_chart} is a representative chart from a DCA test report showing an overlay of the results from many units. Criticisms aside, directly plotting raw data requires very little time, and is easily relatable to patterns observed over the course of an experimental run.
-\begin{figure}
-\includegraphics[width=\textwidth]{overlaid_line_charts.pdf}
-\caption{A representative use of line charts from a DCA test report.}
-\label{fig:line_chart}
-\end{figure}
-
-Bar charts are also used fairly frequently to display performance relative to a nominal value, and a particular format of scatterplot is used to present the results of a tolerance limit analysis. The latter is shown in Figure \ref{fig:tolerance_intervals_plot}. 
-\begin{table}[h!]
-\caption{Evaluation of the line chart.}
-\small
-\hspace*{-.5cm}
-\begin{tabular}{p{6.5cm}p{6.5cm}}
-\toprule
-\textbf{Strengths}	&	\textbf{Shortcomings} \\
-\toprule
-Allows an entire test to be viewed simultaneously, providing a high-level summary of results.	&	May provide irrelevant information - it's often the case that only the peak or average values are of interest	\\
-Is easily relatable to physical observations during a test.	&	Directs focus to extremes of group ranges, rather than the distribution of each group's performance.	\\
-Its meaning can be understood without explanation - it is a universally familiar chart.	&  Obfuscates data artifacts that aren't related to location or dispersion (such as harmonic content). \\
-&  Can obscure the behaviour of individual units. 			\\
-\bottomrule
-\end{tabular}
-\label{tab:line_chart}
-\end{table}
-\begin{figure}
+DCA's reports and client presentations contain plots of experimental data generated using either Microsoft Excel or Matlab. These plots are line or bar charts, along with the occasional scatterplot. Line charts are used frequently in DCA because they are directly plottable from the raw data output by their axial and torsional testing machines. Bar charts on the other hand tended to be used to higlight differences between groups, such as their means or maximums. Scatter plots were used specfically to present tolerance intervals relative to a set of performance criteria, as is shown in Figure \ref{fig:tolerance_intervals_plot}.
+\begin{figure}[h!]
 	\includegraphics[width=\textwidth]{tolerance_intervals_plot.pdf}
 	\caption{Tolerance interval plot.}
 	\label{fig:tolerance_intervals_plot}
 \end{figure}
 
+Directly plotting raw data requires very little time, and results in plots that are easily related to patterns observed over the course of an experimental run. These are major benefits in favour of using line charts to quickly understand the results of an experiment. However, there are several reasons why these types of charts aren't suitable for presenting at team meetings, or to clients. Figure \ref{fig:line_chart} was taken from a DCA test report and is of a type that was used regularly in team meetings. In this test, the response of the units at 10.8 seconds was of interest, yet all raw data is plotted. This has various negative corollaries: the redundant information away from 10.8 seconds is distracting, and is of limited use because it isn't possible to see how individual units are behaving.  Even if the other displacements were relevant, the plot would still be somewhat misleading as attention is directed to the group extremes, and cannot be used to see anything besides gross differences between groups. Moreover, line charts can conceal the actual resolution of the data collected, particularly if a spline fit or graphical smoothing has been applied\footnote{Excel automatically smooths line charts.}. Solutions to these problems are suggested in Subsection \ref{suggested_vis}.
+\begin{figure}[h!]
+\includegraphics[width=\textwidth]{imitation_line_chart_2.pdf}
+\caption{A representative use of line charts from a DCA test report. Each shade of blue corresponds to a unique unit.}
+\label{fig:line_chart}
+\end{figure}
+
+As has been mentioned, bar charts and scatter plots were also used within DCA, albeit less frequently than line charts. There are several ways in which the use of these tools could have been improved. Plotting errors bars on bar charts would allow the uncertainty in the estimates to be represented, making group comparisons less prone to unwarranted confidence. Alternatively, the individual unit responses could be included as a scatter plot to give the audience a sense of the sample size used and response variance. Scatter plots are capable of displaying location, spread, density, and sample size information, making them a valuable tool for summarizing experimental data: the response at 10.8 seconds in Figure \ref{fig:line_chart} could easily be captured for each unit then presented in a scatter plot, resulting in a plot that is more easily read and discussed.
+
+
 \section{Review}
-The report so far has presented and critiqued the statistical methods currently being used by DCA's engineers. ...CONTINUE
+The report so far has presented and critiqued the statistical methods used by DCA's engineers. 
 DCA's experimental procedure is compared against conventional experimental steps in Table \ref{tab:exp_procedure}.
 
 \begin{landscape}
@@ -805,6 +795,7 @@ It is generally recognized that the scientific community as a whole needs to rec
 
 %%
 \section{Visualization}
+\label{suggested_vis}
 Good visualization exposes patterns in data in a way that's immediately interpretable and precise. A visualization is a mapping from the numerical domain of a dataset to the visual domain of a plot. Data isn't stored in a way that can be interpreted easily, so it needs to be transformed for it to be useful - maths is one means of transforming it to reveal patterns, and plots are another.
 
 DCA's use of visualization could be improved by:
