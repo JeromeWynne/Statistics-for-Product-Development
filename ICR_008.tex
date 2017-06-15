@@ -457,6 +457,7 @@ Monte Carlo estimation is a powerful statistical tool that is easily implemented
 
 \newpage
 \section{Visualization}
+\label{sec:dca_vis}
 Visualization is essential to clearly and convincingly summarizing an experiment's results. Graphical tools allow engineers and clients to see for themselves what's been discovered. A plot should be relevant, easily interpretable, and accurately convey its underlying data.
 \par
 DCA's reports and client presentations contain plots of experimental data generated using either Microsoft Excel or Matlab. These plots are line or bar charts, along with the occasional scatterplot. Line charts are frequently used in DCA because they are directly plottable from the raw data output by their axial and torsional testing machines. Bar charts, on the other hand, tended to be used to highlight differences between groups, such as their means or maximums. Scatter plots were used specifically to present tolerance intervals relative to a set of performance criteria, as is shown in Figure \ref{fig:tolerance_intervals_plot}.
@@ -806,50 +807,59 @@ At the second step, more points need to be taken in order to estimate the higher
 
 
 
-
+\newpage
 %%
 \section{Visualization}
 \label{suggested_vis}
-Good visualization exposes patterns in data in a way that's immediately interpretable and precise. A visualization is a mapping from the numerical domain of a dataset to the visual domain of a plot. Data isn't stored in a way that can be interpreted easily, so it needs to be transformed for it to be useful - maths is one means of transforming it to reveal patterns, and plots are another.
+Good visualization exposes patterns in data in a way that's immediately interpretable and precise. A visualization is a mapping from the numerical domain of a dataset to the visual domain of a plot. Data isn't stored in a way that can be interpreted easily, so it needs to be transformed for it to be useful - mathematics is one means of transforming it to reveal patterns, and plots are another.
 
-DCA's use of visualization could be improved by:
-\begin{itemize}
-\item Presenting summary plots rather than raw data where appropriate.
-\item Providing only as much information as is needed to understand the results - is the entire group's results necessary, or just one unit's?
-\item Using plots to understand data as well as present it - in the same way that fiddling with prototypes inspires ideas, visual representations of data can suggest things that are not clear in formal analyses.
-\item Faceting line plots - subplotting the results by factors or conditions. Overlaid line charts are crude representations of data that will generally only show obvious differences. This is mentioned because of DCA's reliance on line plots.
-\end{itemize}
 Designing a visualization means giving thought to:
 \begin{itemize}
 \item Data - are the variables continuous, categorical, or ordered categorical?
-\item Geometry of datapoints - points, lines, or bars
-\item Datapoint aesthetics - color, size, shape, and position of the geometries
-\item Scales - mappings from data to aesthetics
-\item Summary statistics - plottable summaries of the data
-\item Facets - plotting subsets of the data separately
+\item Geometry of datapoints - points, lines, or bars.
+\item Datapoint aesthetics - color, size, shape, and position of the geometries.
+\item Scales - mappings from data to aesthetics.
+\item Summary statistics - plottable summaries of the data.
+\item Facets - plotting subsets of the data separately.
 \item Themes - typeface, non-data colours, axes and so on.
 \end{itemize}
-This many elements may seem overwhelming, and can be justified, although the most important ones are choice of geometry, aesthetics, and scales. Aesthetics can represent dimensions that are not displayed via a plot's axes. Geometry carries information such as resolution, chronology,  and connectivity. Scales can skew perception of effects, and should be chosen carefully.
-
- In DCA, experimental results are regularly discussed in team meetings. These discussions are guided by charts of the results; the conclusions of these meetings will guide an experimental investigation, and can only be as well-informed as those charts permit. If charts contain irrelevant or misleading information, an investigation may stall.
-  While default options in programs like Excel and Matlab can be very useful for quickly surveying data, they are rarely ideal for focusing technical discussions. The same applies to plotting raw time series data directly - gross structure can be made apparent, but there will almost certainly be both a clearer way to express it and relevant information will be submerged in a sea of noise.
-
-To show what's meant by the above criticism, consider Figure \ref{fig:}, which is an imitation of the plot shown in Figure \ref{fig:line_chart}. 
-
-\begin{figure}
-\includegraphics[width=\textwidth]{thinned_line_chart.pdf}
+This many elements may seem overwhelming, and can be justified, but the most important are choice of geometry, aesthetics, and scales. Aesthetics can represent dimensions that are not displayed via a plot's axes: group membership, for example, is often depicted by a datapoint's colour or shape. Datapoint geometry, meanwhile, carries information such as resolution, chronology, and connectivity. Lines alone may obscure the sampling rate in a time series, and suggest some form of relationship or order between points. Bars are often used to represent an accumulated quantity (such as frequency), whereas points have the capacity to convey information about density and the number of measurements made. Scales describe how to map from numerical values in a dataset to an aesthetic's property. Consequently, scales affect a reader's perception of gradients and ordering. Several scales are shown in Figure \ref{fig:scales}.
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.6\textwidth]{scales.png}
+\caption{Scales describe how to map from numeric values to aesthetic attributes such as shape, size, and colour.}
+\label{fig:scales}
 \end{figure}
+\vspace{-14pt}
 
-\begin{figure}
-\includegraphics[width=\textwidth]{strip_plot.pdf}
-\end{figure}
-
-\begin{figure}
+To show how the elements listed above provide a framework for presenting data, consider the following example. In DCA, experimental results are regularly discussed in team meetings. These discussions are guided by charts of the results; the conclusions of these meetings will guide an experimental investigation, and can only be as well-informed as those charts permit. If charts contain irrelevant or misleading information, an investigation may stall.
+  While default options in programs like Excel and Matlab can be very useful for quickly surveying data, they are rarely ideal for focusing technical discussions. More generally, the same applies to plotting raw time series data directly - gross structure can be made apparent, but there will almost certainly be both a clearer way to express key results.
+  
+  Figure \ref{fig:imitation_line_chart} is an example of how DCA currently summarizes test data. In this case, the performance of each unit at 10.8 seconds needed to be known. The behaviour of the units over the rest of the time span was thought to provide information as to why there were differences at that point. Each group had a distinct waveform and within groups the waveforms were similar. The shortcomings of presenting raw data directly were discussed in Subsection \ref{sec:dca_vis} - gross structure can be made apparent, but relevant information is otherwise subsumed by noise.
+  
+   \begin{figure}[h!]
 \includegraphics[width=\textwidth]{imitation_line_chart.pdf}
+\caption{}
+\label{fig:imitation_line_chart}
+\end{figure}
+  
+   Figure \ref{fig:better_chart} shows how splitting out specific observations into separate charts would have allowed this experimental data to be understood more deeply\footnote{The response units have been witheld to preserve confidentiality.}. Each of its charts is facilitates a specific technical discussion, but also provides information that supports the questions posited by its neighbors. The second chart, a strip plot, focuses on a key measure of each group's performance. The number of units tested is shown by this plot, as is the spread in the response, two pieces of information that are valuable to a reader because they measure a test's precision. Including the group sample means also prevents outliers skewing how the groups relative performance is perceived. The colours mapped to each group in these first two plots are of a similar intensity and are colorblind-safe. Using colors of a different luminance\footnote{Luminance is a measure of a surface's brightness.} can unintentionally skew attention towards a particular datapoint or group. Additionally, the colors chosen did not have a perceptual ordering, as say a sequence of red shades would: this is important since there was no natural ordering to the group treatments in the experiment.
+   
+ The final plot uses color to emphasize an observation, and provides a diagram so that the physical system under study can be related to the experimental data. As with the first plot, an annotation states the message being conveyed.
+\begin{figure}
+\includegraphics[width=\textwidth]{better_charts.pdf}
+\caption{}
+\label{fig:better_chart}
 \end{figure}
 
+This example stresses that if graphs are used to direct technical discussions then they should form a narrative. If a particular result is of interest then that result should be abstracted into as simple a plot as possible. Properties affecting the precision of an experiment - such as its size and controls - can be embedded in a plot through aesthetics, geometry, facets, and scales. Where needed, diagrams and annotations should be used to provide the information needed to understand the plot. Applying these principles would make it easier for DCA's engineers to discern nuanced patterns and present their findings to their colleagues and clients.
+
+A relevant topic here is jet colormap, the default used by many of DCA's simulation packages. This colormap has been criticized as being actively misleading and confusing. Luminance allows the visual system to perceive boundaries; across the jet colormap, luminance does not change at a constant rate. In some sections it changes very rapidly, whereas in others it is almost constant. This has the dual effect of suggesting sharp boundaries where they may not exist in the data, and obscuring actual borders in the map's isoluminant regions. Figure \ref{fig:jet} demonstrates these qualities.
 \begin{figure}
-\includegraphics[width=\textwidth]{annotated_line_chart.pdf}
+\centering
+\includegraphics[width=0.5\textwidth]{jet.png}
+\caption{\small{Each column corresponds to a set of data. Column 1 is a vertical linear scale; 2 is linear with a step at the center; 3 maps radius. Grayscale and black-body colormaps accurately represent the underlying data: jet does not.}}
+\label{fig:jet}
 \end{figure}
 
 \cite{hastie2013elements}, \cite{gelman2013bayesian}, \cite{faraway2004linear}, \cite{blitzstein2014linear}, \cite{jaynes2003probability}, \cite{wickham2009ggplot2}, \cite{montgomery2000design}, \cite{kruschke2015doing}, \cite{iso2014statistical}.
@@ -857,20 +867,39 @@ To show what's meant by the above criticism, consider Figure \ref{fig:}, which i
 
 %%
 \section{Software}
-\begin{itemize}
-\item Excel
-\item Matlab
-\item R
-\item Python
-\item Minitab
-\end{itemize}
-
-\newpage
-
+ Software is required to implement the tools presented. Excel and Matlab are already at use within DCA. The company also owns a Minitab license. Ideally, the software would be:
+ \begin{itemize}
+ \item Easily learnt - can be picked up without requiring specialist training.
+ \item Powerful - provides tools for implementing the methods presented.
+ \item Succinct - generates results quickly.
+ \item Readily understood by other engineers and clients, possibly via reporting tools.
+ \item Inexpensive.
+ \end{itemize}
+\par
+ Excel is an excellent tool for quickly plotting test results, but it can only be used for basic analyses and plotting. Its tools for filtering data are clumsy in comparison to those provided by Matlab and R. Moreover, it is prone to slowdown when large datasets are being handled. That said, it requires no previous programming experience to use, which is a signficant advantage when results need to be passed on to clients. Excel does not provide tools for experiment design, linear modelling, or Bayesian analysis.
+\par
+Matlab's tools for statistical analyses are contained within Mathworks' Statistics and Machine Learning Toolbox. For the analytical methods presented here to be used, this Toolbox would be necessary. To use it, the company would need to invest at upward of £1800 per year\footnote{ An individual annual Matlab license costs £1800, with the Toolbox costing an additional £900. DCA already own five networked licenses (these are more expensive than individual licenses).}. DCA's graduate engineers are already familiar with Matlab, and do much of their mathematical modelling in the software. Consequently, Matlab may make it easy to integrate statistics into DCA's existing simulation work. Furthermore, Mathworks offer tools tailored to specific engineering tasks. Matlab's documentation also tends to be clearer, and its debugging tools are very good.
+\par
+R is an open-source programming language designed for statistics. It is free to use, as are its many extensions which provide advanced modelling, visualization, and data-manipulation tools. Academic researchers and professional analysts rely on R for their work, reflecting the fact that R is held to be the standard tool for statistical analysis. All of the plots in this report were produced using R, some of which would have been difficult to produce using Matlab; R offers data-reshaping tools that Matlab does not, and has an exceptionally flexible plotting extension. RStudio, a free development environment, also provides tools for automatically formatting analyses into PDFs or webpages. A major drawback to using R is that it has quite a steep learning curve. This is in due to its unusual syntax which can make code difficult to read, and the cryptic error messages that result from its ability to store different data types in one variable. As an estimate, it would probably take one of DCA's engineers at least 20 hours to become familiar enough with base R to use it to run the analyses presented here. This would cost at least £1200, but would be a one-time investment (per engineer). 
+\par
+Minitab costs £1300 per license and provides a graphical interface for designing and analysing experiments. It guides the user towards appropriate experiment designs and analyses based on their needs, but is less flexible and extensible in comparison to Matlab and R's. Its tools for filtering and reformatting data are also, by comparison, limited. It may be the most approachable choice here, besides Excel, for engineers without prior programming experience.
+\par
+As is probably clear, no one software package stands out as being exceptionally well-suited to the company's needs.
 
 %% CONCLUSIONS AND RECOMMENDATIONS %%
 \chapter{Conclusions \& Recommendations}
 
+Statistics is necessary to:
+\begin{itemize}
+\item Design robust products
+\item Optimize product performance
+\item Minimize risk in product development
+\item Conduct efficient experimental investigations
+\item Develop a coherent understanding of a product's behaviour
+\item Present the uncertainty inherent in experimental work honestly
+\end{itemize}
+
+Asking DCA's engineers to acquire sufficient statistical expertise on the job may be unrealistic. They are paid to deliver, not to study. For this reason it may be advisable for the company to hire a statistician or testing development engineer.
 
 \newpage
 %% BIBLIOGRAPHY
