@@ -21,6 +21,7 @@
 \usepackage{mathtools}
 \usepackage[T1]{fontenc}
 \usepackage{longtable}
+\usepackage{url}
 
 \setlength{\parskip}{\baselineskip}%
 \setlength{\parindent}{0pt}%
@@ -254,7 +255,7 @@ DCA Design International is a 150-person product design consultancy based in War
 \caption{Products designed by DCA.}
 \label{fig:dca_profile}
 \end{figure}
-\par
+
 DCA employs approximately sixty mechanical engineers, each of whom are general-purpose technical consultants capable of fulfilling the engineering demands of a project. These demands will consist of design, analysis, and prototyping work, in proportions varying according to the project. DCA's substantial investment in engineering distinguishes it from other product design consultancies, many of which have less expertise available to handle a product's technical development \cite{designweek}. This investment is manifest in both its engineering workforce and its ownership of four test labs. The experimental work that makes use of these labs is one of DCA's value propositions to prospective clients: the way in which DCA handles experimental data contributes to its success in securing new clients and satisfying current ones. The way in which DCA's engineers collect, analyze, and present experimental data is the focus of this report. These data-oriented activities constitute the scientific discipline of statistics.
 \par
 Statistics makes it possible to profile, understand, and predict variation in a product's performance. Engineers can use statistics to design products that are more robust, less costly to manufacture, and of a higher quality than they would be otherwise. Being able to use statistical tools fluently would elevate DCA's capacity as a technical consultancy.
@@ -773,39 +774,44 @@ Experiment design is motivated by trying to find efficient ways to explain respo
 
 \subsection*{Response Surface Methodologies}
 In any given one of DCA's products, it is likely that most parameters will either need to be:
+\vspace{-14pt}
 \begin{itemize}
 	\item Kept within a range - for example, criticial dimensions, or
 	\item Maximized/minimized - such as mechanism friction or split line prominence.
 \end{itemize}
-Response surface methodologies (RSMs) try to achieve these objectives by sequentially identifying the factors that affect the response parameter. The factors that have the biggest effect on the response are determined first and optimized. Once the main effects have been deduced, subtler effects - such as factor interactions - are explored, before optimizing the system with respect to all factors.
+\vspace{-14pt}
+Response surface methodologies (RSMs) try to achieve these objectives by sequentially identifying the factors that affect the response parameter. The factors that have the biggest effect on the response are measured and approximately optimized first. Once this has been done, subtler effects - such as factor interactions - are explored, allowing the system to then be optimized with respect to all factors. Figure \ref{fig:RSM_overview} is included to support this explanation \cite{montgomery2000design}.
+\begin{figure}[h!]
+\includegraphics[width=\textwidth]{RSM_overview.pdf}
+\caption{RSMs progressively optimize a system's response.}
+\label{fig:RSM_overview}
+\end{figure}
 
 Response surface methodologies are built around linear models. The link is clearest when an RSM is broken down into steps:
 \begin{enumerate}
-\item Start by determining what the first-order effects of factors are on the response. In other words, estimate the coefficients in the model:
+\item Start by determining what the first-order effects of factors are on the response. In other words, estimate the coefficients $\beta_i$ in the model:
 \begin{equation}
-	f(x_1, ..., x_n) = x_0 + \sum_{i = 1}^n \beta_i \cdot x_i
+	f(x_1, ..., x_n) = \beta_0 + \sum_{i = 1}^n \beta_i \cdot x_i
 \end{equation}
 \item Incrementally optimize the response based on the model. If the response were being maximized, this would mean adjusting the factors $x_i$ until the reponse $f(x)$ stops increasing. 
 \item Determine what the second-order interaction effects are in the vicinity of the first-order optimum. That is, fit a model of the form:
 \begin{equation}
-	f(x_1, ..., x_n) = x_0 + \sum_{i = 1}^n \sum_{j = 1}^n \beta_{ij}\cdot x_i \cdot x_j
+	f(x_1, ..., x_n) = \beta_0 + \sum_{j = 1}^n \beta_{j} x_j + \sum_{i = 1}^n \beta_{ii} x_i^2 + + \sum_{i = 2}^n \sum_{j < i}\beta_{ij} x_i x_j
 \end{equation}
-\item Optimize the response according to these second-order effects (described in the Appendix).
+\item Optimize the response according to these second-order effects.
 \end{enumerate}
-Something missing from the above steps is that a shot of common sense is needed at each stage - factors that have a negligible effect on the response need to be discarded to avoid having to test a staggering number of second-order treatments to test. The structure of an RSM assumes that first-order effects are likely to be larger than interactions. 
+Something missing from the above steps is that factors that have a negligible effect on the response need to be discarded to avoid having to test a staggering number of second-order treatments to test.
 
-A 2-level factorial design can be used in step (1). This design provides enough information to estimate the intercept, main effects, and interaction effects. By using center points, it's possible to estimate the response variance and to check whether there is any curvature in the response surface. 
+A 2-level factorial design can be used in step (1). This design provides enough information to estimate the intercept, main effects, and interaction effects - the left panel of Figure \ref{fig:rsm_design} explains this in detail. By using center points, it's possible to estimate the response variance and to check whether there is any curvature in the response surface. The test for curvature is quite simple: if the response at the center point is substantially above or below the response plane described by the boundary points, then it suggests that the response surface in the region is curved. Curvature implies that quadratic (or possibly even higher order) effects are important to the response's variation.
 
+At the second step, where the response is optimized in the vicinity of the optimum, more points need to be taken in order to estimate the quadratic effects. To estimate these, three points along each factor's axis are needed. The design shown in the right panel of Figure \ref{fig:rsm_design} does exactly this: the outer elements can be used to estimate curvature (averaged across two paths), while the center point can be used to estimate error in the region of interest.
 \begin{figure}
 \includegraphics[width=\textwidth]{RSM_design.pdf}
 \caption{Left}
+\label{fig:rsm_design}
 \end{figure}
 
-At the second step, more points need to be taken in order to estimate the higher-order effects. To estimate curvature, three points along each factor's axis are needed. The design shown in Figure does exactly this: the outer elements can be used to estimate curvature (averaged across two paths), while the center point can be used to estimate error in the region of interest.
-
- DCA could use response surface methodologies to converge more quickly on a solution than their current best-guess approach. Additionally, the solutions found using this method would be approximately optimal, rather than sufficient - this means better products, and more satisfied clients. It can be difficult obtain the resources to run a large experiment, and to convince a client that it will be worthwhile, but perserverance will repay itself in the risk, possible embarassment, and potential loss of business avoided as a result. Furthermore, investigations relying on - admittedly expert - guessing will consume more resources than planned investigations. The experiment designs presented here provide an idea of the minimum up-front cost needed to understand the effects of a set of factors on a response. If this cost is too high, and the factors can't be reasonably discounted, then the objectives of the investigation should be refined.
-
-
+RSMs would converge on solutions more quickly than DCA's current best-guess approach, and would optimize product performance. It can be difficult obtain the resources to run a large experiment, and to convince a client that it will be worthwhile, but perserverance will repay itself in the risk avoided and quality gained as a result. Investigations relying on expert guessing will tend to consume more resources than planned investigations. This design provides an idea of the minimum cost to understand the effects of a set of factors on a response. If this cost is too high, and the factors can't be reasonably discounted, then the objectives of the investigation should be refined.
 
 \newpage
 %%
@@ -862,7 +868,7 @@ A relevant topic here is jet colormap, the default used by many of DCA's simulat
 \label{fig:jet}
 \end{figure}
 
-\cite{hastie2013elements}, \cite{gelman2013bayesian}, \cite{faraway2004linear}, \cite{blitzstein2014linear}, \cite{jaynes2003probability}, \cite{wickham2009ggplot2}, \cite{montgomery2000design}, \cite{kruschke2015doing}, \cite{iso2014statistical}.
+\cite{hastie2013elements}, \cite{gelman2013bayesian}, \cite{faraway2004linear}, \cite{blitzstein2014linear}, \cite{jaynes2003probability}, \cite{wickham2009ggplot2}, \cite{montgomery2000design}, \cite{kruschke2015doing}, \cite{iso2014statistical}, \cite{borland2007rainbow}.
 
 
 %%
@@ -905,7 +911,7 @@ A reasonable criticism of the methods proposed is that products do not need to b
 
 \newpage
 %% BIBLIOGRAPHY
-\bibliographystyle{ieeetr}
+\bibliographystyle{plain}
 \bibliography{icr}
 
 \newpage
