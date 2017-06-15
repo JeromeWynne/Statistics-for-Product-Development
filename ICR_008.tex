@@ -534,44 +534,6 @@ Conclusions and recommendations & Experimental conclusions were presented to cli
 
 Having assessed DCA's current use of statistics, it is possible to suggest methods from modern statistical practice that would give them new capabilities and improve their existing ones. Like Section 2, this section is categorized by the steps in an experimental process.
 
-\section{Experiment Design}
-Experiment design is motivated by trying to find efficient ways to explain response variation. Attributing response variation to product factors is the first step towards tuning those factors to produce a desirable response. Experimental investigations should determine what the effects of factors are on the response, using the resources available. Response surface methodologies would allow DCA's engineers to do this.
-
-\subsection*{Response Surface Methodologies}
-In any given one of DCA's products, it is likely that most parameters will either need to be:
-\begin{itemize}
-	\item Kept within a range - for example, criticial dimensions, or
-	\item Maximized/minimized - such as mechanism friction or split line prominence.
-\end{itemize}
-Response surface methodologies (RSMs) try to achieve these objectives by sequentially identifying the factors that affect the response parameter. The factors that have the biggest effect on the response are understood first. These factors are optimized, then nuanced effects - such as factor interactions - are explored, before finally optimizing the system with respect to all factors.
-
-Response surface methodologies are built around linear models. The link is clearest when an RSM is broken down into steps:
-\begin{enumerate}
-\item Start by determining what the first-order effects of factors are on the response. In other words, estimate the coefficients in the model:
-\begin{equation}
-	f(x_1, ..., x_n) = x_0 + \sum_{i = 1}^n \beta_i \cdot x_i
-\end{equation}
-\item Incrementally optimize the response based on the model. If the response were being maximized, this would mean adjusting the factors $x_i$ until the reponse $f(x)$ stops increasing. 
-\item Determine what the second-order interaction effects are in the vicinity of the first-order optimum. That is, fit a model of the form:
-\begin{equation}
-	f(x_1, ..., x_n) = x_0 + \sum_{i = 1}^n \sum_{j = 1}^n \beta_{ij}\cdot x_i \cdot x_j
-\end{equation}
-\item Optimize the response according to these second-order effects (described in the Appendix).
-\end{enumerate}
-Something missing from the above steps is that a shot of common sense is needed at each stage - factors that have a negligible effect on the response need to be discarded to avoid having to test a staggering number of second-order treatments to test. The structure of an RSM assumes that first-order effects are likely to be larger than interactions. 
-
-To estimate first-order effects, two factor levels need to be defined, then every combination of factor levels - $2^k$ in total, for $k$ factors - need to be tested.  To estimate error of course, replicates of each combination of factors need to be tested. To make these estimates more efficient, replicates at only a few points can be run. If these points are centered relative to the other factors, then they can suggest whether the changes seen moving towards the surrounding points are probably attributable to error or an effect. Figure \ref{fig:centered_points} shows what a center point is.
-\begin{figure}[h!]
-\includegraphics[width=\textwidth]{central_composite_design.pdf}
-\label{fig:centered_points}
-\caption{A central composite design - the points indicate factor combinations to be tested, and the lines suggest the experiment's intentions.}
-\end{figure}
-
-Central composite designs can be used to fit the second-order model: these consists of a testing all combinations of factors, replicating at the center points described above, then displacing one factor at a time from each of these center points. This type of experiment provides just the right amount of information to characterise the reponse surface around the center points (see the Appendix's discussion of orthogonality).
-
-
- DCA could use response surface methodologies to converge more quickly on a solution than their current best-guess approach. Additionally, the solutions found using this method would be approximately optimal, rather than sufficient - this means better products, and more satisfied clients. It can be difficult to get hold of the resources to run a large experiment, and to convince a client that it will be worthwhile, but perserverance will repay itself in the risk, possible embarassment, and possible loss of business avoided as a result. Furthermore, investigations relying on - admittedly expert - guessing will consume more resources than planned investigations. The experiment designs presented here provide an idea of the minimum up-front cost needed to understand the effects of a set of factors on a response. If this cost is too high, and the factors can't be reasonably discounted, then the objectives of the investigation should be refined.
-
 
 \newpage
 \section{Analysis}
@@ -592,7 +554,7 @@ Experimental work often tries to an answer questions such as:
  \par
  Regression estimates how a continuous response changes with some inputs. Linear regression uses a linear function to predict the reponse: This may sound limiting, since in real life lots of relationships are nonlinear, but nonlinear relationships can be made linear by transformation.
 \par
-  Linear models describe a response $y$ as a linear function of some parameters $\hat{\beta}_i$, each weighted by a corresponding input $x_i$. An example of such a model would be:
+  Linear models describe a response $y$ as a linear function of some parameters $\hat{\beta}_i$, each weighted by a corresponding input $x_i$. The rate of change of the response with respect to a particular input is embedded in that input's parameter. An example of such a model would be:
 \begin{equation}
 	\hat{y} = f(x_1, x_2) = \hat{\beta}_0 + \hat{\beta}_1 \cdot x_1 + \hat{\beta}_2 \cdot e^{x_1}+ \hat{\beta}_3 \cdot x_1 \cdot x_2
 \end{equation}
@@ -689,7 +651,7 @@ A reasonable criticism of the above example is that it is effectively just a dra
 \begin{equation}
 	\hat{y} = \hat{\beta}_0 x_A + \hat{\beta}_{1}x_B + \hat{\beta}_{2}x_C + \hat{\beta}_3 x_A x_l + \hat{\beta}_4 x_B x_l + \hat{\beta}_5 x_C x_l
 \end{equation}
-Where $x_l$ is the volume of lubricant applied, and $\hat{\beta}_3, \hat{\beta}_4, \hat{\beta}_5$ are the change in output force for each design variant per unit volume of lubricant. This model would allow an engineer to see not only how good design variants are relative to one another, but also how much lubricant would need to be applied to bring the performance of one in line with another. Point being, linear models are powerful because they can be adapted to many situations, and because they provide a consistent way of disentangling the effects of experimental treatments.
+Where $x_l$ is the volume of lubricant applied, and $\hat{\beta}_3, \hat{\beta}_4, \hat{\beta}_5$ are the change in output force for each design variant per unit volume of lubricant. This model would allow an engineer to see not only how good design variants are relative to one another, but also how much lubricant would need to be applied to bring the performance of one in line with another. Linear models are powerful because they can be adapted to many situations, and because they provide a consistent way of disentangling the effects of experimental treatments.
 
 As an aside, assessing the significance of differences between groups is frequently called Analysis of Variance (ANOVA). It is called this because the analysis focuses on decomposing variation into its sources. Two test statistics, the $t$ and $F$ statistics, can be used to run hypothesis tests on possible sources of variation. Under certain assumptions, these tests provide guidance as to whether a treatment induces an effect or not. It is relevant here because ANOVA can be viewed as linear regression with an emphasis on hypothesis testing. As discussed in the next section, hypothesis tests can be misleading. Furthermore, in complicated models, the canned formulae provided by some statistics resources, certain websites in particular, can become unwieldy and confusing, which could make its results suspect and difficult to explain. By contrast, the structure and basic principles of a linear model are consistent across a variety of model sizes. For this reason, it is suggested that DCA focus on learning to use linear models rather than attempt to use ANOVA.
 
@@ -804,6 +766,46 @@ Where $\theta_1$ is the data's mean, $\theta_2$ is its standard deviation, and $
 Shifting from classical methods to Bayesian ones would make statistics within DCA more transparent to both its engineers and clients. Hypothesis tests and interval estimates are easily misinterpreted and are opaque representations of the certainty in parameter estimates, since they are presented simply as numerical values. The jargon of classical statistics can make it unclear what's relevant to the problem, and makes an honest explanation of its methods to non-technical team members difficult. Bayesian methods make it clear how the data and prior knowledge are being combined, and provide results that are easier to interpret. On the other hand, sophisticated Bayesian models require careful thought to be applied effectively, and  may take longer to set up as a result. However, a couple of models could probably answer most questions asked in experimental work, such that once a model is set up it can be used to analyze data from many different experiments.
 \par
 It is generally recognized that the scientific community as a whole needs to reconsider the practical relevance of hypothesis testing: DCA can hardly be faulted for neglecting to apply ineffective methods. Tolerance and confidence intervals are useful, but can be prone to misinterpretation. 
+
+\section{Experiment Design}
+Experiment design is motivated by trying to find efficient ways to explain response variation. Attributing response variation to product factors is the first step towards tuning those factors to produce a desirable response. Response surface methodologies would allow DCA's engineers to do this.
+
+\subsection*{Response Surface Methodologies}
+In any given one of DCA's products, it is likely that most parameters will either need to be:
+\begin{itemize}
+	\item Kept within a range - for example, criticial dimensions, or
+	\item Maximized/minimized - such as mechanism friction or split line prominence.
+\end{itemize}
+Response surface methodologies (RSMs) try to achieve these objectives by sequentially identifying the factors that affect the response parameter. The factors that have the biggest effect on the response are determined first and optimized. Once the main effects have been deduced, subtler effects - such as factor interactions - are explored, before optimizing the system with respect to all factors.
+
+Response surface methodologies are built around linear models. The link is clearest when an RSM is broken down into steps:
+\begin{enumerate}
+\item Start by determining what the first-order effects of factors are on the response. In other words, estimate the coefficients in the model:
+\begin{equation}
+	f(x_1, ..., x_n) = x_0 + \sum_{i = 1}^n \beta_i \cdot x_i
+\end{equation}
+\item Incrementally optimize the response based on the model. If the response were being maximized, this would mean adjusting the factors $x_i$ until the reponse $f(x)$ stops increasing. 
+\item Determine what the second-order interaction effects are in the vicinity of the first-order optimum. That is, fit a model of the form:
+\begin{equation}
+	f(x_1, ..., x_n) = x_0 + \sum_{i = 1}^n \sum_{j = 1}^n \beta_{ij}\cdot x_i \cdot x_j
+\end{equation}
+\item Optimize the response according to these second-order effects (described in the Appendix).
+\end{enumerate}
+Something missing from the above steps is that a shot of common sense is needed at each stage - factors that have a negligible effect on the response need to be discarded to avoid having to test a staggering number of second-order treatments to test. The structure of an RSM assumes that first-order effects are likely to be larger than interactions. 
+
+A 2-level factorial design can be used in step (1). This design provides enough information to estimate the intercept, main effects, and interaction effects. By using center points, it's possible to estimate the response variance and to check whether there is any curvature in the response surface. 
+
+\begin{figure}
+\includegraphics[width=\textwidth]{RSM_design.pdf}
+\caption{Left}
+\end{figure}
+
+At the second step, more points need to be taken in order to estimate the higher-order effects. To estimate curvature, three points along each factor's axis are needed. The design shown in Figure does exactly this: the outer elements can be used to estimate curvature (averaged across two paths), while the center point can be used to estimate error in the region of interest.
+
+ DCA could use response surface methodologies to converge more quickly on a solution than their current best-guess approach. Additionally, the solutions found using this method would be approximately optimal, rather than sufficient - this means better products, and more satisfied clients. It can be difficult obtain the resources to run a large experiment, and to convince a client that it will be worthwhile, but perserverance will repay itself in the risk, possible embarassment, and potential loss of business avoided as a result. Furthermore, investigations relying on - admittedly expert - guessing will consume more resources than planned investigations. The experiment designs presented here provide an idea of the minimum up-front cost needed to understand the effects of a set of factors on a response. If this cost is too high, and the factors can't be reasonably discounted, then the objectives of the investigation should be refined.
+
+
+
 
 %%
 \section{Visualization}
