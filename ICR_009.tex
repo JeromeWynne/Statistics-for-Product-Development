@@ -817,4 +817,103 @@ A reasonable criticism of the methods proposed is that products do not need to b
 %% BIBLIOGRAPHY
 \bibliographystyle{plain}
 \bibliography{icr}
+
+\newpage
+%% APPENDIX %%
+\appendix
+\chapter{}
+\subsection{What is probability theory, and what is a probability?}
+Probability allows us to analyze a system without requiring complete mechanical knowledge of it. `'Randomness'' refers to sources of variation that are not measured. You may have heard of probabilities as representing `'Degrees of belief''. To understand what a belief is, consider this example. We machine a coin that we check is a symmetric disk of homogeneous density. I flip the coin ten times, and it comes up heads every single time. You might be surprised by this, and accuse me of flipping it in a controlled way. I then ask you how I can flip it in a way that is fair. What is your response?
+\par
+If you say that it should come heads as many times as tails, then the experiment is no longer random, as we know what the outcome will be. You may gesticulate and say ``You need to flip it \emph{randomly}''. I would press you to tell me what this means - I require a mechanism to decide how to flip the coin, and physical mechanisms are deterministic.
+\par
+Point being, the probability of an outcome can only be evaluated relative to a set of assumptions you make about the mechanism generating those outcomes. You had a preconceived notion that the way I flipped the coin would favor neither heads nor tails, and therefore saw ten heads as supremely improbable. It is exactly these kinds of assumptions that form the basis of statistical analyses. Being able to express physical assumptions mathematically gives an analytical voice to our physical understanding of the world, and should ideally feel as natural as that understanding.
+\newpage
+
+\subsection{A Closed-Form Solution to the Bayesian Inference Example}
+As was mentioned in the Section's main body, it is possible to solve some Bayesian inference problems directly, provided the prior and likelihood functions are convenient. As it happens, choosing a prior density function that has a similar form to the likelihood function makes solving for the posterior much easier. Priors chosen in this way are referred to as conjugate priors. In the case of Equation (\ref{eq:example_bayes}) the posterior can be solved for directly since the prior is a uniform distribution (i.e. the probability density is 1 for all values in the interval $[0, 1]$):
+\[
+  p(\theta|y) \propto \binom{n}{y}\theta^y (1 - \theta)^{n-y}\cdot 1
+\]
+To find the constant of proportionality, the r.h.s. needs to be scaled by its integral over all values of $\theta$, such that the $\int_0^1 p(\theta|y)\cdot d\theta = 1$. As it happens, in this case the r.h.s. has the form of what's called a beta distribution
+\[
+  p(x; a, b) = \frac{1}{\beta(a, b)} x^{a - 1} (1-x)^{b-1} 
+\]
+Where $\beta(a,b)$ denotes the beta function, which varies according to the exponents to ensure the function integrates to 1. The practical implication of this link is that the posterior corresponds to a closed-form function - the beta distribution - that is a valid probability density function (non-negative, integrates to 1). This means that rather than using a grid approximation, $p(\theta|y)$ can be obtained directly via:
+\[
+  p(\theta|y) = \frac{1}{\beta(y + 1, \ n - y + 1)} \theta^{y} (1-\theta)^{n - y} 	
+\]
+
+\subsection{Derivation of the Sample Mean's Confidence Interval}
+Let $\bar{x}$ denote the computed sample mean, $s$ the sample standard deviation, $\mu$ the population mean, $\alpha$ the confidence level. $k$ is sought such that the interval $[\bar{x} - ks, \bar{x} + ks]$ contains the population mean with a probability $1 - \alpha$:
+\begin{align}
+	\text{P}(\bar{x} - ks \leq \mu \leq \bar{x} + ks) ) &= 1 - \alpha \nonumber\\
+	&= 1 - 2\cdot \text{P}(\bar{x} - ks \leq \mu \nonumber \\
+	\implies &\frac{\alpha}{2} = \text{P}(\frac{\bar{x} - \mu}{s} \leq k) \nonumber
+\end{align}
+The last line implies that $k$ has a $t$-distribution with $n - 1$ degrees of freedom, so that the confidence limit that contains the true mean $(1 - \alpha)\%$ of the time is
+\begin{equation}
+	[\bar{x} - t_{n-1}(\alpha)\cdot s, \ \bar{x} + t_{n-1}(\alpha)\cdot s]
+\end{equation}
+\[
+	 = \text{P}\Bigg(\frac{\Big(\frac{\bar{x} - \mu}{\sigma/\sqrt{n}}\Big)}{s/\sqrt{n}\sigma}\Bigg)
+\]
+
+\subsection{Justifications for Least-Squares Regression}
+\begin{gather}
+	\text{Assume that the errors in $y$ given $x$ are normal with constant variance and mean zero}\\
+	\epsilon \sim \text{N}(0, \sigma^2) \\
+	p(\epsilon|\hat{\beta}) = \frac{1}{\sqrt{2\pi}\sigma} \exp (-\frac{\epsilon^2}{2\sigma^2})
+\end{gather}
+Assume that the true response is a linear function in $\hat{\beta}$, such that $E(Y|X) = X\hat{\beta}$, then take the log of the likelihood:
+\begin{gather}
+	l(\hat{\beta}) \propto -(Y - X\hat{\beta})^2
+\end{gather}
+Such that maximizing the likelihood is equivalent to minimizing the RSS criterion.
+
+The final way to justify a least squares fit does not require a normality assumption: instead, it is rationalized as providing the lowest variance estimate of $EY$ for a given $X$. In other words, a least squares fit will, on average, be closer to the true response than a linear fit made in some other way.
+
+Start by assuming that $y$ truly is a linear function of $X$, which is a vector of inputs, so that:
+\begin{gather}
+	E[y|X] = X\hat{\beta} 
+\end{gather}
+Next note that it follows from the above that the least squares fit will be an unbiased estimate, provided that $\boldsymbol{y}$ is drawn i.i.d. at a given $X$:
+\begin{gather}
+	E[X\hat{\hat{\beta}}] = E[\boldsymbol{X(X^T X)^{-1}X^T y}] \\
+	= \boldsymbol{X(X^T X)^{-1}X^T X}\hat{\beta} \\
+	\implies E[X\hat{\hat{\beta}}] = \boldsymbol{X}\hat{\beta}
+\end{gather}
+Almost there. Now we need to think about other possible estimates of $E[y|X]$. We can see from (16) that our estimate is a linear function of $y$ (Estimable functions?). Imagine another function $\boldsymbol{c^T y}$ that's also linear in $\boldsymbol{y}$. The Gauss-Markov theorem states that the variance of the least-squared estimate is guaranteed to be less than this other linear estimate:
+\begin{equation}
+	\text{Var}(\boldsymbol{X}\hat{\hat{\beta}}) \leq \text{Var}(\boldsymbol{c^Ty})
+\end{equation} 
+The proof for this is:
+\begin{gather}
+	E[(a^T \hat{\hat{\beta}} - a^T \hat{\beta})^2] \leq E[((c^T y - a^T \hat{\hat{\beta}}) - ( a^T \hat{\beta} - a^T \hat{\hat{\beta}}))^2]\\
+	\leq  E[((c^T y - a^T \hat{\hat{\beta}}) + ( a^T \hat{\hat{\beta}} - a^T \hat{\beta}))^2] \\
+	\leq E[(c^T y - a^T \hat{\hat{\beta}})^2] + E[( a^T \hat{\beta} - a^T \hat{\hat{\beta}})^2] \\
+	\iff 0 \leq E[(c^T y - a^T \hat{\hat{\beta}})^2]
+\end{gather}
+Is this is a proof? How can you be sure?
+
+\subsection{Derivation of tolerance intervals}
+So tolerance intervals allow us to make statements about the performance of a population, with clear limits on that statement's uncertainty. Tolerance intervals are derived by thinking about the probability that a member of the population will be within a particular range. For a one-sided tolerance limit - a value for which at least $p\%$ of the population is greater than or less than - this means:
+\begin{enumerate}
+	\item Defining $k$ such that the probability a member of the population $(\mu + u \sigma)$ is greater than $k$ sample standard deviations from the sample mean is equal to $1 - a$.
+		\begin{equation}
+			P(\bar{x} + ks \geq \mu + u_p \sigma) = 1 - \alpha
+			\label{eq:tol_interval}
+		\end{equation}
+	Where $\bar{x}$ is the sample mean, $s$ is the sample standard deviation, $\mu$ is the true mean of the population, $\sigma$ is its true standard deviation, and $u_p$ is such that $\mu + u_p\sigma$ is greater than $p\%$ of the population. $\alpha$ is the confidence level. \newline In words, $k$ is such that $\bar{x} + ks$ will  be greater than the $p\%$ of the population $(1 - \alpha)\%$ of the time.
+	\item Assuming $x$ has a normal distribution then $u_p$ can be read off a table of normal values, and by definition $\frac{(n-1)s^2}{\sigma^2}$ will have a chi-square distribution (see Appendix A). What this means is that $k$ has the same distribution as a $t$-distributed r.v. centered at $\sqrt{n}u_p$ and scaled by $\frac{1}{\sqrt{n}}$:
+		\begin{equation}
+			k = \frac{1}{\sqrt{n}}t_{n - 1}(\sqrt{n}u_p) 
+		\end{equation}
+		This is a normal distribution that's more spread out - the bigger spread represents the uncertainty on account of the fact that the true variance isn't known.
+	\item  Bonanza! The lower interval containing at least $95\%$  of the population is
+\begin{equation}
+	\Big(-\infty, \bar{x} + \frac{t_{1 - \alpha}(\sqrt{n}u_p, n - 1)\cdot s}{\sqrt{n}}\Big]
+\end{equation}
+\end{enumerate}
+
 \end{document}
